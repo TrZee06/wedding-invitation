@@ -1,0 +1,2075 @@
+/* ============================================================
+   WEDDING INVITATION
+   Main stylesheet
+   ============================================================ */
+
+/* ============================================================
+   01. ROOT VARIABLES
+   ============================================================ */
+
+:root {
+  /* Colors */
+  --color-bg: #f8f5f0;
+  --color-bg-soft: #f2ece4;
+  --color-bg-dark: #2f2a27;
+
+  --color-text: #302c2a;
+  --color-text-soft: #756c65;
+  --color-text-light: #f8f5f0;
+
+  --color-accent: #a58b70;
+  --color-accent-dark: #806a53;
+  --color-border: #ded5ca;
+
+  /* Typography */
+  --font-heading: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Inter", Arial, sans-serif;
+
+  /* Layout */
+  --container-width: 1100px;
+  --section-padding: 110px;
+
+  /* Effects */
+  --shadow-soft: 0 15px 40px rgba(48, 44, 42, 0.08);
+  --shadow-image: 0 20px 50px rgba(48, 44, 42, 0.15);
+
+  --radius-small: 4px;
+  --radius-medium: 10px;
+  --radius-large: 20px;
+
+  --transition: 300ms ease;
+}
+
+/* ============================================================
+   02. RESET
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 20px;
+}
+
+body {
+  /* angka lurus (01, 20, 2026) agar tidak terbaca seperti huruf */
+  font-variant-numeric: lining-nums;
+
+  margin: 0;
+  padding: 0;
+
+  background: var(--color-bg);
+  color: var(--color-text);
+
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body,
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  border: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ============================================================
+   03. TYPOGRAPHY
+   ============================================================ */
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+h2 {
+  margin-bottom: 24px;
+
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  margin-bottom: 12px;
+
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+}
+
+.section-text {
+  max-width: 620px;
+  margin-right: auto;
+  margin-left: auto;
+
+  color: var(--color-text-soft);
+}
+
+.eyebrow {
+  margin-bottom: 20px;
+
+  color: var(--color-accent);
+
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   04. GLOBAL LAYOUT
+   ============================================================ */
+
+.section {
+  position: relative;
+
+  padding: var(--section-padding) 0;
+}
+
+.container {
+  width: min(calc(100% - 48px), var(--container-width));
+
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.section-heading {
+  margin-bottom: 60px;
+
+  text-align: center;
+}
+
+.section-heading .ornament {
+  margin-bottom: 24px;
+}
+
+.section-heading .ornament:last-child {
+  margin-bottom: 0;
+}
+
+/* ============================================================
+   05. BUTTONS
+   ============================================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 48px;
+  padding: 12px 28px;
+
+  border: 1px solid transparent;
+  border-radius: 999px;
+
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition:
+    transform var(--transition),
+    background-color var(--transition),
+    color var(--transition),
+    border-color var(--transition);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background: var(--color-accent-dark);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-text);
+
+  border-color: var(--color-border);
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent-dark);
+}
+
+/* ============================================================
+   06. OPENING / COVER (AMPLOP)
+   ============================================================ */
+
+.opening-section {
+  /* Warna amplop */
+  --env-width: min(320px, 78vw);
+  --env-back: #eee6d9;
+  --env-front: #ebe2d4;
+  --env-front-dark: #e4d9c8;
+  --env-flap: #f3ece0;
+  --env-paper: #fffdf9;
+  --env-seal: #7d3d33;
+
+  /* fixed + inset: 0 -> opening menjadi overlay penuh layar */
+  position: fixed;
+  inset: 0;
+
+  /* harus di atas tombol musik (100) dan lightbox (200) */
+  z-index: 300;
+
+  display: flex;
+
+  /* Jika layar sangat pendek, isi opening bisa di-scroll sendiri
+     (margin: auto pada .opening-content menjaga posisi tetap di tengah). */
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  /* ruang atas untuk pil tanggal */
+  padding: 76px 24px 40px;
+
+  /* Warna solid sebagai lapisan paling bawah, jadi opening tidak
+     pernah tembus pandang. */
+  background:
+    radial-gradient(circle at 12% 10%, rgba(165, 139, 112, 0.12), transparent 45%),
+    radial-gradient(circle at 88% 90%, rgba(165, 139, 112, 0.14), transparent 50%),
+    var(--color-bg);
+
+  color: var(--color-text);
+
+  transition:
+    opacity 700ms ease,
+    visibility 700ms ease,
+    transform 700ms ease;
+}
+
+/* Opening sudah dibuka */
+
+.opening-section.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transform: scale(1.02);
+}
+
+/* Saat opening masih aktif,
+   halaman utama tidak dapat di-scroll. */
+
+html.invitation-locked,
+body.invitation-locked {
+  overflow: hidden;
+}
+
+/* ---------- Pil monogram + tanggal ---------- */
+
+.opening-meta {
+  position: absolute;
+  top: calc(24px + env(safe-area-inset-top, 0px));
+  right: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  width: fit-content;
+  margin: 0 auto;
+  padding: 9px 18px;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 6px 24px rgba(48, 44, 42, 0.06);
+
+  color: var(--color-text-soft);
+}
+
+.opening-monogram {
+  padding-right: 12px;
+
+  border-right: 1px solid var(--color-border);
+
+  color: var(--color-text);
+
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 500;
+
+  letter-spacing: 0.2em;
+  line-height: 1;
+}
+
+.wedding-date {
+  margin: 0;
+
+  font-size: 0.62rem;
+  font-weight: 500;
+
+  letter-spacing: 0.24em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+/* ---------- Isi opening ---------- */
+
+.opening-content {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: min(100%, 420px);
+  margin: auto;
+
+  text-align: center;
+}
+
+.opening-section .eyebrow {
+  margin-bottom: 28px;
+
+  color: var(--color-text-soft);
+
+  font-size: 0.66rem;
+  font-weight: 500;
+
+  letter-spacing: 0.4em;
+}
+
+/* ---------- Amplop ---------- */
+
+.envelope {
+  position: relative;
+
+  width: var(--env-width);
+  aspect-ratio: 8 / 5;
+
+  margin: 0 auto 38px;
+
+  perspective: 900px;
+
+  border-radius: 4px;
+
+  background: var(--env-back);
+  box-shadow: var(--shadow-soft);
+
+  cursor: pointer;
+}
+
+/* Surat di dalam amplop */
+
+.envelope-letter {
+  position: absolute;
+  top: 8%;
+  right: 7%;
+  left: 7%;
+
+  z-index: 1;
+
+  display: flex;
+  justify-content: center;
+
+  height: 84%;
+  padding-top: 8%;
+
+  border-radius: 2px;
+
+  background: var(--env-paper);
+  box-shadow: 0 1px 4px rgba(48, 44, 42, 0.1);
+
+  transition: transform 800ms cubic-bezier(0.4, 0, 0.2, 1) 350ms;
+}
+
+.letter-names {
+  color: var(--color-text);
+
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-style: italic;
+
+  white-space: nowrap;
+}
+
+/* Bagian depan amplop (lipatan kiri, kanan, bawah) */
+
+.envelope-pocket {
+  position: absolute;
+  inset: 0;
+
+  z-index: 2;
+
+  border-radius: 4px;
+
+  background: linear-gradient(180deg, var(--env-front), var(--env-front-dark));
+
+  clip-path: polygon(0 0, 50% 54%, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Tutup amplop (segitiga atas) */
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  z-index: 3;
+
+  width: 100%;
+  height: 54%;
+
+  border-radius: 4px 4px 0 0;
+
+  background: linear-gradient(180deg, #f6f0e6, #ebe1d1);
+
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+
+  transform-origin: top center;
+
+  transition:
+    transform 700ms cubic-bezier(0.4, 0, 0.2, 1),
+    z-index 0s 350ms;
+}
+
+/* Segel lilin */
+
+.envelope-seal {
+  position: absolute;
+  top: 54%;
+  left: 50%;
+
+  z-index: 4;
+
+  display: grid;
+  place-items: center;
+
+  width: calc(var(--env-width) * 0.19);
+  aspect-ratio: 1;
+
+  border-radius: 50%;
+
+  background: radial-gradient(circle at 35% 30%, #a65f50, var(--env-seal) 70%);
+  color: #f6ece3;
+
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 500;
+
+  letter-spacing: 0.08em;
+
+  box-shadow:
+    0 6px 14px rgba(80, 35, 28, 0.35),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.1);
+
+  transform: translate(-50%, -50%);
+
+  transition:
+    opacity 300ms ease,
+    transform 400ms ease;
+}
+
+/* Animasi saat amplop dibuka (class .is-opening dipasang oleh JS) */
+
+.opening-section.is-opening .envelope-flap {
+  z-index: 0;
+
+  transform: rotateX(180deg);
+}
+
+.opening-section.is-opening .envelope-letter {
+  transform: translateY(-42%);
+}
+
+.opening-section.is-opening .envelope-seal {
+  opacity: 0;
+
+  transform: translate(-50%, -50%) scale(0.6);
+}
+
+/* ---------- Nama pasangan ---------- */
+
+.opening-section .couple-name {
+  margin: 0 0 22px;
+
+  font-size: clamp(2rem, 9vw, 2.75rem);
+  font-weight: 400;
+
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+/* Ampersand global (dipakai juga oleh footer, tampil di baris sendiri) */
+
+.ampersand {
+  display: block;
+
+  margin: 10px 0;
+
+  color: var(--color-accent);
+
+  font-size: 0.42em;
+  font-style: italic;
+}
+
+/* Khusus opening: ampersand satu baris dengan nama */
+
+.opening-section .ampersand {
+  display: inline;
+
+  margin: 0 0.1em;
+
+  font-size: 0.8em;
+}
+
+/* ---------- Nama tamu ---------- */
+
+.guest-label {
+  margin: 0 0 6px;
+
+  color: var(--color-text-soft);
+
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.guest-name {
+  max-width: 100%;
+  margin: 0;
+
+  font-family: var(--font-heading);
+  font-size: clamp(1.35rem, 5.5vw, 1.7rem);
+  line-height: 1.25;
+
+  overflow-wrap: anywhere;
+}
+
+.opening-line {
+  display: block;
+
+  width: 1px;
+  height: 36px;
+
+  margin: 26px auto 22px;
+
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--color-accent),
+    transparent
+  );
+}
+
+/* ---------- Tombol buka ---------- */
+
+.opening-section .btn-open {
+  padding: 12px 34px;
+
+  border-color: var(--color-accent);
+
+  background: rgba(255, 255, 255, 0.4);
+  color: var(--color-text);
+
+  font-size: 0.68rem;
+  letter-spacing: 0.32em;
+}
+
+.opening-section .btn-open:hover {
+  border-color: var(--color-accent);
+
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+.opening-section .btn-open:disabled {
+  cursor: default;
+  opacity: 0.6;
+
+  transform: none;
+}
+
+/* ---------- Animasi masuk ---------- */
+
+@keyframes openingRise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.opening-meta,
+.opening-content > * {
+  animation: openingRise 900ms ease backwards;
+}
+
+.opening-content > :nth-child(1) { animation-delay: 100ms; }
+.opening-content > :nth-child(2) { animation-delay: 250ms; }
+.opening-content > :nth-child(3) { animation-delay: 400ms; }
+.opening-content > :nth-child(4) { animation-delay: 500ms; }
+.opening-content > :nth-child(5) { animation-delay: 550ms; }
+.opening-content > :nth-child(6) { animation-delay: 600ms; }
+.opening-content > :nth-child(7) { animation-delay: 700ms; }
+
+/* ---------- Varian foto (opsional) ----------
+   Setelah punya foto cover, tambahkan class "has-photo" pada
+   <section id="opening" class="section opening-section has-photo">
+   dan simpan fotonya di assets/images/hero.jpg */
+
+.opening-section.has-photo {
+  background:
+    linear-gradient(rgba(48, 44, 42, 0.35), rgba(48, 44, 42, 0.6)),
+    url("../assets/images/hero.jpg") center / cover no-repeat,
+    var(--color-bg-dark);
+
+  color: #ffffff;
+}
+
+.opening-section.has-photo .eyebrow,
+.opening-section.has-photo .guest-label {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.opening-section.has-photo .btn-open {
+  border-color: rgba(255, 255, 255, 0.65);
+
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.opening-section.has-photo .btn-open:hover {
+  border-color: #ffffff;
+
+  background: #ffffff;
+  color: var(--color-text);
+}
+
+/* ============================================================
+   07. INTRODUCTION
+   ============================================================ */
+
+.intro-section {
+  overflow: hidden;
+
+  text-align: center;
+
+  background:
+    radial-gradient(circle at 50% 0%, rgba(165, 139, 112, 0.12), transparent 60%),
+    var(--color-bg);
+}
+
+.intro-section .container {
+  max-width: 520px;
+}
+
+/* Bingkai lengkung dengan garis ganda */
+
+.intro-arch {
+  position: relative;
+
+  padding: 84px 32px 60px;
+
+  border: 1px solid var(--color-border);
+  border-radius: 999px 999px 0 0;
+
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: var(--shadow-soft);
+}
+
+.intro-arch::before {
+  content: "";
+
+  position: absolute;
+  inset: 10px;
+
+  border: 1px solid rgba(165, 139, 112, 0.45);
+  border-radius: inherit;
+
+  pointer-events: none;
+}
+
+/* Monogram besar samar di belakang teks */
+
+.intro-monogram {
+  position: absolute;
+  top: 54%;
+  left: 50%;
+
+  color: var(--color-accent);
+
+  font-family: var(--font-heading);
+  font-size: clamp(7rem, 38vw, 11rem);
+
+  letter-spacing: 0.05em;
+  line-height: 1;
+  white-space: nowrap;
+
+  opacity: 0.07;
+  pointer-events: none;
+
+  transform: translate(-50%, -50%);
+}
+
+.intro-body {
+  position: relative;
+  z-index: 1;
+}
+
+.intro-section h2 {
+  margin: 0 auto 26px;
+
+  font-size: clamp(1.8rem, 7.6vw, 3rem);
+
+  text-wrap: balance;
+}
+
+.intro-section .section-text {
+  font-size: 0.95rem;
+}
+
+.intro-section .quote {
+  max-width: none;
+
+  margin: 40px 0 0;
+  padding: 0;
+
+  border: 0;
+
+  color: var(--color-text-soft);
+
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 5vw, 1.6rem);
+  font-style: italic;
+  line-height: 1.45;
+}
+
+.intro-section .quote::before {
+  content: "\201C";
+
+  display: block;
+
+  height: 30px;
+
+  color: var(--color-accent);
+
+  font-size: 4.2rem;
+  font-style: normal;
+  line-height: 1;
+
+  opacity: 0.55;
+}
+
+.intro-section .quote p {
+  margin: 0;
+}
+
+/* ---------- Ornamen pemisah (dipakai di beberapa section) ---------- */
+
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  color: var(--color-accent);
+}
+
+.ornament::before,
+.ornament::after {
+  content: "";
+
+  width: 48px;
+  height: 1px;
+
+  background: linear-gradient(to right, transparent, currentColor);
+}
+
+.ornament::after {
+  transform: scaleX(-1);
+}
+
+.ornament i {
+  display: block;
+
+  width: 7px;
+  height: 7px;
+
+  border: 1px solid currentColor;
+
+  transform: rotate(45deg);
+}
+
+/* ---------- Animasi muncul saat di-scroll ----------
+   Class "has-reveal" dipasang oleh JS; tanpa JS, semua konten
+   tetap terlihat. Memakai animation (bukan transition) supaya
+   efek hover pada kartu tetap berfungsi. */
+
+.has-reveal .reveal {
+  opacity: 0;
+}
+
+.has-reveal .reveal.is-visible {
+  opacity: 1;
+
+  animation: revealUp 900ms ease backwards;
+  animation-delay: calc(var(--delay, 0) * 130ms);
+}
+
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+}
+
+/* ============================================================
+   08. COUPLE
+   ============================================================ */
+
+.couple-section {
+  background: var(--color-bg-soft);
+}
+
+.couple-grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto
+    minmax(0, 1fr);
+
+  align-items: center;
+  gap: 45px;
+}
+
+.person-card {
+  text-align: center;
+}
+
+.person-photo {
+  width: min(100%, 340px);
+  aspect-ratio: 4 / 5;
+
+  margin: 0 auto 30px;
+
+  overflow: hidden;
+
+  border-radius: 50% 50% 0 0;
+
+  /* bingkai ganda mengikuti bentuk lengkung */
+  box-shadow:
+    0 0 0 10px var(--color-bg-soft),
+    0 0 0 11px rgba(165, 139, 112, 0.55),
+    var(--shadow-image);
+}
+
+.person-photo img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition: transform 700ms ease;
+}
+
+.person-card:hover .person-photo img {
+  transform: scale(1.04);
+}
+
+.person-info h3 {
+  margin-bottom: 4px;
+}
+
+.person-full-name {
+  margin-bottom: 12px;
+
+  color: var(--color-accent-dark);
+
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.parents {
+  margin-bottom: 0;
+
+  color: var(--color-text-soft);
+
+  font-size: 0.85rem;
+}
+
+.couple-divider {
+  display: grid;
+  place-items: center;
+
+  width: 64px;
+  height: 64px;
+
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+
+  color: var(--color-accent);
+
+  font-family: var(--font-heading);
+  font-size: 2rem;
+}
+
+/* ============================================================
+   09. COUNTDOWN
+   ============================================================ */
+
+.countdown-section {
+  position: relative;
+
+  overflow: hidden;
+
+  text-align: center;
+
+  background:
+    radial-gradient(circle at 50% 0%, rgba(165, 139, 112, 0.24), transparent 55%),
+    radial-gradient(circle at 50% 100%, rgba(165, 139, 112, 0.12), transparent 50%),
+    var(--color-bg-dark);
+  color: var(--color-text-light);
+}
+
+/* Bintang-bintang kecil yang berkelip pelan */
+
+.countdown-section::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    radial-gradient(1.5px 1.5px at 10% 18%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1px 1px at 24% 62%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1.5px 1.5px at 38% 30%, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1px 1px at 52% 80%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1.5px 1.5px at 66% 14%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1px 1px at 78% 56%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1.5px 1.5px at 90% 28%, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1px 1px at 86% 86%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 6% 88%, rgba(255, 255, 255, 0.5), transparent);
+
+  pointer-events: none;
+
+  animation: starTwinkle 5s ease-in-out infinite;
+}
+
+@keyframes starTwinkle {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.countdown-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+.countdown-section .eyebrow {
+  color: var(--color-accent);
+}
+
+.countdown-section h2 {
+  margin-bottom: 22px;
+
+  font-size: clamp(1.9rem, 8vw, 3.4rem);
+
+  text-wrap: balance;
+}
+
+.countdown-section .ornament {
+  margin-bottom: 46px;
+}
+
+.countdown {
+  display: flex;
+  justify-content: center;
+
+  gap: clamp(10px, 3.5vw, 28px);
+}
+
+.countdown-item {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+
+  max-width: 128px;
+}
+
+/* Lingkaran progres */
+
+.count-ring {
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  width: 100%;
+  aspect-ratio: 1;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.07),
+    rgba(255, 255, 255, 0.02) 70%
+  );
+}
+
+.count-ring svg {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+
+  /* mulai dari jam 12 */
+  transform: rotate(-90deg);
+}
+
+.ring-track,
+.ring-progress {
+  fill: none;
+
+  stroke-width: 2.5;
+}
+
+.ring-track {
+  stroke: rgba(255, 255, 255, 0.12);
+}
+
+.ring-progress {
+  stroke: var(--color-accent);
+  stroke-linecap: round;
+
+  /* pathLength="100" -> 100 = satu lingkaran penuh.
+     --progress (0 sampai 1) diisi oleh JS. */
+  stroke-dasharray: 100;
+  stroke-dashoffset: calc(100 - var(--progress, 0) * 100);
+
+  filter: drop-shadow(0 0 3px rgba(165, 139, 112, 0.85));
+
+  transition: stroke-dashoffset 600ms ease;
+}
+
+/* Detik menyapu mulus tepat satu detik */
+
+.countdown-item[data-unit="seconds"] .ring-progress {
+  transition-duration: 1s;
+  transition-timing-function: linear;
+}
+
+.count-ring span {
+  position: relative;
+
+  font-family: var(--font-heading);
+  font-size: clamp(1.45rem, 7vw, 2.6rem);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.countdown-item small {
+  margin-top: 14px;
+
+  color: rgba(248, 245, 240, 0.6);
+
+  font-size: 0.65rem;
+  font-weight: 600;
+
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.countdown-note {
+  margin: 44px 0 0;
+
+  color: rgba(248, 245, 240, 0.6);
+
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-style: italic;
+}
+
+/* ============================================================
+   10. WEDDING EVENTS
+   ============================================================ */
+
+.events-section {
+  text-align: center;
+}
+
+.events-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 30px;
+}
+
+.event-card {
+  padding: 55px 40px;
+
+  border: 1px solid var(--color-border);
+
+  position: relative;
+
+  background: rgba(255, 255, 255, 0.55);
+
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.event-card::before {
+  content: "";
+
+  position: absolute;
+  inset: 8px;
+
+  border: 1px solid rgba(165, 139, 112, 0.28);
+
+  pointer-events: none;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-soft);
+}
+
+.event-icon {
+  display: grid;
+  place-items: center;
+
+  width: 48px;
+  height: 48px;
+
+  margin: 0 auto 25px;
+
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+
+  color: var(--color-accent);
+
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+}
+
+.event-card h3 {
+  margin-bottom: 20px;
+}
+
+.event-date,
+.event-time,
+.event-venue {
+  margin-bottom: 8px;
+}
+
+.event-date {
+  color: var(--color-accent-dark);
+
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.event-time {
+  font-size: 0.85rem;
+}
+
+.event-venue {
+  margin-top: 24px;
+
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+}
+
+.event-address {
+  margin-bottom: 28px;
+
+  color: var(--color-text-soft);
+
+  font-size: 0.85rem;
+}
+
+/* ============================================================
+   11. OUR STORY
+   ============================================================ */
+
+.story-section {
+  background: var(--color-bg-soft);
+}
+
+.timeline {
+  position: relative;
+
+  max-width: 850px;
+
+  margin: 0 auto;
+}
+
+.timeline::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+  left: 50%;
+
+  width: 1px;
+
+  background: var(--color-border);
+
+  transform: translateX(-50%);
+}
+
+.timeline-item {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 70px;
+
+  margin-bottom: 65px;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-item:nth-child(even) .timeline-year {
+  order: 2;
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+  order: 1;
+
+  text-align: right;
+}
+
+.timeline-year {
+  color: var(--color-accent);
+
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+
+  line-height: 1;
+}
+
+.timeline-content {
+  position: relative;
+}
+
+.timeline-content::before {
+  content: "";
+
+  position: absolute;
+
+  top: 5px;
+
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+
+  background: var(--color-accent);
+}
+
+.timeline-item:nth-child(odd) .timeline-content::before {
+  left: -75px;
+}
+
+.timeline-item:nth-child(even) .timeline-content::before {
+  right: -75px;
+}
+
+.timeline-content h3 {
+  margin-bottom: 10px;
+}
+
+.timeline-content p {
+  margin-bottom: 0;
+
+  color: var(--color-text-soft);
+}
+
+/* ============================================================
+   12. GALLERY
+   ============================================================ */
+
+.gallery-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 12px;
+}
+
+.gallery-item {
+  position: relative;
+
+  display: block;
+
+  width: 100%;
+  aspect-ratio: 1 / 1;
+
+  padding: 0;
+
+  overflow: hidden;
+
+  background: var(--color-bg-soft);
+
+  cursor: pointer;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition:
+    transform 600ms ease,
+    filter 600ms ease;
+}
+
+.gallery-item::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background: rgba(48, 44, 42, 0);
+
+  transition: background-color var(--transition);
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+  filter: brightness(0.9);
+}
+
+.gallery-item:hover::after {
+  background: rgba(48, 44, 42, 0.12);
+}
+
+/* ============================================================
+   13. LOCATION
+   ============================================================ */
+
+.location-section {
+  background: var(--color-bg-soft);
+}
+
+.location-grid {
+  display: grid;
+
+  grid-template-columns: 0.8fr 1.2fr;
+
+  align-items: stretch;
+
+  gap: 30px;
+}
+
+.location-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 50px;
+
+  background: var(--color-bg);
+}
+
+.location-info h3 {
+  margin-bottom: 20px;
+}
+
+.location-date {
+  color: var(--color-accent-dark);
+
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.location-address {
+  margin-bottom: 30px;
+
+  color: var(--color-text-soft);
+
+  font-size: 0.9rem;
+}
+
+.location-info .btn {
+  align-self: flex-start;
+}
+
+.map-wrapper {
+  min-height: 420px;
+}
+
+.map-placeholder {
+  display: grid;
+  place-items: center;
+
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+
+  background: linear-gradient(135deg, #e9e1d7, #d8cec2);
+
+  color: var(--color-text-soft);
+
+  font-family: var(--font-heading);
+  font-size: 2rem;
+}
+
+/* ============================================================
+   14. WEDDING GIFT / DIGITAL ENVELOPE
+   ============================================================ */
+
+.gift-section {
+  text-align: center;
+
+  background: var(--color-bg-soft);
+}
+
+/* ---------- RSVP ---------- */
+
+.rsvp-section {
+  text-align: center;
+}
+
+.rsvp-form {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 36px 28px 32px;
+
+  border: 1px solid var(--color-border);
+  border-radius: 22px;
+
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: var(--shadow-soft);
+
+  text-align: left;
+}
+
+.rsvp-field {
+  min-width: 0;
+  margin: 0 0 22px;
+  padding: 0;
+
+  border: 0;
+}
+
+.rsvp-field[hidden] {
+  display: none;
+}
+
+.rsvp-label {
+  display: block;
+
+  margin-bottom: 8px;
+  padding: 0;
+
+  color: var(--color-text-soft);
+
+  font-size: 0.68rem;
+  font-weight: 600;
+
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.rsvp-input {
+  display: block;
+
+  width: 100%;
+  padding: 14px 16px;
+
+  border: 1px solid #e3ddd5;
+  border-radius: 12px;
+
+  background: #ffffff;
+  color: var(--color-text);
+
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.rsvp-input::placeholder {
+  color: #b3aaa1;
+}
+
+.rsvp-input:focus {
+  outline: none;
+
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(165, 139, 112, 0.18);
+}
+
+textarea.rsvp-input {
+  min-height: 110px;
+
+  resize: vertical;
+}
+
+select.rsvp-input {
+  padding-right: 42px;
+
+  appearance: none;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23806a53' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-position: right 16px center;
+  background-repeat: no-repeat;
+
+  cursor: pointer;
+}
+
+/* Pilihan Hadir / Tidak Hadir */
+
+.rsvp-choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+}
+
+.rsvp-choice {
+  position: relative;
+}
+
+.rsvp-choice input {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+  margin: 0;
+
+  opacity: 0;
+
+  cursor: pointer;
+}
+
+.rsvp-choice span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 48px;
+  padding: 10px 12px;
+
+  border: 1px solid #e3ddd5;
+  border-radius: 999px;
+
+  background: #ffffff;
+
+  font-size: 0.72rem;
+  font-weight: 600;
+
+  letter-spacing: 0.14em;
+  text-align: center;
+  text-transform: uppercase;
+
+  transition:
+    background-color var(--transition),
+    border-color var(--transition),
+    color var(--transition);
+}
+
+.rsvp-choice input:checked + span {
+  border-color: var(--color-accent);
+
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+.rsvp-choice input:focus-visible + span {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.rsvp-submit {
+  width: 100%;
+  margin-top: 6px;
+}
+
+.rsvp-status {
+  min-height: 1.4em;
+  margin: 16px 0 0;
+
+  color: var(--color-text-soft);
+
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.rsvp-status a {
+  color: var(--color-accent-dark);
+
+  text-decoration: underline;
+}
+
+.rsvp-status.is-error {
+  color: #a1493b;
+}
+
+.bank-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 22px;
+
+  max-width: 950px;
+
+  margin: 0 auto;
+}
+
+.bank-card {
+  padding: 30px;
+
+  border: 1px solid #e3ddd5;
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  text-align: left;
+
+  box-shadow: 0 4px 15px rgba(48, 44, 42, 0.02);
+
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.bank-card:hover {
+  transform: translateY(-3px);
+
+  box-shadow: 0 12px 30px rgba(48, 44, 42, 0.08);
+}
+
+/* ---------- BANK NAME ---------- */
+
+.bank-name {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 34px;
+
+  margin-bottom: 20px;
+  padding: 6px 13px;
+
+  border: 1px solid #e4ddd5;
+  border-radius: 999px;
+
+  color: var(--color-text);
+
+  font-size: 0.72rem;
+  font-weight: 600;
+
+  letter-spacing: 0.25em;
+
+  text-transform: uppercase;
+}
+
+/* ---------- ACCOUNT OWNER ---------- */
+
+.account-owner {
+  margin-bottom: 12px;
+
+  color: var(--color-text);
+
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+}
+
+/* ---------- ACCOUNT NUMBER ---------- */
+
+.account-number {
+  margin-bottom: 26px;
+
+  color: var(--color-text);
+
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 600;
+
+  letter-spacing: 0.08em;
+}
+
+/* ---------- COPY BUTTON ---------- */
+
+.copy-account {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 42px;
+
+  padding: 9px 20px;
+
+  border: 1px solid #d9d3cc;
+  border-radius: 999px;
+
+  background: transparent;
+
+  color: var(--color-text);
+
+  font-size: 0.7rem;
+  font-weight: 600;
+
+  letter-spacing: 0.2em;
+
+  cursor: pointer;
+
+  transition:
+    background-color var(--transition),
+    color var(--transition),
+    border-color var(--transition),
+    transform var(--transition);
+}
+
+.copy-account:hover {
+  background: var(--color-text);
+  border-color: var(--color-text);
+
+  color: #ffffff;
+
+  transform: translateY(-2px);
+}
+
+.copy-account:active {
+  transform: translateY(0);
+}
+
+/* ============================================================
+   15. FOOTER
+   ============================================================ */
+
+.footer {
+  position: relative;
+
+  overflow: hidden;
+
+  /* ruang bawah ekstra agar tombol musik tidak menutupi teks */
+  padding: 80px 0 calc(96px + env(safe-area-inset-bottom, 0px));
+
+  background:
+    radial-gradient(circle at 50% 0%, rgba(165, 139, 112, 0.2), transparent 55%),
+    var(--color-bg-dark);
+  color: var(--color-text-light);
+
+  text-align: center;
+}
+
+.footer-monogram {
+  display: grid;
+  place-items: center;
+
+  width: 60px;
+  height: 60px;
+
+  margin: 0 auto 26px;
+
+  border: 1px solid rgba(165, 139, 112, 0.6);
+  border-radius: 50%;
+
+  color: var(--color-accent);
+
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+
+  letter-spacing: 0.12em;
+  text-indent: 0.12em;
+}
+
+.footer-names {
+  margin-bottom: 12px;
+
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 9vw, 2.6rem);
+  line-height: 1.15;
+}
+
+/* Ampersand satu baris dengan nama */
+
+.footer .ampersand {
+  display: inline;
+
+  margin: 0 0.1em;
+
+  font-size: 0.8em;
+}
+
+.footer-date {
+  margin-bottom: 22px;
+
+  color: rgba(248, 245, 240, 0.6);
+
+  font-size: 0.68rem;
+  font-weight: 500;
+
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.footer .ornament {
+  margin-bottom: 26px;
+}
+
+.footer-thank-you {
+  max-width: 320px;
+  margin: 0 auto 32px;
+
+  color: rgba(248, 245, 240, 0.65);
+
+  font-size: 0.88rem;
+}
+
+.footer-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  min-height: 44px;
+  padding: 10px 22px;
+
+  border: 1px solid rgba(248, 245, 240, 0.25);
+  border-radius: 999px;
+
+  color: rgba(248, 245, 240, 0.8);
+
+  font-size: 0.66rem;
+  font-weight: 600;
+
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+
+  transition:
+    border-color var(--transition),
+    color var(--transition);
+}
+
+.footer-top:hover {
+  border-color: var(--color-accent);
+
+  color: var(--color-accent);
+}
+
+.footer-copyright {
+  margin: 44px 0 0;
+
+  color: rgba(248, 245, 240, 0.4);
+
+  font-size: 0.7rem;
+
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   16. MUSIC BUTTON
+   ============================================================ */
+
+.music-toggle {
+  position: fixed;
+
+  right: 24px;
+  bottom: 24px;
+
+  z-index: 100;
+
+  display: grid;
+  place-items: center;
+
+  width: 48px;
+  height: 48px;
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+
+  background: var(--color-bg-dark);
+  color: #ffffff;
+
+  font-size: 1.1rem;
+
+  cursor: pointer;
+
+  box-shadow: var(--shadow-soft);
+
+  transition:
+    transform var(--transition),
+    background-color var(--transition);
+}
+
+.music-toggle:hover {
+  transform: translateY(-3px);
+  background: var(--color-accent-dark);
+}
+
+.music-toggle.is-playing {
+  background: var(--color-accent);
+
+  animation: musicPulse 2s ease-in-out infinite;
+}
+
+@keyframes musicPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+/* ============================================================
+   17. LIGHTBOX
+   ============================================================ */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+
+  z-index: 200;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px;
+
+  background: rgba(25, 22, 20, 0.94);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition:
+    opacity var(--transition),
+    visibility var(--transition);
+}
+
+.lightbox.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox img {
+  max-width: min(100%, 1000px);
+  max-height: 90vh;
+
+  object-fit: contain;
+}
+
+.lightbox-close {
+  position: absolute;
+
+  top: 24px;
+  right: 24px;
+
+  display: grid;
+  place-items: center;
+
+  width: 44px;
+  height: 44px;
+
+  background: transparent;
+  color: #ffffff;
+
+  font-size: 2rem;
+
+  cursor: pointer;
+}
+
+/* ============================================================
+   18. FOCUS / ACCESSIBILITY
+   ============================================================ */
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+/* ============================================================
+   19. REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+  }
+}

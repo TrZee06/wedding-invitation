@@ -1,0 +1,314 @@
+/* ============================================================
+   WEDDING INVITATION
+   Responsive stylesheet
+   ============================================================ */
+
+/* ============================================================
+   LARGE TABLET / SMALL DESKTOP
+   <= 1024px
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  :root {
+    --section-padding: 90px;
+  }
+
+  .container {
+    width: min(calc(100% - 40px), 900px);
+  }
+
+  .couple-grid {
+    gap: 25px;
+  }
+
+  .person-photo {
+    width: min(100%, 300px);
+  }
+
+  .location-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ============================================================
+   TABLET
+   <= 768px
+   ============================================================ */
+
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 80px;
+  }
+
+  /* ---------- GLOBAL ---------- */
+
+  .container {
+    width: min(calc(100% - 32px), 650px);
+  }
+
+  /* ---------- COUPLE ---------- */
+
+  .couple-grid {
+    grid-template-columns: 1fr;
+
+    gap: 45px;
+  }
+
+  .couple-divider {
+    width: 52px;
+    height: 52px;
+
+    margin: -10px auto;
+  }
+
+  .person-photo {
+    width: min(100%, 320px);
+  }
+
+  /* ---------- EVENTS ---------- */
+
+  .events-grid {
+    grid-template-columns: 1fr;
+
+    gap: 20px;
+  }
+
+  /* ---------- STORY ---------- */
+
+  .timeline::before {
+    left: 10px;
+
+    transform: none;
+  }
+
+  .timeline-item,
+  .timeline-item:nth-child(even) {
+    display: block;
+
+    margin-left: 35px;
+  }
+
+  .timeline-item:nth-child(even) .timeline-year {
+    order: initial;
+  }
+
+  .timeline-item:nth-child(even) .timeline-content {
+    order: initial;
+
+    text-align: left;
+  }
+
+  .timeline-year {
+    margin-bottom: 12px;
+  }
+
+  .timeline-content::before,
+  .timeline-item:nth-child(odd) .timeline-content::before,
+  .timeline-item:nth-child(even) .timeline-content::before {
+    top: -34px;
+    left: -30px;
+    right: auto;
+  }
+
+  /* ---------- GALLERY ---------- */
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 8px;
+  }
+
+  /* ---------- LOCATION ---------- */
+
+  .location-grid {
+    grid-template-columns: 1fr;
+
+    gap: 0;
+  }
+
+  .location-info {
+    padding: 40px 30px;
+  }
+
+  .location-info .btn {
+    align-self: stretch;
+  }
+
+  .map-wrapper,
+  .map-placeholder {
+    min-height: 350px;
+  }
+
+  /* ---------- WEDDING GIFT ---------- */
+
+  .bank-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .bank-card {
+    padding: 28px;
+  }
+}
+
+/* ============================================================
+   MOBILE
+   <= 480px
+   ============================================================ */
+
+@media (max-width: 480px) {
+  :root {
+    --section-padding: 65px;
+  }
+
+  /* ---------- GLOBAL ---------- */
+
+  .container {
+    width: calc(100% - 28px);
+  }
+
+  .section-heading {
+    margin-bottom: 40px;
+  }
+
+  .eyebrow {
+    margin-bottom: 14px;
+
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+  }
+
+  /* ---------- OPENING ---------- */
+
+  .opening-section {
+    padding: 68px 20px 32px;
+  }
+
+  .opening-meta {
+    top: calc(18px + env(safe-area-inset-top, 0px));
+  }
+
+  /* ---------- INTRO ---------- */
+
+  .intro-arch {
+    padding: 76px 24px 52px;
+  }
+
+  /* ---------- COUPLE ---------- */
+
+  .person-photo {
+    width: min(100%, 280px);
+  }
+
+  .person-full-name {
+    font-size: 0.75rem;
+  }
+
+  .parents {
+    font-size: 0.78rem;
+  }
+
+  /* ---------- COUNTDOWN ---------- */
+
+  .countdown-item small {
+    margin-top: 10px;
+
+    font-size: 0.56rem;
+    letter-spacing: 0.14em;
+  }
+
+  /* ---------- EVENTS ---------- */
+
+  .event-card {
+    padding: 40px 22px;
+  }
+
+  /* ---------- STORY ---------- */
+
+  .timeline-item,
+  .timeline-item:nth-child(even) {
+    margin-left: 30px;
+  }
+
+  .timeline-item:nth-child(odd) .timeline-content::before,
+  .timeline-item:nth-child(even) .timeline-content::before {
+    left: -25px;
+  }
+
+  /* ---------- GALLERY ---------- */
+
+  .gallery-grid {
+    gap: 5px;
+  }
+
+  /* ---------- LOCATION ---------- */
+
+  .location-info {
+    padding: 35px 24px;
+  }
+
+  .map-wrapper,
+  .map-placeholder {
+    min-height: 280px;
+  }
+
+  /* ---------- MUSIC ---------- */
+
+  .music-toggle {
+    right: 16px;
+    bottom: 16px;
+
+    width: 44px;
+    height: 44px;
+  }
+  /* ---------- WEDDING GIFT ---------- */
+
+  .bank-card {
+    padding: 24px 20px;
+  }
+
+  .rsvp-form {
+    padding: 30px 20px 26px;
+  }
+
+  .account-number {
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .copy-account {
+    width: 100%;
+  }
+}
+
+/* ============================================================
+   LAYAR PENDEK (HP landscape / HP kecil)
+   tinggi <= 640px
+   ============================================================ */
+
+@media (max-height: 640px) {
+  .opening-section {
+    padding-top: 64px;
+    padding-bottom: 24px;
+  }
+
+  .opening-section .eyebrow {
+    margin-bottom: 18px;
+  }
+
+  .envelope {
+    margin-bottom: 24px;
+  }
+
+  .opening-section .couple-name {
+    margin-bottom: 14px;
+  }
+
+  .opening-line {
+    display: none;
+  }
+
+  .opening-section .btn-open {
+    margin-top: 20px;
+  }
+}
