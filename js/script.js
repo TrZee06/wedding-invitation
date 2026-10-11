@@ -715,6 +715,38 @@ function loadOpeningEnvelope() {
   });
 }
 
+/**
+ * Teks halaman yang ikut config.js:
+ * - judul tab browser
+ * - teks "With love, ..." pada footer
+ *
+ * Catatan: tag pratinjau link (og:...) di <head> tidak bisa diubah
+ * lewat JS karena WhatsApp tidak menjalankan JavaScript;
+ * ubah manual di index.html.
+ */
+function loadPageText() {
+  const wedding = WEDDING_CONFIG.wedding || {};
+
+  const groomName = (WEDDING_CONFIG.groom.nickname || "").trim();
+  const brideName = (WEDDING_CONFIG.bride.nickname || "").trim();
+
+  /*
+   * Judul tab browser
+   */
+
+  const coupleTitle = wedding.title || `${groomName} & ${brideName}`;
+
+  document.title = `${coupleTitle} — Undangan Pernikahan`;
+
+  /*
+   * Footer
+   */
+
+  document.querySelectorAll(".footer-copyright").forEach((element) => {
+    element.textContent = `With love, ${groomName} & ${brideName}`;
+  });
+}
+
 function initializeOpening() {
   const opening = document.querySelector(".opening-section");
   const openButton = getElement("open-invitation");
@@ -966,6 +998,88 @@ function updateMusicButton(isPlaying) {
    RSVP VIA WHATSAPP
    ============================================================ */
 
+/**
+ * Templat pesan bawaan (dipakai jika config.js tidak memilikinya).
+ */
+const DEFAULT_RSVP_TEMPLATES = {
+  hadir: `Halo {mempelai} 👋
+
+Saya *{nama}* dengan senang hati mengonfirmasi kehadiran di pernikahan kalian 🤍
+
+📌 Kehadiran: *Hadir*
+👥 Jumlah tamu: *{jumlah} orang*
+[[🗓 Acara: {acara}]]
+
+[[💌 Ucapan & doa:
+{ucapan}]]
+
+Sampai jumpa di hari bahagia kalian! ✨`,
+
+  tidak: `Halo {mempelai} 👋
+
+Saya *{nama}* mohon maaf belum bisa hadir di pernikahan kalian 🙏
+
+📌 Kehadiran: *Tidak hadir*
+
+[[💌 Ucapan & doa:
+{ucapan}]]
+
+Semoga acaranya berjalan lancar dan penuh kebahagiaan 🤍`,
+};
+
+/**
+ * Menyusun pesan dari templat.
+ * - {penanda}  diganti dengan nilainya
+ * - [[ ... ]]  bagian opsional; dibuang jika ada penanda di dalamnya yang kosong
+ */
+function buildRsvpMessage(template, values) {
+  const withBlocks = template.replace(/\[\[([\s\S]*?)\]\]/g, (match, block) => {
+    const keys = block.match(/\{(\w+)\}/g) || [];
+
+    const hasEmpty = keys.some((key) => !values[key.slice(1, -1)]);
+
+    return hasEmpty ? "" : block;
+  });
+
+  return withBlocks
+    .replace(/\{(\w+)\}/g, (match, key) => (key in values ? values[key] : match))
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
+/**
+ * Perangkat sentuh (HP / tablet)?
+ */
+function isMobileDevice() {
+  return (
+    window.matchMedia("(pointer: coarse)").matches ||
+    /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+  );
+}
+
+/**
+ * Membuka WhatsApp.
+ * - HP      : langsung pindah di tab yang sama (paling andal; aplikasi
+ *             WhatsApp terbuka otomatis, tombol "kembali" membawa ke undangan)
+ * - Desktop : tab baru supaya undangan tetap terbuka
+ */
+function openWhatsapp(url) {
+  if (isMobileDevice()) {
+    window.location.href = url;
+
+    return;
+  }
+
+  const popup = window.open(url, "_blank");
+
+  if (popup) {
+    popup.opener = null;
+  } else {
+    window.location.href = url;
+  }
+}
+
 function initializeRsvp() {
   const form = getElement("rsvp-form");
 
@@ -973,29 +1087,139 @@ function initializeRsvp() {
     return;
   }
 
+  const config = WEDDING_CONFIG.whatsapp || {};
+
   const guestsField = getElement("rsvp-guests-field");
+
+  const eventsField = getElement("rsvp-events-field");
+
+  const eventsBox = getElement("rsvp-events");
+
+  const wishesBox = getElement("rsvp-wishes");
+
+  const messageInput = getElement("rsvp-message");
 
   const status = getElement("rsvp-status");
 
-  const attendanceInputs = form.querySelectorAll('input[name="attendance"]');
-
   /*
-   * Jumlah tamu hanya ditampilkan jika hadir.
+   * Pilihan acara (dari config.events).
+   * Hanya ditampilkan jika ada lebih dari satu acara.
    */
 
-  function updateGuestsField() {
+  const events = Array.isArray(WEDDING_CONFIG.events)
+    ? WEDDING_CONFIG.events
+    : [];
+
+  const hasEvents = Boolean(eventsBox) && events.length > 1;
+
+  if (hasEvents) {
+    events.forEach((item) => {
+      const label = document.createElement("label");
+
+      label.className = "rsvp-choice rsvp-choice--event";
+
+      const input = document.createElement("input");
+
+      input.type = "checkbox";
+      input.name = "events";
+      input.value = item.title;
+      input.checked = true;
+
+      const box = document.createElement("span");
+
+      const title = document.createElement("strong");
+
+      title.textContent = item.title;
+
+      box.append(title);
+
+      if (item.time) {
+        const time = document.createElement("small");
+
+        time.textContent = item.time;
+
+        box.append(time);
+      }
+
+      label.append(input, box);
+
+      eventsBox.append(label);
+    });
+  }
+
+  /*
+   * Ucapan cepat (dari config.whatsapp.quickWishes).
+   */
+
+  const wishes = Array.isArray(config.quickWishes) ? config.quickWishes : [];
+
+  function clearActiveWish() {
+    if (!wishesBox) {
+      return;
+    }
+
+    wishesBox.querySelectorAll(".rsvp-chip").forEach((chip) => {
+      chip.classList.remove("is-active");
+
+      chip.setAttribute("aria-pressed", "false");
+    });
+  }
+
+  if (wishesBox && messageInput && wishes.length > 0) {
+    wishes.forEach((wish) => {
+      const chip = document.createElement("button");
+
+      chip.type = "button";
+      chip.className = "rsvp-chip";
+      chip.textContent = wish;
+      chip.setAttribute("aria-pressed", "false");
+
+      chip.addEventListener("click", () => {
+        messageInput.value = wish;
+
+        clearActiveWish();
+
+        chip.classList.add("is-active");
+
+        chip.setAttribute("aria-pressed", "true");
+      });
+
+      wishesBox.append(chip);
+    });
+
+    wishesBox.hidden = false;
+
+    /*
+     * Jika tamu mengubah tulisannya sendiri,
+     * lepaskan tanda pilihan pada tombol.
+     */
+
+    messageInput.addEventListener("input", clearActiveWish);
+  }
+
+  /*
+   * Jumlah tamu & acara hanya ditampilkan jika hadir.
+   */
+
+  function updateAttendFields() {
     const selected = form.querySelector('input[name="attendance"]:checked');
 
+    const isAttending = !selected || selected.value === "hadir";
+
     if (guestsField) {
-      guestsField.hidden = Boolean(selected) && selected.value !== "hadir";
+      guestsField.hidden = !isAttending;
+    }
+
+    if (eventsField) {
+      eventsField.hidden = !isAttending || !hasEvents;
     }
   }
 
-  attendanceInputs.forEach((input) => {
-    input.addEventListener("change", updateGuestsField);
+  form.querySelectorAll('input[name="attendance"]').forEach((input) => {
+    input.addEventListener("change", updateAttendFields);
   });
 
-  updateGuestsField();
+  updateAttendFields();
 
   /*
    * Tampilkan pesan di bawah tombol.
@@ -1012,14 +1236,12 @@ function initializeRsvp() {
   }
 
   /*
-   * Kirim: susun pesan lalu buka WhatsApp.
+   * Kirim: susun pesan lalu langsung buka WhatsApp.
    * (Browser sudah memeriksa kolom wajib sebelum event ini berjalan.)
    */
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
-
-    const config = WEDDING_CONFIG.whatsapp || {};
 
     const phone = String(config.phone || "").replace(/\D/g, "");
 
@@ -1031,38 +1253,60 @@ function initializeRsvp() {
 
     const data = new FormData(form);
 
-    const name = String(data.get("name") || "").trim();
-
     const isAttending = data.get("attendance") === "hadir";
 
-    const guests = String(data.get("guests") || "1");
-
-    const wish = String(data.get("message") || "").trim();
-
     /*
-     * Susun isi pesan.
+     * Acara yang dipilih (minimal satu).
      */
 
-    const lines = [
-      config.message || "Halo, saya ingin mengonfirmasi kehadiran.",
-      "",
-      `Nama: ${name}`,
-      `Kehadiran: ${isAttending ? "Hadir" : "Tidak hadir"}`,
-    ];
+    const chosenEvents =
+      isAttending && hasEvents ? data.getAll("events").map(String) : [];
 
-    if (isAttending) {
-      lines.push(`Jumlah tamu: ${guests} orang`);
+    if (isAttending && hasEvents && chosenEvents.length === 0) {
+      showStatus("Pilih minimal satu acara yang akan Anda hadiri.", true);
+
+      const firstEvent = form.querySelector('input[name="events"]');
+
+      if (firstEvent) {
+        firstEvent.focus();
+      }
+
+      return;
     }
 
-    if (wish) {
-      lines.push("", "Ucapan & doa:", wish);
-    }
+    const listFormat =
+      typeof Intl !== "undefined" && Intl.ListFormat
+        ? new Intl.ListFormat("id", { style: "long", type: "conjunction" })
+        : null;
 
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(
-      lines.join("\n"),
-    )}`;
+    /*
+     * Nilai untuk penanda pada templat.
+     * (tanda * _ ~ dibuang dari nama agar tidak merusak huruf tebal WhatsApp)
+     */
 
-    window.open(url, "_blank", "noopener");
+    const values = {
+      mempelai: `${WEDDING_CONFIG.groom.nickname} & ${WEDDING_CONFIG.bride.nickname}`,
+      nama: String(data.get("name") || "").replace(/[*_~]/g, "").trim(),
+      jumlah: isAttending ? String(data.get("guests") || "1") : "",
+      acara: listFormat
+        ? listFormat.format(chosenEvents)
+        : chosenEvents.join(", "),
+      ucapan: String(data.get("message") || "").trim(),
+    };
+
+    /*
+     * Pilih templat (dari config.js, atau bawaan).
+     */
+
+    const templates = config.templates || {};
+
+    const key = isAttending ? "hadir" : "tidak";
+
+    const template = templates[key] || DEFAULT_RSVP_TEMPLATES[key];
+
+    const message = buildRsvpMessage(template, values);
+
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
     /*
      * Cadangan jika WhatsApp tidak terbuka otomatis.
@@ -1082,6 +1326,8 @@ function initializeRsvp() {
 
       status.append(link, ".");
     }
+
+    openWhatsapp(url);
   });
 }
 
@@ -1113,6 +1359,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeOpening();
 
   loadOpeningEnvelope();
+
+  loadPageText();
 
   /*
    * Jalankan semua loader.

@@ -18,6 +18,12 @@
          (diawali https://), tidak boleh relatif.
 
          Foto pratinjau: assets/images/og-cover.jpg (1200 x 630 px)
+
+         CATATAN: judul tab & teks footer sudah otomatis dari config.js,
+         tetapi tag og:... di bawah ini TIDAK. Jika nama pasangan
+         diganti, ubah juga: <meta name="description">, og:title,
+         og:description, og:site_name, og:image:alt, dan buat ulang
+         og-cover.jpg (nama tertulis di dalam gambar).
          ========================================================= -->
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="id_ID" />
@@ -41,7 +47,10 @@
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Undangan pernikahan Eligius &amp; Diyanti" />
+    <meta
+      property="og:image:alt"
+      content="Undangan pernikahan Eligius &amp; Diyanti"
+    />
     <meta name="twitter:card" content="summary_large_image" />
 
     <title>Eligius & Diyanti — Undangan Pernikahan</title>
@@ -50,7 +59,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
 
@@ -81,7 +90,9 @@
         <!-- Amplop (dekoratif; tombol di bawah adalah kontrol utamanya) -->
         <div class="envelope" id="envelope" aria-hidden="true">
           <div class="envelope-letter">
-            <span class="letter-names" id="letter-names">Eligius &amp; Diyanti</span>
+            <span class="letter-names" id="letter-names"
+              >Eligius &amp; Diyanti</span
+            >
           </div>
           <div class="envelope-pocket"></div>
           <div class="envelope-flap"></div>
@@ -96,7 +107,7 @@
 
         <!-- Nama tamu: isi lewat link, contoh  index.html?to=Budi+Santoso -->
         <p class="guest-label">Kepada Yth.</p>
-        <p class="guest-name" id="guest-name">Tamu Undangan</p>
+        <p class="guest-name" id="guest-name">Para Tamu Undangan</p>
 
         <span class="opening-line" aria-hidden="true"></span>
 
@@ -115,7 +126,9 @@
         <div class="container">
           <!-- Bingkai lengkung (arch) -->
           <div class="intro-arch">
-            <span class="intro-monogram" data-initials aria-hidden="true">ED</span>
+            <span class="intro-monogram" data-initials aria-hidden="true"
+              >ED</span
+            >
 
             <div class="intro-body">
               <p class="eyebrow reveal">UNDANGAN PERNIKAHAN</p>
@@ -138,9 +151,11 @@
               </p>
 
               <div class="quote reveal" style="--delay: 4">
-                <p>
-                  Love is not something you find. Love is something you build.
-                </p>
+                <p>Ketika Tuhan menulis takdir-Nya</p>
+                <p>Tuhan juga menulis satu nama di dalam hidupku</p>
+                <p>Bertahun aku menunggu satu nama itu</p>
+                <p>Akhirnya hari ini terjawab sudah penantian itu</p>
+                <p>Kau adalah takdirku</p>
               </div>
             </div>
           </div>
@@ -153,10 +168,12 @@
       <section id="couple" class="section couple-section">
         <div class="container">
           <div class="section-heading">
-            <p class="eyebrow reveal">PASANGAN ITU</p>
+            <p class="eyebrow reveal">Kami Yang Berbahagia</p>
             <h2 class="reveal" style="--delay: 1">Dua Hati, Satu Cerita</h2>
 
-            <span class="ornament reveal" style="--delay: 2" aria-hidden="true"><i></i></span>
+            <span class="ornament reveal" style="--delay: 2" aria-hidden="true"
+              ><i></i
+            ></span>
           </div>
 
           <div class="couple-grid">
@@ -175,7 +192,11 @@
               </div>
             </article>
 
-            <div class="couple-divider reveal" style="--delay: 4" aria-hidden="true">
+            <div
+              class="couple-divider reveal"
+              style="--delay: 4"
+              aria-hidden="true"
+            >
               <span>&amp;</span>
             </div>
 
@@ -206,15 +227,16 @@
 
           <h2 class="reveal" style="--delay: 1">20 December 2026</h2>
 
-          <span
-            class="ornament reveal"
-            style="--delay: 2"
-            aria-hidden="true"
+          <span class="ornament reveal" style="--delay: 2" aria-hidden="true"
             ><i></i
           ></span>
 
           <div class="countdown" aria-label="Countdown menuju hari pernikahan">
-            <div class="countdown-item reveal" data-unit="days" style="--delay: 3">
+            <div
+              class="countdown-item reveal"
+              data-unit="days"
+              style="--delay: 3"
+            >
               <div class="count-ring">
                 <svg viewBox="0 0 100 100" aria-hidden="true">
                   <circle class="ring-track" cx="50" cy="50" r="46" />
@@ -231,7 +253,11 @@
               <small>Hari</small>
             </div>
 
-            <div class="countdown-item reveal" data-unit="hours" style="--delay: 4">
+            <div
+              class="countdown-item reveal"
+              data-unit="hours"
+              style="--delay: 4"
+            >
               <div class="count-ring">
                 <svg viewBox="0 0 100 100" aria-hidden="true">
                   <circle class="ring-track" cx="50" cy="50" r="46" />
@@ -248,7 +274,11 @@
               <small>Jam</small>
             </div>
 
-            <div class="countdown-item reveal" data-unit="minutes" style="--delay: 5">
+            <div
+              class="countdown-item reveal"
+              data-unit="minutes"
+              style="--delay: 5"
+            >
               <div class="count-ring">
                 <svg viewBox="0 0 100 100" aria-hidden="true">
                   <circle class="ring-track" cx="50" cy="50" r="46" />
@@ -265,7 +295,11 @@
               <small>Menit</small>
             </div>
 
-            <div class="countdown-item reveal" data-unit="seconds" style="--delay: 6">
+            <div
+              class="countdown-item reveal"
+              data-unit="seconds"
+              style="--delay: 6"
+            >
               <div class="count-ring">
                 <svg viewBox="0 0 100 100" aria-hidden="true">
                   <circle class="ring-track" cx="50" cy="50" r="46" />
@@ -298,7 +332,9 @@
             <p class="eyebrow reveal">ACARA PERNIKAHAN</p>
             <h2 class="reveal" style="--delay: 1">Abadikan Momennya</h2>
 
-            <span class="ornament reveal" style="--delay: 2" aria-hidden="true"><i></i></span>
+            <span class="ornament reveal" style="--delay: 2" aria-hidden="true"
+              ><i></i
+            ></span>
           </div>
 
           <div class="events-grid">
@@ -350,9 +386,13 @@
         <div class="container">
           <div class="section-heading">
             <p class="eyebrow reveal">KISAH KAMI</p>
-            <h2 class="reveal" style="--delay: 1">Sebuah Kisah Yang Tak Terlupakan</h2>
+            <h2 class="reveal" style="--delay: 1">
+              Sebuah Kisah Yang Tak Terlupakan
+            </h2>
 
-            <span class="ornament reveal" style="--delay: 2" aria-hidden="true"><i></i></span>
+            <span class="ornament reveal" style="--delay: 2" aria-hidden="true"
+              ><i></i
+            ></span>
           </div>
 
           <div class="timeline">
@@ -400,33 +440,66 @@
             <p class="eyebrow reveal">KISAH KAMI</p>
             <h2 class="reveal" style="--delay: 1">Galeri Bersama</h2>
 
-            <span class="ornament reveal" style="--delay: 2" aria-hidden="true"><i></i></span>
+            <span class="ornament reveal" style="--delay: 2" aria-hidden="true"
+              ><i></i
+            ></span>
           </div>
 
           <div class="gallery-grid">
-            <button class="gallery-item reveal" style="--delay: 0" type="button">
+            <button
+              class="gallery-item reveal"
+              style="--delay: 0"
+              type="button"
+            >
               <img src="assets/images/gallery-01.jpg" alt="Foto momen 1" />
             </button>
 
-            <button class="gallery-item reveal" style="--delay: 1" type="button">
+            <button
+              class="gallery-item reveal"
+              style="--delay: 1"
+              type="button"
+            >
               <img src="assets/images/gallery-02.jpg" alt="Foto momen 2" />
             </button>
 
-            <button class="gallery-item reveal" style="--delay: 2" type="button">
+            <button
+              class="gallery-item reveal"
+              style="--delay: 2"
+              type="button"
+            >
               <img src="assets/images/gallery-03.jpg" alt="Foto momen 3" />
             </button>
 
-            <button class="gallery-item reveal" style="--delay: 0" type="button">
+            <button
+              class="gallery-item reveal"
+              style="--delay: 0"
+              type="button"
+            >
               <img src="assets/images/gallery-04.jpg" alt="Foto momen 4" />
             </button>
 
-            <button class="gallery-item reveal" style="--delay: 1" type="button">
+            <button
+              class="gallery-item reveal"
+              style="--delay: 1"
+              type="button"
+            >
               <img src="assets/images/gallery-05.jpg" alt="Foto momen 5" />
             </button>
 
-            <button class="gallery-item reveal" style="--delay: 2" type="button">
+            <button
+              class="gallery-item reveal"
+              style="--delay: 2"
+              type="button"
+            >
               <img src="assets/images/gallery-06.jpg" alt="Foto momen 6" />
             </button>
+          </div>
+
+          <div class="quote reveal" style="--delay: 4">
+            <p>“Demikianlah mereka bukan lagi dua, melainkan satu.</p>
+            <p>Karena itu, apa yang telah dipersatukan Allah,</p>
+            <p>Tidak boleh diceraikan manusia.”</p>
+            <p>— Matius 19:6</p>
           </div>
         </div>
       </section>
@@ -440,7 +513,9 @@
             <p class="eyebrow reveal">TEMPAT PERNIKAHAN</p>
             <h2 class="reveal" style="--delay: 1">Temukan Kami Disini</h2>
 
-            <span class="ornament reveal" style="--delay: 2" aria-hidden="true"><i></i></span>
+            <span class="ornament reveal" style="--delay: 2" aria-hidden="true"
+              ><i></i
+            ></span>
           </div>
 
           <div class="location-grid">
@@ -491,10 +566,7 @@
               Kehadiran Anda
             </h2>
 
-            <span
-              class="ornament reveal"
-              style="--delay: 2"
-              aria-hidden="true"
+            <span class="ornament reveal" style="--delay: 2" aria-hidden="true"
               ><i></i
             ></span>
 
@@ -524,12 +596,22 @@
 
               <div class="rsvp-choices">
                 <label class="rsvp-choice">
-                  <input type="radio" name="attendance" value="hadir" required />
+                  <input
+                    type="radio"
+                    name="attendance"
+                    value="hadir"
+                    required
+                  />
                   <span>Hadir</span>
                 </label>
 
                 <label class="rsvp-choice">
-                  <input type="radio" name="attendance" value="tidak" required />
+                  <input
+                    type="radio"
+                    name="attendance"
+                    value="tidak"
+                    required
+                  />
                   <span>Tidak Hadir</span>
                 </label>
               </div>
@@ -548,6 +630,13 @@
               </select>
             </div>
 
+            <fieldset class="rsvp-field" id="rsvp-events-field" hidden>
+              <legend class="rsvp-label">Acara yang akan dihadiri</legend>
+
+              <!-- Diisi otomatis dari "events" di config.js -->
+              <div class="rsvp-choices" id="rsvp-events"></div>
+            </fieldset>
+
             <div class="rsvp-field">
               <label class="rsvp-label" for="rsvp-message"
                 >Ucapan &amp; doa (opsional)</label
@@ -560,9 +649,24 @@
                 rows="4"
                 placeholder="Tulis ucapan untuk kami..."
               ></textarea>
+
+              <!-- Diisi otomatis dari "quickWishes" di config.js -->
+              <div class="rsvp-wishes" id="rsvp-wishes" hidden>
+                <span class="rsvp-wishes-label">Atau pilih cepat:</span>
+              </div>
             </div>
 
+            <p class="rsvp-hint">
+              Anda akan diarahkan ke WhatsApp dengan pesan yang sudah tersusun.
+              Tinggal tekan kirim.
+            </p>
+
             <button type="submit" class="btn btn-primary rsvp-submit">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.78h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88M20.46 3.49A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.17-3.48-8.42"
+                />
+              </svg>
               Kirim via WhatsApp
             </button>
 
@@ -584,7 +688,9 @@
               tapi jika berkenan berbagi
             </h2>
 
-            <span class="ornament reveal" style="--delay: 2" aria-hidden="true"><i></i></span>
+            <span class="ornament reveal" style="--delay: 2" aria-hidden="true"
+              ><i></i
+            ></span>
 
             <p class="section-text reveal" style="--delay: 3">
               Kehadiranmu adalah hadiah terindah. Jika ingin memberikan tanda
@@ -597,36 +703,52 @@
           <div class="bank-grid">
             <!-- BANK 01 -->
             <article class="bank-card reveal" style="--delay: 3">
-              <div class="bank-name">BCA</div>
-
-              <p class="account-owner">Eligius</p>
+              <div class="bank-card-top">
+                <span class="bank-chip" aria-hidden="true"></span>
+                <div class="bank-name">BCA</div>
+              </div>
 
               <p class="account-number">1234 5678 9012</p>
 
-              <button
-                type="button"
-                class="copy-account"
-                data-account="123456789012"
-              >
-                SALIN NOMOR
-              </button>
+              <div class="bank-card-foot">
+                <div class="bank-owner">
+                  <span class="bank-owner-label">Atas nama</span>
+                  <p class="account-owner">Eligius</p>
+                </div>
+
+                <button
+                  type="button"
+                  class="copy-account"
+                  data-account="123456789012"
+                >
+                  SALIN NOMOR
+                </button>
+              </div>
             </article>
 
             <!-- BANK 02 -->
             <article class="bank-card reveal" style="--delay: 4">
-              <div class="bank-name">MANDIRI</div>
-
-              <p class="account-owner">Indri Diyanti</p>
+              <div class="bank-card-top">
+                <span class="bank-chip" aria-hidden="true"></span>
+                <div class="bank-name">MANDIRI</div>
+              </div>
 
               <p class="account-number">9876 5432 1098</p>
 
-              <button
-                type="button"
-                class="copy-account"
-                data-account="987654321098"
-              >
-                SALIN NOMOR
-              </button>
+              <div class="bank-card-foot">
+                <div class="bank-owner">
+                  <span class="bank-owner-label">Atas nama</span>
+                  <p class="account-owner">Indri Diyanti</p>
+                </div>
+
+                <button
+                  type="button"
+                  class="copy-account"
+                  data-account="987654321098"
+                >
+                  SALIN NOMOR
+                </button>
+              </div>
             </article>
           </div>
         </div>
@@ -638,13 +760,19 @@
          ========================================================= -->
     <footer class="footer">
       <div class="container">
-        <span class="footer-monogram reveal" data-initials aria-hidden="true">ED</span>
+        <span class="footer-monogram reveal" data-initials aria-hidden="true"
+          >ED</span
+        >
 
-        <p class="footer-names reveal" style="--delay: 1">Eligius &amp; Diyanti</p>
+        <p class="footer-names reveal" style="--delay: 1">
+          Eligius &amp; Diyanti
+        </p>
 
         <p class="footer-date reveal" style="--delay: 2">20 DECEMBER 2026</p>
 
-        <span class="ornament reveal" style="--delay: 3" aria-hidden="true"><i></i></span>
+        <span class="ornament reveal" style="--delay: 3" aria-hidden="true"
+          ><i></i
+        ></span>
 
         <p class="footer-thank-you reveal" style="--delay: 4">
           Terima kasih telah menjadi bagian dari hari bahagia kami.

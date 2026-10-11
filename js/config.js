@@ -153,11 +153,53 @@ const WEDDING_CONFIG = {
   // --------------------------------------------------------
 
   whatsapp: {
+    // Nomor tujuan RSVP.
     // Gunakan kode negara, tanpa tanda +, spasi, atau strip.
-    // Contoh Indonesia: 6281234567890
-    phone: "6281234567890",
+    // +62 877-4946-6497  ->  6287749466497
+    phone: "6287749466497",
 
-    message:
-      "Halo, saya ingin mengonfirmasi kehadiran di pernikahan Eligius & Diyanti.",
+    // Ucapan cepat: tombol yang mengisi kolom "Ucapan & doa" sekali ketuk.
+    // Hapus semua isinya ([]) jika tidak ingin memakai fitur ini.
+    quickWishes: [
+      "Selamat menempuh hidup baru! Semoga bahagia selalu 🤍",
+      "Doa terbaik untuk kalian berdua ✨",
+      "Turut berbahagia atas pernikahan kalian 🥂",
+    ],
+
+    // Isi pesan WhatsApp yang dikirim tamu.
+    //
+    // Penanda yang bisa dipakai:
+    //   {mempelai}  nama pasangan      {nama}    nama tamu
+    //   {jumlah}    jumlah tamu        {acara}   acara yang dihadiri
+    //   {ucapan}    ucapan & doa
+    //
+    // [[ ... ]] = bagian opsional: otomatis dibuang jika ada penanda
+    // di dalamnya yang kosong (misalnya tamu tidak menulis ucapan).
+    // *teks* = huruf tebal di WhatsApp.
+    templates: {
+      hadir: `Halo {mempelai} 👋
+
+Saya *{nama}* dengan senang hati mengonfirmasi kehadiran di pernikahan kalian 🤍
+
+📌 Kehadiran: *Hadir*
+👥 Jumlah tamu: *{jumlah} orang*
+[[🗓 Acara: {acara}]]
+
+[[💌 Ucapan & doa:
+{ucapan}]]
+
+Sampai jumpa di hari bahagia kalian! ✨`,
+
+      tidak: `Halo {mempelai} 👋
+
+Saya *{nama}* mohon maaf belum bisa hadir di pernikahan kalian 🙏
+
+📌 Kehadiran: *Tidak hadir*
+
+[[💌 Ucapan & doa:
+{ucapan}]]
+
+Semoga acaranya berjalan lancar dan penuh kebahagiaan 🤍`,
+    },
   },
 };
