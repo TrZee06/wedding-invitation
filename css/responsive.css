@@ -110,12 +110,15 @@
     right: auto;
   }
 
-  /* ---------- GALLERY ---------- */
+  /* ---------- GALLERY (Masonry di tablet) ---------- */
 
   .gallery-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-count: 2;
+    column-gap: 8px;
+  }
 
-    gap: 8px;
+  .gallery-item {
+    margin-bottom: 8px;
   }
 
   /* ---------- LOCATION ---------- */
@@ -233,10 +236,47 @@
     left: -25px;
   }
 
-  /* ---------- GALLERY ---------- */
+  /* ---------- GALLERY (Masonry 1 kolom) ---------- */
 
   .gallery-grid {
-    gap: 5px;
+    column-count: 1;
+    column-gap: 5px;
+  }
+
+  .gallery-item {
+    margin-bottom: 5px;
+  }
+
+  /* ---------- LIGHTBOX MOBILE ---------- */
+
+  .lightbox-nav {
+    width: 44px;
+    height: 44px;
+    font-size: 1.8rem;
+  }
+
+  .lightbox-prev {
+    left: 12px;
+  }
+
+  .lightbox-next {
+    right: 12px;
+  }
+
+  .lightbox-counter {
+    bottom: 16px;
+    font-size: 0.68rem;
+  }
+
+  /* ---------- LOCATION BUTTONS ---------- */
+
+  .location-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .location-buttons .btn {
+    width: 100%;
   }
 
   /* ---------- LOCATION ---------- */
@@ -245,6 +285,7 @@
     padding: 35px 24px;
   }
 
+  .map-iframe,
   .map-wrapper,
   .map-placeholder {
     min-height: 280px;
@@ -259,7 +300,8 @@
     width: 44px;
     height: 44px;
   }
-  /* ---------- WEDDING GIFT ---------- */
+
+  /* ---------- RSVP / GIFT ---------- */
 
   .rsvp-form {
     padding: 30px 20px 26px;
@@ -305,5 +347,42 @@
 
   .opening-section .btn-open {
     margin-top: 20px;
+  }
+}
+
+/* ============================================================
+   GALERI — Kolom untuk LAPTOP & DESKTOP
+   ============================================================ */
+
+/* Tablet besar / laptop kecil: 3 kolom */
+@media (min-width: 769px) and (max-width: 1023px) {
+  .gallery-grid {
+    column-count: 3;
+    column-gap: 12px;
+  }
+  .gallery-item {
+    margin-bottom: 12px;
+  }
+}
+
+/* Laptop: 3 kolom */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .gallery-grid {
+    column-count: 3; /* ← dari 4 ke 3 */
+    column-gap: 14px; /* sedikit lebih lega */
+  }
+  .gallery-item {
+    margin-bottom: 14px;
+  }
+}
+
+/* Desktop besar: 3 kolom */
+@media (min-width: 1280px) {
+  .gallery-grid {
+    column-count: 3; /* ← dari 5 ke 3 */
+    column-gap: 16px; /* paling lega untuk layar besar */
+  }
+  .gallery-item {
+    margin-bottom: 16px;
   }
 }

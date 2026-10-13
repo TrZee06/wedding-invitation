@@ -244,6 +244,71 @@ h3 {
    06. OPENING / COVER (AMPLOP)
    ============================================================ */
 
+/* ---------- Varian foto (cover.jpg) ---------- */
+
+.opening-section.has-photo {
+  background:
+    linear-gradient(rgba(48, 44, 42, 0.4), rgba(48, 44, 42, 0.65)),
+    var(--cover-url) center / cover no-repeat,
+    var(--color-bg-dark);
+
+  color: #ffffff;
+}
+
+.opening-section.has-photo .opening-meta {
+  background: rgba(255, 255, 255, 0.15);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.opening-section.has-photo .opening-monogram {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.opening-section.has-photo .eyebrow,
+.opening-section.has-photo .guest-label {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.opening-section.has-photo .guest-name {
+  color: #ffffff;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+}
+
+.opening-section.has-photo .couple-name {
+  color: #ffffff;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.5);
+}
+
+.opening-section.has-photo .ampersand {
+  color: #e8d5b5;
+}
+
+.opening-section.has-photo .btn-open {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+}
+
+.opening-section.has-photo .btn-open:hover {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: var(--color-text);
+}
+
+.opening-section.has-photo .opening-line {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255, 255, 255, 0.7),
+    transparent
+  );
+}
+
 .opening-section {
   /* Warna amplop */
   --env-width: min(320px, 78vw);
@@ -274,8 +339,16 @@ h3 {
   /* Warna solid sebagai lapisan paling bawah, jadi opening tidak
      pernah tembus pandang. */
   background:
-    radial-gradient(circle at 12% 10%, rgba(165, 139, 112, 0.12), transparent 45%),
-    radial-gradient(circle at 88% 90%, rgba(165, 139, 112, 0.14), transparent 50%),
+    radial-gradient(
+      circle at 12% 10%,
+      rgba(165, 139, 112, 0.12),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 88% 90%,
+      rgba(165, 139, 112, 0.14),
+      transparent 50%
+    ),
     var(--color-bg);
 
   color: var(--color-text);
@@ -651,18 +724,29 @@ body.invitation-locked {
   animation: openingRise 900ms ease backwards;
 }
 
-.opening-content > :nth-child(1) { animation-delay: 100ms; }
-.opening-content > :nth-child(2) { animation-delay: 250ms; }
-.opening-content > :nth-child(3) { animation-delay: 400ms; }
-.opening-content > :nth-child(4) { animation-delay: 500ms; }
-.opening-content > :nth-child(5) { animation-delay: 550ms; }
-.opening-content > :nth-child(6) { animation-delay: 600ms; }
-.opening-content > :nth-child(7) { animation-delay: 700ms; }
+.opening-content > :nth-child(1) {
+  animation-delay: 100ms;
+}
+.opening-content > :nth-child(2) {
+  animation-delay: 250ms;
+}
+.opening-content > :nth-child(3) {
+  animation-delay: 400ms;
+}
+.opening-content > :nth-child(4) {
+  animation-delay: 500ms;
+}
+.opening-content > :nth-child(5) {
+  animation-delay: 550ms;
+}
+.opening-content > :nth-child(6) {
+  animation-delay: 600ms;
+}
+.opening-content > :nth-child(7) {
+  animation-delay: 700ms;
+}
 
-/* ---------- Varian foto (opsional) ----------
-   Setelah punya foto cover, tambahkan class "has-photo" pada
-   <section id="opening" class="section opening-section has-photo">
-   dan simpan fotonya di assets/images/hero.jpg */
+/* ---------- Varian foto Background ----------*/
 
 .opening-section.has-photo {
   background:
@@ -702,7 +786,11 @@ body.invitation-locked {
   text-align: center;
 
   background:
-    radial-gradient(circle at 50% 0%, rgba(165, 139, 112, 0.12), transparent 60%),
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(165, 139, 112, 0.12),
+      transparent 60%
+    ),
     var(--color-bg);
 }
 
@@ -711,6 +799,50 @@ body.invitation-locked {
 }
 
 /* Bingkai lengkung dengan garis ganda */
+
+:root[data-theme="dark"] .intro-arch {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--color-border);
+}
+
+:root[data-theme="dark"] .intro-arch::before {
+  border-color: rgba(201, 168, 127, 0.35);
+}
+
+:root[data-theme="dark"] .event-card {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+:root[data-theme="dark"] .event-card::before {
+  border-color: rgba(201, 168, 127, 0.25);
+}
+
+:root[data-theme="dark"] .rsvp-form {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--color-border);
+}
+
+:root[data-theme="dark"] .rsvp-input {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+:root[data-theme="dark"] .rsvp-choice span {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+:root[data-theme="dark"] .rsvp-chip {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--color-border);
+  color: var(--color-text-soft);
+}
+
+:root[data-theme="dark"] .location-info {
+  background: rgba(255, 255, 255, 0.03);
+}
 
 .intro-arch {
   position: relative;
@@ -919,6 +1051,41 @@ body.invitation-locked {
    08. COUPLE
    ============================================================ */
 
+.person-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 700ms ease;
+  will-change: transform;
+}
+
+.person-card:hover .person-photo img {
+  transform: scale(1.04);
+}
+
+/* Fallback saat foto mempelai belum diisi */
+
+.person-photo.is-empty {
+  background: linear-gradient(
+    135deg,
+    var(--color-bg-soft),
+    var(--color-border)
+  );
+
+  display: grid;
+  place-items: center;
+}
+
+.person-photo.is-empty::before {
+  content: "Foto belum tersedia";
+
+  color: var(--color-text-soft);
+
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
 .couple-section {
   background: var(--color-bg-soft);
 }
@@ -1021,8 +1188,16 @@ body.invitation-locked {
   text-align: center;
 
   background:
-    radial-gradient(circle at 50% 0%, rgba(165, 139, 112, 0.24), transparent 55%),
-    radial-gradient(circle at 50% 100%, rgba(165, 139, 112, 0.12), transparent 50%),
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(165, 139, 112, 0.24),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(165, 139, 112, 0.12),
+      transparent 50%
+    ),
     var(--color-bg-dark);
   color: var(--color-text-light);
 }
@@ -1036,13 +1211,29 @@ body.invitation-locked {
   inset: 0;
 
   background-image:
-    radial-gradient(1.5px 1.5px at 10% 18%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(
+      1.5px 1.5px at 10% 18%,
+      rgba(255, 255, 255, 0.7),
+      transparent
+    ),
     radial-gradient(1px 1px at 24% 62%, rgba(255, 255, 255, 0.5), transparent),
-    radial-gradient(1.5px 1.5px at 38% 30%, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(
+      1.5px 1.5px at 38% 30%,
+      rgba(255, 255, 255, 0.6),
+      transparent
+    ),
     radial-gradient(1px 1px at 52% 80%, rgba(255, 255, 255, 0.5), transparent),
-    radial-gradient(1.5px 1.5px at 66% 14%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(
+      1.5px 1.5px at 66% 14%,
+      rgba(255, 255, 255, 0.7),
+      transparent
+    ),
     radial-gradient(1px 1px at 78% 56%, rgba(255, 255, 255, 0.5), transparent),
-    radial-gradient(1.5px 1.5px at 90% 28%, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(
+      1.5px 1.5px at 90% 28%,
+      rgba(255, 255, 255, 0.6),
+      transparent
+    ),
     radial-gradient(1px 1px at 86% 86%, rgba(255, 255, 255, 0.5), transparent),
     radial-gradient(1px 1px at 6% 88%, rgba(255, 255, 255, 0.5), transparent);
 
@@ -1194,6 +1385,43 @@ body.invitation-locked {
   font-family: var(--font-heading);
   font-size: 1.2rem;
   font-style: italic;
+}
+
+/* ---------- Confetti saat hari-H ---------- */
+
+.countdown-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.confetti {
+  position: absolute;
+  top: -20px;
+  width: 8px;
+  height: 14px;
+  border-radius: 2px;
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 5;
+  animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* ---------- Hari-H / setelah hari-H ---------- */
+
+.countdown-section.is-arrived .countdown,
+.countdown-section.is-arrived .ornament {
+  display: none;
 }
 
 /* ============================================================
@@ -1404,37 +1632,32 @@ body.invitation-locked {
    12. GALLERY
    ============================================================ */
 
+/* ---------- Galeri Masonry ---------- */
+
 .gallery-grid {
-  display: grid;
-
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-
-  gap: 12px;
+  column-count: 3;
+  column-gap: 12px;
 }
 
 .gallery-item {
-  position: relative;
-
   display: block;
-
   width: 100%;
-  aspect-ratio: 1 / 1;
-
+  margin: 0 0 12px;
   padding: 0;
-
   overflow: hidden;
-
   background: var(--color-bg-soft);
-
+  border: 0;
   cursor: pointer;
+  break-inside: avoid;
+  position: relative;
+  border-radius: 4px;
 }
 
 .gallery-item img {
+  display: block;
   width: 100%;
-  height: 100%;
-
+  height: auto;
   object-fit: cover;
-
   transition:
     transform 600ms ease,
     filter 600ms ease;
@@ -1442,13 +1665,11 @@ body.invitation-locked {
 
 .gallery-item::after {
   content: "";
-
   position: absolute;
   inset: 0;
-
   background: rgba(48, 44, 42, 0);
-
   transition: background-color var(--transition);
+  pointer-events: none;
 }
 
 .gallery-item:hover img {
@@ -1458,6 +1679,15 @@ body.invitation-locked {
 
 .gallery-item:hover::after {
   background: rgba(48, 44, 42, 0.12);
+}
+
+.gallery-item.is-empty {
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(
+    135deg,
+    var(--color-bg-soft),
+    var(--color-border)
+  );
 }
 
 /* ---------- Ayat di bawah galeri ---------- */
@@ -1544,6 +1774,52 @@ body.invitation-locked {
    13. LOCATION
    ============================================================ */
 
+/* ---------- Google Maps iframe ---------- */
+
+.map-iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--color-bg-soft);
+}
+
+.map-iframe:focus {
+  outline: none;
+}
+
+.map-iframe[hidden] {
+  display: none;
+}
+
+.map-placeholder[hidden] {
+  display: none;
+}
+
+.map-wrapper {
+  min-height: 420px;
+  display: flex;
+}
+
+.map-wrapper .map-iframe,
+.map-wrapper .map-placeholder {
+  flex: 1;
+  min-height: 0;
+  border-radius: 12px;
+}
+
+.location-info {
+  border-radius: 12px;
+}
+
+/* Fallback placeholder saat mapsEmbed kosong */
+
+.map-placeholder[hidden] {
+  display: none;
+}
+
 .location-section {
   background: var(--color-bg-soft);
 }
@@ -1589,6 +1865,32 @@ body.invitation-locked {
 
 .location-info .btn {
   align-self: flex-start;
+}
+
+.location-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.location-info .btn {
+  align-self: flex-start;
+}
+
+/* Override agar 2 tombol sejajar */
+.location-buttons .btn {
+  align-self: auto;
+}
+
+#route-link {
+  border-color: var(--color-accent);
+  color: var(--color-accent-dark);
+}
+
+#route-link:hover {
+  background: var(--color-accent);
+  color: #ffffff;
 }
 
 .map-wrapper {
@@ -2234,7 +2536,11 @@ select.rsvp-input {
   padding: 80px 0 calc(96px + env(safe-area-inset-bottom, 0px));
 
   background:
-    radial-gradient(circle at 50% 0%, rgba(165, 139, 112, 0.2), transparent 55%),
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(165, 139, 112, 0.2),
+      transparent 55%
+    ),
     var(--color-bg-dark);
   color: var(--color-text-light);
 
@@ -2407,23 +2713,19 @@ select.rsvp-input {
    17. LIGHTBOX
    ============================================================ */
 
+/* ---------- LIGHTBOX ---------- */
+
 .lightbox {
   position: fixed;
   inset: 0;
-
   z-index: 200;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   padding: 30px;
-
   background: rgba(25, 22, 20, 0.94);
-
   opacity: 0;
   visibility: hidden;
-
   transition:
     opacity var(--transition),
     visibility var(--transition);
@@ -2434,31 +2736,95 @@ select.rsvp-input {
   visibility: visible;
 }
 
+html.lightbox-open,
+body.lightbox-open {
+  overflow: hidden;
+}
+
 .lightbox img {
   max-width: min(100%, 1000px);
   max-height: 90vh;
-
   object-fit: contain;
+  border-radius: 4px;
+  animation: lightboxZoom 400ms ease;
+}
+
+@keyframes lightboxZoom {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .lightbox-close {
   position: absolute;
-
   top: 24px;
   right: 24px;
-
   display: grid;
   place-items: center;
-
   width: 44px;
   height: 44px;
-
-  background: transparent;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
   color: #ffffff;
-
-  font-size: 2rem;
-
+  font-size: 1.8rem;
   cursor: pointer;
+  transition: background-color var(--transition);
+  z-index: 5;
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 2.2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color var(--transition);
+  z-index: 5;
+}
+
+.lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.lightbox-prev {
+  left: 24px;
+}
+
+.lightbox-next {
+  right: 24px;
+}
+
+.lightbox-counter {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 18px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  z-index: 5;
 }
 
 /* ============================================================
