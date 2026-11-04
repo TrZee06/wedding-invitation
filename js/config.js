@@ -9,17 +9,14 @@ const WEDDING_CONFIG = {
   // --------------------------------------------------------
 
   wedding: {
-    title: "Eligius & Diyanti",
-    date: "2026-11-16T08:00:00+07:00",
-    displayDate: "Minggu, 14 Desember 2026",
-    openingDate: "14 Desember 2026",
+    title: "Seven & Hertika",
+    date: "2026-11-22T13:00:00+07:00",
+    displayDate: "Minggu, 22 November 2026",
+    openingDate: "22 NOVEMBER 2026",
     musicFile: "assets/music/wedding-song.mp3",
 
-    metaDate: "14 Desember 2026",
+    metaDate: "22 November 2026",
     eyebrow: "The Wedding Of",
-
-    // Foto cover untuk halaman opening (opsional)
-    // Kalau kosong atau file tidak ada, akan fallback ke warna solid
     coverPhoto: "assets/images/hero.jpg",
   },
 
@@ -28,12 +25,12 @@ const WEDDING_CONFIG = {
   // --------------------------------------------------------
 
   groom: {
-    nickname: "Eligius",
-    fullName: "Eligius Zebua",
-    father: "Nama Ayah",
-    mother: "Nama Ibu",
+    nickname: "Seven",
+    fullName: "Kasih Sevenndi Zebua",
+    father: "Ama Seven Zebua",
+    mother: "Ina Seven Zebua",
     photo: "assets/images/groom.jpg",
-    parentsPrefix: "Putra dari",
+    parentsPrefix: "Putra ke-1 dari",
   },
 
   // --------------------------------------------------------
@@ -41,12 +38,12 @@ const WEDDING_CONFIG = {
   // --------------------------------------------------------
 
   bride: {
-    nickname: "Diyanti",
-    fullName: "Indri Diyanti",
-    father: "Nama Ayah",
-    mother: "Nama Ibu",
+    nickname: "Hertika",
+    fullName: "Hertika Gulo",
+    father: "Ama Safi Gulo",
+    mother: "Ina Safi Gulo",
     photo: "assets/images/bride.jpg",
-    parentsPrefix: "Putri dari",
+    parentsPrefix: "Putri ke-2 dari",
   },
 
   // --------------------------------------------------------
@@ -55,115 +52,87 @@ const WEDDING_CONFIG = {
 
   events: [
     {
-      title: "Akad Nikah",
-      date: "Minggu, 14 Desember 2026",
-      time: "08.00 WIB — Selesai",
-      venue: "Gereja BNKP Pewarta",
+      title: "Pemberkatan",
+      date: "Minggu, 22 November 2026",
+      time: "13.00 WIB — Selesai",
+      venue: "Gereja ONKP Tangerang",
       address:
-        "Perkudangan Sunrise Bizpark, Blok C No.70, Gelam Jaya, Kec. Ps. Kemis, Kabupaten Tangerang, Banten 15560",
+        "Pergudangan Sunrise bizpark, Jl. Sunrise jaya Blok A no.15, Gelam Jaya, Kec. Ps. Kemis, Kabupaten Tangerang, Banten 15560",
+      mapsUrl:
+        "https://www.google.com/maps/dir/?api=1&destination=Gereja+ONKP+Tangerang",
+      buttonText: "Petunjuk Arah", // Tombol Maps
     },
     {
-      title: "Resepsi",
-      date: "Minggu, 14 Desember 2026",
-      time: "11.00 — Selesai",
-      venue: "Gereja BNKP Pewarta",
+      title: "Acara Adat / Resepsi",
+      date: "Minggu, 22 November 2026",
+      time: "16.00 WIB — Selesai",
+      venue: "BNKP Pewarta",
       address:
-        "Perkudangan Sunrise Bizpark, Blok C No.70, Gelam Jaya, Kec. Ps. Kemis, Kabupaten Tangerang, Banten 15560",
+        "Pergudangan Sunrise Bizpark, Blok C No.70, Gelam Jaya, Kec. Ps. Kemis, Kabupaten Tangerang, Banten 15560",
+      scrollTarget: "#location", // Arahkan ke Section Lokasi
+      buttonText: "Lihat Detail", // Teks tombol baru
     },
   ],
 
   // --------------------------------------------------------
-  // 5. OUR STORY
-  // --------------------------------------------------------
-
-  story: [
-    {
-      year: "2020",
-      title: "Pertemuan Pertama",
-      description:
-        "Cerita singkat tentang bagaimana kami pertama kali bertemu.",
-    },
-    {
-      year: "2022",
-      title: "Tumbuh Bersama",
-      description:
-        "Cerita tentang perjalanan kami hingga semakin mengenal satu sama lain.",
-    },
-    {
-      year: "2026",
-      title: "Awal dari Selamanya",
-      description:
-        "Hari ketika kami memutuskan untuk melanjutkan perjalanan ini bersama.",
-    },
-  ],
-
-  // --------------------------------------------------------
-  // 6. GALERI FOTO
+  // 5. GALERI FOTO
   // --------------------------------------------------------
 
   gallery: [
-    { src: "assets/images/gallery-01.jpg", alt: "Foto momen 1" },
-    { src: "assets/images/gallery-02.jpg", alt: "Foto momen 2" },
-    { src: "assets/images/gallery-03.jpg", alt: "Foto momen 3" },
-    { src: "assets/images/gallery-04.jpg", alt: "Foto momen 4" },
-    { src: "assets/images/gallery-05.jpg", alt: "Foto momen 5" },
-    { src: "assets/images/gallery-06.jpg", alt: "Foto momen 6" },
+    { src: "assets/images/gallery-01.jpeg", alt: "Momen Seven & Hertika 1" },
+    { src: "assets/images/gallery-02.jpg", alt: "Momen Seven & Hertika 2" },
+    { src: "assets/images/gallery-03.jpg", alt: "Momen Seven & Hertika 3" },
+    { src: "assets/images/gallery-04.jpg", alt: "Momen Seven & Hertika 4" },
+    { src: "assets/images/gallery-05.jpg", alt: "Momen Seven & Hertika 5" },
+    { src: "assets/images/gallery-06.jpg", alt: "Momen Seven & Hertika 6" },
   ],
 
   // --------------------------------------------------------
-  // 7. LOKASI / GOOGLE MAPS
+  // 6. LOKASI / GOOGLE MAPS (Untuk Section Peta Bawah)
   // --------------------------------------------------------
 
   location: {
-    venue: "Gereja BNKP Pewarta",
-    date: "Minggu, 14 Desember 2026",
+    venue: "BNKP Pewarta",
+    date: "Minggu, 22 November 2026",
     address:
       "Perkudangan Sunrise Bizpark, Blok C No.70, Gelam Jaya, Kec. Ps. Kemis, Kabupaten Tangerang, Banten 15560",
-
-    mapsUrl: "https://maps.app.goo.gl/3YnKSgzURREQ82te8",
-
+    // Link utama diarahkan ke rute (Petunjuk Arah)
+    mapsUrl:
+      "https://www.google.com/maps/dir/?api=1&destination=-6.178473391795702,106.56364824427627",
     mapsEmbed:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.6432980026348!2d106.56107387567151!3d-6.1784792605427725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ff001f17800f%3A0x6d63c822d601b8e4!2sGereja%20BNKP%20Pewarta!5e0!3m2!1sid!2sid!4v1791867760826!5m2!1sid!2sid",
-
-    // Koordinat untuk tombol "Petunjuk Arah"
-    // Format: "latitude,longitude"
-    // Ambil dari Google Maps: klik kanan di lokasi → copy koordinat
-    coordinates: "-6.178473391795702, 106.56364824427627",
-
-    // Teks tombol rute
+    coordinates: "-6.178473391795702,106.56364824427627",
     routeButtonText: "Petunjuk Arah",
   },
 
   // --------------------------------------------------------
-  // 8. REKENING AMPLOP DIGITAL
+  // 7. REKENING AMPLOP DIGITAL
   // --------------------------------------------------------
 
   bankAccounts: [
     {
       bank: "BCA",
-      owner: "Eligius",
-      number: "123456789012",
+      owner: "Kasih Sevenndi Zebua",
+      number: "1670936569",
     },
     {
-      bank: "MANDIRI",
-      owner: "Indri Diyanti",
-      number: "987654321098",
+      bank: "DANA",
+      owner: "Kasih Sevenndi Zebua",
+      number: "081211238559",
     },
   ],
 
   // --------------------------------------------------------
-  // 9. RSVP WHATSAPP
+  // 8. RSVP WHATSAPP
   // --------------------------------------------------------
 
   whatsapp: {
-    phone: "6287749466497",
-
+    phone: "6281211238559",
     quickWishes: [
-      "Selamat menempuh hidup baru! Semoga bahagia selalu 🤍",
+      "Selamat menempuh hidup baru Seven & Hertika! Semoga bahagia selalu 🤍",
       "Doa terbaik untuk kalian berdua ✨",
       "Turut berbahagia atas pernikahan kalian 🥂",
     ],
-
     templates: {
       hadir: `Halo {mempelai} 👋
 
@@ -177,7 +146,6 @@ Saya *{nama}* dengan senang hati mengonfirmasi kehadiran di pernikahan kalian �
 {ucapan}]]
 
 Sampai jumpa di hari bahagia kalian! ✨`,
-
       tidak: `Halo {mempelai} 👋
 
 Saya *{nama}* mohon maaf belum bisa hadir di pernikahan kalian 🙏
@@ -191,19 +159,40 @@ Semoga acaranya berjalan lancar dan penuh kebahagiaan 🤍`,
     },
   },
 
+  // --------------------------------------------------------
+  // 9. TURUT MENGUNDANG (FAMILY LIST)
+  // --------------------------------------------------------
+
+  familyList: {
+    groomSide: [
+      "A/i. Seven Zebua (Nias)",
+      "A/i. Seri Zebua (Nias)",
+      "A/i. Fari Zebua (Nias)",
+      "A/i. Tini Zebua (Nias)",
+      "Ramali/Uco Zebua (Nias)",
+      "Eka Daeli (Jakarta)",
+      "A/i. Sastra (Depok)",
+      "A/i. Naura Gulo (Tangerang)",
+    ],
+    brideSide: [
+      "A/I. Safi Gulo",
+      "A/I. Daniel Gulo",
+      "A/I. Murni Gulo",
+      "A/I. Ayu Gulo",
+      "A/I. Lilis Gulo",
+    ],
+  },
+
   // ============================================================
   // 10. KONTEN TEKS HALAMAN
   // ============================================================
 
   content: {
-    // ---------- OPENING ----------
     opening: {
       guestLabel: "Kepada Yth.",
       guestDefault: "Para Tamu Undangan",
       buttonText: "Buka Undangan",
     },
-
-    // ---------- INTRO ----------
     intro: {
       eyebrow: "UNDANGAN PERNIKAHAN",
       heading: "Dengan penuh sukacita,<br>kami mengundang Anda",
@@ -216,45 +205,26 @@ Semoga acaranya berjalan lancar dan penuh kebahagiaan 🤍`,
         "Kau adalah takdirku",
       ],
     },
-
-    // ---------- COUPLE ----------
     couple: {
       eyebrow: "Kami Yang Berbahagia",
       heading: "Dua Hati, Satu Cerita",
     },
-
-    // ---------- COUNTDOWN ----------
     countdown: {
       eyebrow: "CATAT TANGGALNYA",
       note: "Menuju hari bahagia kami",
-      units: {
-        days: "Hari",
-        hours: "Jam",
-        minutes: "Menit",
-        seconds: "Detik",
-      },
-      // Teks pengganti saat hari-H atau setelahnya
+      units: { days: "Hari", hours: "Jam", minutes: "Menit", seconds: "Detik" },
       arrivalTitle: "Hari Ini Hari Bahagia Kami!",
       arrivalText: "Terima kasih telah menjadi bagian dari momen ini 🤍",
       afterTitle: "Terima Kasih",
       afterText:
         "Acara telah berlangsung. Terima kasih atas doa dan restunya 🤍",
     },
-
-    // ---------- EVENTS ----------
     events: {
       eyebrow: "ACARA PERNIKAHAN",
       heading: "Abadikan Momennya",
-      buttonText: "Lihat Lokasi",
+      buttonText: "Petunjuk Arah", // Diubah
     },
-
-    // ---------- STORY ----------
-    story: {
-      eyebrow: "KISAH KAMI",
-      heading: "Sebuah Kisah Yang Tak Terlupakan",
-    },
-
-    // ---------- GALLERY ----------
+    // SECTION STORY DIHAPUS DARI SINI
     gallery: {
       eyebrow: "KISAH KAMI",
       heading: "Galeri Bersama",
@@ -265,15 +235,18 @@ Semoga acaranya berjalan lancar dan penuh kebahagiaan 🤍`,
         "— Matius 19:6",
       ],
     },
-
-    // ---------- LOCATION ----------
+    // KONTEN BARU UNTUK TURUT MENGUNDANG
+    family: {
+      eyebrow: "TURUT MENGUNDANG",
+      heading: "Keluarga Besar",
+      groomTitle: "Mempelai Pria",
+      brideTitle: "Mempelai Wanita",
+    },
     location: {
       eyebrow: "TEMPAT PERNIKAHAN",
       heading: "Temukan Kami Disini",
       buttonText: "Buka Google Maps",
     },
-
-    // ---------- RSVP ----------
     rsvp: {
       eyebrow: "KONFIRMASI KEHADIRAN",
       heading: "Kami Menantikan<br>Kehadiran Anda",
@@ -294,8 +267,6 @@ Semoga acaranya berjalan lancar dan penuh kebahagiaan 🤍`,
       successNote: "Membuka WhatsApp… Jika tidak terbuka, ",
       successLinkText: "ketuk di sini",
     },
-
-    // ---------- GIFT ----------
     gift: {
       eyebrow: "AMPLOP DIGITAL",
       heading: "Doa lebih dari cukup,<br>tapi jika berkenan berbagi",
@@ -303,8 +274,6 @@ Semoga acaranya berjalan lancar dan penuh kebahagiaan 🤍`,
       copyButtonText: "SALIN NOMOR",
       ownerLabel: "Atas nama",
     },
-
-    // ---------- FOOTER ----------
     footer: {
       thankYou: "Terima kasih telah menjadi bagian dari hari bahagia kami.",
       backToTop: "Kembali ke atas",

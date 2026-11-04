@@ -107,11 +107,6 @@ function renderContent() {
     btn.textContent = ev.buttonText || "Lihat Lokasi";
   });
 
-  /* STORY */
-  const story = c.story || {};
-  setText("story-eyebrow", story.eyebrow || "");
-  setText("story-heading", story.heading || "");
-
   /* GALLERY */
   const gal = c.gallery || {};
   setText("gallery-eyebrow", gal.eyebrow || "");
@@ -285,34 +280,30 @@ function loadWeddingEvents() {
       const parts = event.address.split(",");
       address.innerHTML = parts.join("<br>");
     }
+
+    // --- LOGIKA TOMBOL BARU ---
+    const btn = card.querySelector(".event-map-link");
+    if (btn) {
+      btn.textContent = event.buttonText || "Lihat Lokasi";
+
+      // Jika ada mapsUrl, buka tab baru (Google Maps)
+      if (event.mapsUrl) {
+        btn.href = event.mapsUrl;
+        btn.target = "_blank";
+        btn.removeAttribute("data-scroll");
+      }
+      // Jika ada scrollTarget, gulir ke section (bukan tab baru)
+      else if (event.scrollTarget) {
+        btn.href = event.scrollTarget;
+        btn.removeAttribute("target"); // Hapus target _blank agar tidak buka tab baru
+        btn.setAttribute("data-scroll", "true");
+      }
+    }
   });
 }
 
 /* ============================================================
-   06. STORY
-   ============================================================ */
-
-function loadStory() {
-  const timelineItems = document.querySelectorAll(".timeline-item");
-  const stories = WEDDING_CONFIG.story;
-
-  timelineItems.forEach((item, index) => {
-    const story = stories[index];
-    if (!story) return;
-
-    const year = item.querySelector(".timeline-year");
-    if (year) year.textContent = story.year;
-
-    const title = item.querySelector("h3");
-    if (title) title.textContent = story.title;
-
-    const description = item.querySelector("p");
-    if (description) description.textContent = story.description;
-  });
-}
-
-/* ============================================================
-   07. GALLERY + LAZY LOADING + MASONRY
+   06. GALLERY + LAZY LOADING + MASONRY
    ============================================================ */
 
 function loadGallery() {
@@ -335,6 +326,45 @@ function loadGallery() {
       item.dataset.index = index;
     }
   });
+}
+
+/* ============================================================
+   07. TURUT MENGUNDANG
+   ============================================================ */
+
+function loadFamilyList() {
+  const familyConfig = WEDDING_CONFIG.familyList;
+  const familyContent = WEDDING_CONFIG.content.family || {};
+
+  if (!familyConfig) return;
+
+  // Set judul
+  setText("family-eyebrow", familyContent.eyebrow || "TURUT MENGUNDANG");
+  setText("family-heading", familyContent.heading || "Keluarga Besar");
+  setText("family-groom-title", familyContent.groomTitle || "Mempelai Pria");
+  setText("family-bride-title", familyContent.brideTitle || "Mempelai Wanita");
+
+  // Render list pria
+  const groomList = getElement("family-groom-list");
+  if (groomList && familyConfig.groomSide) {
+    groomList.innerHTML = "";
+    familyConfig.groomSide.forEach((name) => {
+      const li = document.createElement("li");
+      li.textContent = name;
+      groomList.appendChild(li);
+    });
+  }
+
+  // Render list wanita
+  const brideList = getElement("family-bride-list");
+  if (brideList && familyConfig.brideSide) {
+    brideList.innerHTML = "";
+    familyConfig.brideSide.forEach((name) => {
+      const li = document.createElement("li");
+      li.textContent = name;
+      brideList.appendChild(li);
+    });
+  }
 }
 
 /* ============================================================
@@ -808,21 +838,21 @@ function loadOpeningEnvelope() {
     element.textContent = WEDDING_CONFIG.wedding.openingDate;
   });
 
-  /* Cover photo — kalau ada, tambahkan class has-photo */
+  /* --- PERBAIKAN JALUR FOTO --- */
   const opening = document.querySelector(".opening-section");
   const coverPhoto = WEDDING_CONFIG.wedding.coverPhoto;
+
   if (opening && coverPhoto && coverPhoto.trim()) {
-    /* Preload dulu; baru pasang class kalau berhasil dimuat */
-    const test = new Image();
-    test.onload = () => {
-      opening.classList.add("has-photo");
-      opening.style.setProperty("--cover-url", `url("${coverPhoto}")`);
-    };
-    test.onerror = () => {
-      /* Foto cover gagal → biarkan warna solid */
-      opening.classList.remove("has-photo");
-    };
-    test.src = coverPhoto;
+    // 1. Pasang class has-photo
+    opening.classList.add("has-photo");
+
+    // 2. Paksa jalur menjadi absolut dari root (/) agar tidak bingung
+    // Jika coverPhoto bernilai "assets/images/hero.jpg", kita jadikan "/assets/images/hero.jpg"
+    const absolutePath = coverPhoto.startsWith("/")
+      ? coverPhoto
+      : `/${coverPhoto}`;
+
+    opening.style.setProperty("--cover-url", `url("${absolutePath}")`);
   }
 }
 
@@ -871,11 +901,18 @@ function initializeOpening() {
     const envelopeDuration = reduceMotion ? 0 : 1200;
 
     setTimeout(() => {
+      // 1. Jalankan animasi memudar
       opening.classList.add("is-hidden");
+
+      // 2. Buka kunci scroll agar halaman bisa digulir
       lockScroll(false);
+
+      // 3. Gulir ke paling atas
       window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 
+      // 4. Setelah animasi selesai (750ms), hilangkan elemen sepenuhnya dari halaman
       setTimeout(() => {
+        opening.style.display = "none";
         opening.setAttribute("aria-hidden", "true");
       }, 750);
     }, envelopeDuration);
@@ -1227,6 +1264,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  // 1. Jalankan semua inisialisasi awal
   renderContent();
   prepareReveal();
   initializeMusic();
@@ -1234,11 +1272,12 @@ document.addEventListener("DOMContentLoaded", () => {
   loadOpeningEnvelope();
   loadPageText();
 
+  // 2. Jalankan loader konten dinamis
   loadCoupleInformation();
   loadWeddingDate();
   loadWeddingEvents();
-  loadStory();
   loadGallery();
+  loadFamilyList();
   loadLocation();
   loadBankAccounts();
   initializeCopyAccount();
@@ -1246,5 +1285,21 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeLightbox();
   initializeParallax();
 
+  // 3. Jalankan Countdown
   startCountdown();
-});
+
+  // 4. Smooth scroll untuk tombol internal (Lihat Detail, Footer, dll)
+  document.body.addEventListener("click", (e) => {
+    const link = e.target.closest('a[href^="#"]');
+    if (!link) return; // Jika yang diklik bukan link anchor, abaikan
+
+    const targetId = link.getAttribute("href");
+    if (targetId === "#") return;
+
+    const targetEl = document.querySelector(targetId);
+    if (targetEl) {
+      e.preventDefault();
+      targetEl.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+}); // <--- INI PENUTUP DARI document.addEventListener
