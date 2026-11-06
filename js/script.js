@@ -25,15 +25,8 @@ function setAttribute(id, attribute, value) {
   if (element) element.setAttribute(attribute, value);
 }
 
-/**
- * Isi src gambar dengan aman.
- * - Kalau src kosong → sembunyikan + tambah class .is-empty
- * - Kalau file tidak ada → onerror otomatis sembunyikan
- */
 function setImageSrc(img, src, alt) {
   if (!img) return;
-
-  /* Bersihkan handler onerror sebelumnya */
   img.onerror = null;
 
   if (!src || typeof src !== "string" || !src.trim()) {
@@ -48,12 +41,32 @@ function setImageSrc(img, src, alt) {
   img.src = src;
   if (alt) img.alt = alt;
 
-  /* Fallback kalau file-nya tidak ditemukan */
   img.onerror = () => {
     img.style.display = "none";
     img.alt = "";
     if (img.parentElement) img.parentElement.classList.add("is-empty");
   };
+}
+
+function formatWeddingDate(style) {
+  const date = new Date(WEDDING_CONFIG.wedding.date);
+  if (Number.isNaN(date.getTime())) return "";
+  const opts = {
+    long: { weekday: "long", day: "numeric", month: "long", year: "numeric" },
+    short: { day: "numeric", month: "long", year: "numeric" },
+    upper: { day: "2-digit", month: "long", year: "numeric" },
+  };
+  const fmt = new Intl.DateTimeFormat("id-ID", opts[style] || opts.long).format(
+    date,
+  );
+  return style === "upper" ? fmt.toUpperCase() : fmt;
+}
+
+function isIosSafari() {
+  return (
+    /iP(hone|ad|od)/i.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
+  );
 }
 
 /* ============================================================
@@ -72,7 +85,7 @@ function renderContent() {
     "opening-eyebrow",
     WEDDING_CONFIG.wedding.eyebrow || "The Wedding Of",
   );
-  setText("opening-meta-date", WEDDING_CONFIG.wedding.metaDate || "");
+  setText("opening-meta-date", formatWeddingDate("upper"));
 
   /* INTRO */
   const intro = c.intro || {};
@@ -89,7 +102,7 @@ function renderContent() {
   /* COUNTDOWN */
   const cd = c.countdown || {};
   setText("countdown-eyebrow", cd.eyebrow || "");
-  setText("countdown-heading", WEDDING_CONFIG.wedding.displayDate || "");
+  setText("countdown-heading", formatWeddingDate("long"));
   setText("countdown-note", cd.note || "");
 
   const units = cd.units || {};
@@ -198,18 +211,23 @@ function loadCoupleInformation() {
   const groom = WEDDING_CONFIG.groom;
   const bride = WEDDING_CONFIG.bride;
 
+  function formatParents(person) {
+    const fmt = person.parentsFormat || "Ama {father} & Ina {mother}";
+    return fmt
+      .replace("{father}", person.father)
+      .replace("{mother}", person.mother);
+  }
+
   setText("groom-name", groom.nickname);
   const groomCard = document.querySelector(".person-card--groom");
   if (groomCard) {
     const fullName = groomCard.querySelector(".person-full-name");
     if (fullName) fullName.textContent = groom.fullName;
-
     const parents = groomCard.querySelector(".parents");
     if (parents) {
       const prefix = groom.parentsPrefix || "Putra dari";
-      parents.innerHTML = `${prefix} Bapak ${groom.father}<br>&amp; Ibu ${groom.mother}`;
+      parents.innerHTML = `${prefix} ${formatParents(groom)}`;
     }
-
     const photo = groomCard.querySelector(".person-photo img");
     setImageSrc(photo, groom.photo, `Foto ${groom.fullName}`);
   }
@@ -219,13 +237,11 @@ function loadCoupleInformation() {
   if (brideCard) {
     const fullName = brideCard.querySelector(".person-full-name");
     if (fullName) fullName.textContent = bride.fullName;
-
     const parents = brideCard.querySelector(".parents");
     if (parents) {
       const prefix = bride.parentsPrefix || "Putri dari";
-      parents.innerHTML = `${prefix} Bapak ${bride.father}<br>&amp; Ibu ${bride.mother}`;
+      parents.innerHTML = `${prefix} ${formatParents(bride)}`;
     }
-
     const photo = brideCard.querySelector(".person-photo img");
     setImageSrc(photo, bride.photo, `Foto ${bride.fullName}`);
   }
@@ -246,9 +262,7 @@ function loadCoupleInformation() {
 
 function loadWeddingDate() {
   const openingDate = document.querySelector(".wedding-date");
-  if (openingDate) {
-    openingDate.textContent = WEDDING_CONFIG.wedding.openingDate;
-  }
+  if (openingDate) openingDate.textContent = formatWeddingDate("upper");
 }
 
 /* ============================================================
@@ -256,75 +270,97 @@ function loadWeddingDate() {
    ============================================================ */
 
 function loadWeddingEvents() {
-  const eventCards = document.querySelectorAll(".event-card");
-  const events = WEDDING_CONFIG.events;
+  const grid = getElement("events-grid");
+  if (!grid) return;
+  const events = Array.isArray(WEDDING_CONFIG.events)
+    ? WEDDING_CONFIG.events
+    : [];
+  grid.innerHTML = "";
 
-  eventCards.forEach((card, index) => {
-    const event = events[index];
-    if (!event) return;
+  events.forEach((event, index) => {
+    const card = document.createElement("article");
+    card.className = "event-card reveal";
+    card.style.setProperty("--delay", String(3 + index));
 
-    const title = card.querySelector("h3");
-    if (title) title.textContent = event.title;
+    const icon = document.createElement("div");
+    icon.className = "event-icon";
+    icon.setAttribute("aria-hidden", "true");
+    icon.textContent = String(index + 1).padStart(2, "0");
 
-    const date = card.querySelector(".event-date");
-    if (date) date.textContent = event.date;
+    const title = document.createElement("h3");
+    title.textContent = event.title || "";
 
-    const time = card.querySelector(".event-time");
-    if (time) time.textContent = event.time;
+    const date = document.createElement("p");
+    date.className = "event-date";
+    date.textContent = event.date || "";
 
-    const venue = card.querySelector(".event-venue");
-    if (venue) venue.textContent = event.venue;
+    const time = document.createElement("p");
+    time.className = "event-time";
+    time.textContent = event.time || "";
 
-    const address = card.querySelector(".event-address");
-    if (address) {
-      const parts = event.address.split(",");
-      address.innerHTML = parts.join("<br>");
+    const venue = document.createElement("p");
+    venue.className = "event-venue";
+    venue.textContent = event.venue || "";
+
+    const address = document.createElement("p");
+    address.className = "event-address";
+    if (event.address) {
+      const parts = event.address
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+      const lines =
+        parts.length > 3
+          ? [parts[0], parts[1], parts.slice(2).join(", ")]
+          : parts;
+      address.innerHTML = lines.join("<br>");
     }
 
-    // --- LOGIKA TOMBOL BARU ---
-    const btn = card.querySelector(".event-map-link");
-    if (btn) {
-      btn.textContent = event.buttonText || "Lihat Lokasi";
-
-      // Jika ada mapsUrl, buka tab baru (Google Maps)
-      if (event.mapsUrl) {
-        btn.href = event.mapsUrl;
-        btn.target = "_blank";
-        btn.removeAttribute("data-scroll");
-      }
-      // Jika ada scrollTarget, gulir ke section (bukan tab baru)
-      else if (event.scrollTarget) {
-        btn.href = event.scrollTarget;
-        btn.removeAttribute("target"); // Hapus target _blank agar tidak buka tab baru
-        btn.setAttribute("data-scroll", "true");
-      }
+    const btn = document.createElement("a");
+    btn.className = "btn btn-secondary event-map-link";
+    btn.textContent = event.buttonText || "Lihat Lokasi";
+    if (event.mapsUrl) {
+      btn.href = event.mapsUrl;
+      btn.target = "_blank";
+      btn.rel = "noopener noreferrer";
+    } else if (event.scrollTarget) {
+      btn.href = event.scrollTarget;
+    } else {
+      btn.href = "#location";
     }
+
+    card.append(icon, title, date, time, venue, address, btn);
+    grid.append(card);
   });
 }
 
 /* ============================================================
-   06. GALLERY + LAZY LOADING + MASONRY
+   06. GALLERY
    ============================================================ */
 
 function loadGallery() {
-  const galleryItems = document.querySelectorAll(".gallery-item");
-  const gallery = WEDDING_CONFIG.gallery;
+  const grid = getElement("gallery-grid");
+  if (!grid) return;
+  const gallery = Array.isArray(WEDDING_CONFIG.gallery)
+    ? WEDDING_CONFIG.gallery
+    : [];
+  grid.innerHTML = "";
 
-  galleryItems.forEach((item, index) => {
-    const photo = gallery[index];
-    if (!photo) return;
+  gallery.forEach((photo, index) => {
+    const item = document.createElement("button");
+    item.type = "button";
+    item.className = "gallery-item reveal";
+    item.style.setProperty("--delay", String(index % 3));
+    item.dataset.index = String(index);
 
-    const image = item.querySelector("img");
-    if (image) {
-      /* Lazy loading */
-      image.loading = "lazy";
-      image.decoding = "async";
+    const img = document.createElement("img");
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.alt = photo.alt || "";
+    setImageSrc(img, photo.src, photo.alt);
 
-      setImageSrc(image, photo.src, photo.alt);
-
-      /* Simpan index untuk lightbox */
-      item.dataset.index = index;
-    }
+    item.append(img);
+    grid.append(item);
   });
 }
 
@@ -338,13 +374,11 @@ function loadFamilyList() {
 
   if (!familyConfig) return;
 
-  // Set judul
   setText("family-eyebrow", familyContent.eyebrow || "TURUT MENGUNDANG");
   setText("family-heading", familyContent.heading || "Keluarga Besar");
   setText("family-groom-title", familyContent.groomTitle || "Mempelai Pria");
   setText("family-bride-title", familyContent.brideTitle || "Mempelai Wanita");
 
-  // Render list pria
   const groomList = getElement("family-groom-list");
   if (groomList && familyConfig.groomSide) {
     groomList.innerHTML = "";
@@ -355,7 +389,6 @@ function loadFamilyList() {
     });
   }
 
-  // Render list wanita
   const brideList = getElement("family-bride-list");
   if (brideList && familyConfig.brideSide) {
     brideList.innerHTML = "";
@@ -368,7 +401,7 @@ function loadFamilyList() {
 }
 
 /* ============================================================
-   08. LOCATION + ROUTE
+   08. LOCATION
    ============================================================ */
 
 function loadLocation() {
@@ -376,20 +409,24 @@ function loadLocation() {
 
   const venue = document.querySelector(".location-info h3");
   if (venue) venue.textContent = location.venue;
-
   const date = document.querySelector(".location-date");
   if (date) date.textContent = location.date;
-
   const address = document.querySelector(".location-address");
   if (address) {
-    const parts = location.address.split(",");
-    address.innerHTML = parts.join("<br>");
+    const parts = location.address
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+    const lines =
+      parts.length > 3
+        ? [parts[0], parts[1], parts.slice(2).join(", ")]
+        : parts;
+    address.innerHTML = lines.join("<br>");
   }
 
   const mapsLink = getElement("maps-link");
   if (mapsLink) mapsLink.href = location.mapsUrl;
 
-  /* Tombol Petunjuk Arah */
   const routeButton = getElement("route-link");
   if (routeButton && location.coordinates) {
     routeButton.href = `https://www.google.com/maps/dir/?api=1&destination=${location.coordinates}`;
@@ -398,7 +435,6 @@ function loadLocation() {
     routeButton.hidden = true;
   }
 
-  /* iframe Google Maps */
   const iframe = getElement("maps-iframe");
   const placeholder = getElement("maps-placeholder");
 
@@ -417,26 +453,59 @@ function loadLocation() {
    ============================================================ */
 
 function loadBankAccounts() {
-  const cards = document.querySelectorAll(".bank-card");
-  const accounts = WEDDING_CONFIG.bankAccounts;
+  const grid = getElement("bank-grid");
+  if (!grid) return;
+  const accounts = Array.isArray(WEDDING_CONFIG.bankAccounts)
+    ? WEDDING_CONFIG.bankAccounts
+    : [];
+  const giftContent = WEDDING_CONFIG.content.gift || {};
+  const ownerLabel = giftContent.ownerLabel || "Atas nama";
+  const copyText = giftContent.copyButtonText || "SALIN NOMOR";
+  grid.innerHTML = "";
 
-  cards.forEach((card, index) => {
-    const account = accounts[index];
-    if (!account) return;
+  accounts.forEach((account, index) => {
+    const card = document.createElement("article");
+    card.className = "bank-card reveal";
+    card.style.setProperty("--delay", String(3 + index));
 
-    const bankName = card.querySelector(".bank-name");
-    if (bankName) bankName.textContent = account.bank;
+    const top = document.createElement("div");
+    top.className = "bank-card-top";
+    const chip = document.createElement("span");
+    chip.className = "bank-chip";
+    chip.setAttribute("aria-hidden", "true");
+    const bankName = document.createElement("div");
+    bankName.className = "bank-name";
+    bankName.textContent = account.bank || "";
+    top.append(chip, bankName);
 
-    const owner = card.querySelector(".account-owner");
-    if (owner) owner.textContent = account.owner;
+    const number = document.createElement("p");
+    number.className = "account-number";
+    number.textContent = String(account.number || "")
+      .replace(/(.{4})/g, "$1 ")
+      .trim();
 
-    const formattedNumber = account.number.replace(/(.{4})/g, "$1 ").trim();
+    const foot = document.createElement("div");
+    foot.className = "bank-card-foot";
 
-    const number = card.querySelector(".account-number");
-    if (number) number.textContent = formattedNumber;
+    const owner = document.createElement("div");
+    owner.className = "bank-owner";
+    const ownerLabelEl = document.createElement("span");
+    ownerLabelEl.className = "bank-owner-label";
+    ownerLabelEl.textContent = ownerLabel;
+    const ownerName = document.createElement("p");
+    ownerName.className = "account-owner";
+    ownerName.textContent = account.owner || "";
+    owner.append(ownerLabelEl, ownerName);
 
-    const copyButton = card.querySelector(".copy-account");
-    if (copyButton) copyButton.dataset.account = account.number;
+    const copyBtn = document.createElement("button");
+    copyBtn.type = "button";
+    copyBtn.className = "copy-account";
+    copyBtn.textContent = copyText;
+    copyBtn.dataset.account = String(account.number || "");
+
+    foot.append(owner, copyBtn);
+    card.append(top, number, foot);
+    grid.append(card);
   });
 }
 
@@ -456,7 +525,6 @@ function initializeCopyAccount() {
         await navigator.clipboard.writeText(account);
         button.textContent = "TERSALIN ✓";
         button.disabled = true;
-
         setTimeout(() => {
           button.textContent = originalText;
           button.disabled = false;
@@ -473,7 +541,7 @@ function initializeCopyAccount() {
 }
 
 /* ============================================================
-   11. LIGHTBOX + PREV/NEXT + KEYBOARD + SWIPE
+   11. LIGHTBOX
    ============================================================ */
 
 function initializeLightbox() {
@@ -504,10 +572,7 @@ function initializeLightbox() {
     const photo = images[currentIndex];
     lightboxImage.src = photo.src;
     lightboxImage.alt = photo.alt || "";
-
-    if (counter) {
-      counter.textContent = `${currentIndex + 1} / ${images.length}`;
-    }
+    if (counter) counter.textContent = `${currentIndex + 1} / ${images.length}`;
   }
 
   function openLightbox(index) {
@@ -533,22 +598,19 @@ function initializeLightbox() {
       }
     }, 300);
 
-    if (lastFocused && typeof lastFocused.focus === "function") {
+    if (lastFocused && typeof lastFocused.focus === "function")
       lastFocused.focus();
-    }
   }
 
   function prevImage() {
     showImage(currentIndex - 1);
   }
-
   function nextImage() {
     showImage(currentIndex + 1);
   }
 
   galleryItems.forEach((item, index) => {
     item.addEventListener("click", () => {
-      /* Kalau src foto kosong, jangan buka */
       const img = item.querySelector("img");
       if (!img || !img.src) return;
       const validIndex = images.findIndex((p) => p.src === img.src);
@@ -557,7 +619,6 @@ function initializeLightbox() {
   });
 
   closeButton.addEventListener("click", closeLightbox);
-
   if (prevButton) prevButton.addEventListener("click", prevImage);
   if (nextButton) nextButton.addEventListener("click", nextImage);
 
@@ -565,16 +626,13 @@ function initializeLightbox() {
     if (event.target === lightbox) closeLightbox();
   });
 
-  /* Keyboard navigation */
   document.addEventListener("keydown", (event) => {
     if (!lightbox.classList.contains("is-active")) return;
-
     if (event.key === "Escape") closeLightbox();
     if (event.key === "ArrowLeft") prevImage();
     if (event.key === "ArrowRight") nextImage();
   });
 
-  /* Swipe gesture (HP) */
   let touchStartX = 0;
   let touchEndX = 0;
 
@@ -585,27 +643,22 @@ function initializeLightbox() {
     },
     { passive: true },
   );
-
   lightbox.addEventListener(
     "touchend",
     (e) => {
       touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
+      const diff = touchEndX - touchStartX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) prevImage();
+        else nextImage();
+      }
     },
     { passive: true },
   );
-
-  function handleSwipe() {
-    const diff = touchEndX - touchStartX;
-    const threshold = 50;
-    if (Math.abs(diff) < threshold) return;
-    if (diff > 0) prevImage();
-    else nextImage();
-  }
 }
 
 /* ============================================================
-   12. COUNTDOWN + HARI-H + CONFETTI
+   12. COUNTDOWN
    ============================================================ */
 
 function setCountdownRing(unit, fraction) {
@@ -627,17 +680,12 @@ function setCountdownRing(unit, fraction) {
   item.style.setProperty("--progress", value);
 }
 
-/**
- * Tampilkan confetti di section countdown.
- */
 function fireConfetti() {
   const container = document.querySelector(".countdown-section");
   if (!container) return;
 
   const colors = ["#a58b70", "#806a53", "#f8f5f0", "#ded5ca", "#7d3d33"];
-  const count = 60;
-
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < 60; i++) {
     const confetti = document.createElement("span");
     confetti.className = "confetti";
     confetti.style.left = Math.random() * 100 + "%";
@@ -646,14 +694,16 @@ function fireConfetti() {
     confetti.style.animationDelay = Math.random() * 2 + "s";
     confetti.style.animationDuration = 3 + Math.random() * 2 + "s";
     container.appendChild(confetti);
-
     setTimeout(() => confetti.remove(), 6000);
   }
 }
 
 function startCountdown() {
-  const targetDate = new Date(WEDDING_CONFIG.wedding.date).getTime();
-  if (Number.isNaN(targetDate)) return;
+  const eventTime = new Date(WEDDING_CONFIG.wedding.date).getTime();
+  const startOfDay = new Date(
+    WEDDING_CONFIG.wedding.dateStartOfDay || WEDDING_CONFIG.wedding.date,
+  ).getTime();
+  if (Number.isNaN(eventTime) || Number.isNaN(startOfDay)) return;
 
   const cd = WEDDING_CONFIG.content.countdown || {};
   const countdownWrapper = document.querySelector(".countdown");
@@ -663,51 +713,42 @@ function startCountdown() {
 
   function updateCountdown() {
     const now = Date.now();
-    const difference = targetDate - now;
 
-    /* Sudah lewat atau pas hari-H */
-    if (difference <= 0) {
-      /* Sembunyikan angka countdown, tampilkan teks khusus */
-      if (countdownWrapper) countdownWrapper.hidden = true;
+    if (now < startOfDay) {
+      const difference = eventTime - now;
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((difference / (1000 * 60)) % 60);
+      const seconds = Math.floor((difference / 1000) % 60);
 
-      /* Hitung selisih hari dari tanggal target */
-      const daysSince = Math.floor(-difference / (1000 * 60 * 60 * 24));
+      setText("countdown-days", String(days).padStart(2, "0"));
+      setText("countdown-hours", String(hours).padStart(2, "0"));
+      setText("countdown-minutes", String(minutes).padStart(2, "0"));
+      setText("countdown-seconds", String(seconds).padStart(2, "0"));
 
-      if (daysSince === 0) {
-        /* Hari-H! */
-        if (headingEl)
-          headingEl.textContent =
-            cd.arrivalTitle || "Hari Ini Hari Bahagia Kami!";
-        if (noteEl) noteEl.textContent = cd.arrivalText || "";
-
-        /* Confetti sekali saja */
-        if (!confettiFired) {
-          confettiFired = true;
-          fireConfetti();
-        }
-      } else {
-        /* Setelah hari-H */
-        if (headingEl) headingEl.textContent = cd.afterTitle || "Terima Kasih";
-        if (noteEl) noteEl.textContent = cd.afterText || "";
-      }
+      setCountdownRing("days", difference / (1000 * 60 * 60 * 24) / 365);
+      setCountdownRing("hours", (hours + minutes / 60) / 24);
+      setCountdownRing("minutes", (minutes + seconds / 60) / 60);
+      setCountdownRing("seconds", seconds / 60);
       return;
     }
 
-    /* Masih menghitung */
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((difference / (1000 * 60)) % 60);
-    const seconds = Math.floor((difference / 1000) % 60);
+    if (countdownWrapper) countdownWrapper.hidden = true;
+    const daysSince = Math.floor((now - startOfDay) / (1000 * 60 * 60 * 24));
 
-    setText("countdown-days", String(days).padStart(2, "0"));
-    setText("countdown-hours", String(hours).padStart(2, "0"));
-    setText("countdown-minutes", String(minutes).padStart(2, "0"));
-    setText("countdown-seconds", String(seconds).padStart(2, "0"));
-
-    setCountdownRing("days", difference / (1000 * 60 * 60 * 24) / 365);
-    setCountdownRing("hours", (hours + minutes / 60) / 24);
-    setCountdownRing("minutes", (minutes + seconds / 60) / 60);
-    setCountdownRing("seconds", seconds / 60);
+    if (daysSince === 0) {
+      if (headingEl)
+        headingEl.textContent =
+          cd.arrivalTitle || "Hari Ini Hari Bahagia Kami!";
+      if (noteEl) noteEl.textContent = cd.arrivalText || "";
+      if (!confettiFired) {
+        confettiFired = true;
+        fireConfetti();
+      }
+    } else {
+      if (headingEl) headingEl.textContent = cd.afterTitle || "Terima Kasih";
+      if (noteEl) noteEl.textContent = cd.afterText || "";
+    }
   }
 
   updateCountdown();
@@ -715,7 +756,7 @@ function startCountdown() {
 }
 
 /* ============================================================
-   13. SCROLL REVEAL + PARALLAX
+   13. SCROLL REVEAL
    ============================================================ */
 
 let revealStarted = false;
@@ -748,57 +789,15 @@ function startReveal() {
   );
 
   items.forEach((item) => observer.observe(item));
-}
 
-/**
- * Parallax halus untuk foto mempelai & foto cover.
- * Menggunakan requestAnimationFrame agar tidak lag.
- */
-function initializeParallax() {
-  const reduceMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
-  if (reduceMotion) return;
-
-  const targets = document.querySelectorAll(
-    ".person-photo img, .opening-section.has-photo",
-  );
-  if (targets.length === 0) return;
-
-  let ticking = false;
-
-  function update() {
-    const viewportH = window.innerHeight;
-
-    targets.forEach((el) => {
-      const rect = el.getBoundingClientRect();
-      /* Hanya proses elemen yang terlihat */
-      if (rect.bottom < 0 || rect.top > viewportH) return;
-
-      /* Hitung seberapa jauh elemen di viewport (-1 sampai 1) */
-      const progress = (rect.top + rect.height / 2 - viewportH / 2) / viewportH;
-
-      /* Geser sedikit (maks 20px) */
-      const offset = progress * 20;
-
-      /* Skip elemen opening (sudah pakai transform scale) */
-      if (!el.classList.contains("opening-section")) {
-        el.style.transform = `translateY(${offset}px) scale(1.05)`;
-      }
-    });
-
-    ticking = false;
-  }
-
-  function onScroll() {
-    if (!ticking) {
-      window.requestAnimationFrame(update);
-      ticking = true;
-    }
-  }
-
-  window.addEventListener("scroll", onScroll, { passive: true });
-  update();
+  // ── SAFETY NET ──
+  // Paksa elemen di #intro langsung visible agar tidak ada
+  // section kosong selama observer callback async
+  setTimeout(() => {
+    document
+      .querySelectorAll("#intro .reveal:not(.is-visible)")
+      .forEach((el) => el.classList.add("is-visible"));
+  }, 100);
 }
 
 /* ============================================================
@@ -808,11 +807,10 @@ function initializeParallax() {
 function lockScroll(isLocked) {
   document.documentElement.classList.toggle("invitation-locked", isLocked);
   document.body.classList.toggle("invitation-locked", isLocked);
-  if (!isLocked) startReveal();
 }
 
 /* ============================================================
-   15. OPENING + COVER BACKGROUND
+   15. OPENING
    ============================================================ */
 
 function loadOpeningEnvelope() {
@@ -838,21 +836,25 @@ function loadOpeningEnvelope() {
     element.textContent = WEDDING_CONFIG.wedding.openingDate;
   });
 
-  /* --- PERBAIKAN JALUR FOTO --- */
+  /* --- LOGIKA PEMANGGILAN FOTO HERO (fix GitHub Pages subfolder) --- */
   const opening = document.querySelector(".opening-section");
   const coverPhoto = WEDDING_CONFIG.wedding.coverPhoto;
 
-  if (opening && coverPhoto && coverPhoto.trim()) {
-    // 1. Pasang class has-photo
-    opening.classList.add("has-photo");
+  if (opening && coverPhoto) {
+    // Resolve ke URL absolut terhadap baseURI dokumen.
+    // Ini mengatasi kasus GitHub Pages subfolder (/wedding-invitation/)
+    // yang sebelumnya membuat path relatif hero.jpg gagal dimuat.
+    const absoluteUrl = new URL(coverPhoto, document.baseURI).href;
 
-    // 2. Paksa jalur menjadi absolut dari root (/) agar tidak bingung
-    // Jika coverPhoto bernilai "assets/images/hero.jpg", kita jadikan "/assets/images/hero.jpg"
-    const absolutePath = coverPhoto.startsWith("/")
-      ? coverPhoto
-      : `/${coverPhoto}`;
-
-    opening.style.setProperty("--cover-url", `url("${absolutePath}")`);
+    const testImg = new Image();
+    testImg.onload = () => {
+      opening.classList.add("has-photo");
+      opening.style.setProperty("--cover-url", `url("${absoluteUrl}")`);
+    };
+    testImg.onerror = () => {
+      console.warn("Hero image gagal dimuat:", absoluteUrl);
+    };
+    testImg.src = absoluteUrl; // ← pakai URL absolut, bukan path relatif
   }
 }
 
@@ -901,20 +903,19 @@ function initializeOpening() {
     const envelopeDuration = reduceMotion ? 0 : 1200;
 
     setTimeout(() => {
-      // 1. Jalankan animasi memudar
+      // 1. Hapus opening dari layout
       opening.classList.add("is-hidden");
+      opening.setAttribute("aria-hidden", "true");
 
-      // 2. Buka kunci scroll agar halaman bisa digulir
-      lockScroll(false);
-
-      // 3. Gulir ke paling atas
+      // 2. Reset scroll ke atas SEBELUM observer aktif
       window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 
-      // 4. Setelah animasi selesai (750ms), hilangkan elemen sepenuhnya dari halaman
-      setTimeout(() => {
-        opening.style.display = "none";
-        opening.setAttribute("aria-hidden", "true");
-      }, 750);
+      // 3. Buka scroll lock
+      lockScroll(false);
+
+      // 4. Force reflow + trigger observer di frame berikutnya
+      void document.body.offsetHeight;
+      requestAnimationFrame(startReveal);
     }, envelopeDuration);
   }
 
@@ -923,7 +924,7 @@ function initializeOpening() {
 }
 
 /* ============================================================
-   16. MUSIC + FADE IN/OUT
+   16. MUSIC
    ============================================================ */
 
 let weddingMusic = null;
@@ -940,26 +941,22 @@ function initializeMusic() {
   if (musicFile) weddingMusic.src = musicFile;
 
   weddingMusic.loop = true;
-
   musicToggle.addEventListener("click", toggleWeddingMusic);
-
   weddingMusic.addEventListener("play", () => updateMusicButton(true));
   weddingMusic.addEventListener("pause", () => updateMusicButton(false));
-
   updateMusicButton(false);
 }
 
-/**
- * Fade in audio pelan-pelan sampai target volume.
- */
 function fadeIn(audio, duration = 2000) {
   clearInterval(fadeTimer);
+  if (isIosSafari()) {
+    audio.volume = 1;
+    return;
+  }
   audio.volume = 0;
-
   const steps = 40;
   const stepTime = duration / steps;
   const stepVol = 1 / steps;
-
   fadeTimer = setInterval(() => {
     if (audio.volume + stepVol >= 1) {
       audio.volume = 1;
@@ -970,17 +967,17 @@ function fadeIn(audio, duration = 2000) {
   }, stepTime);
 }
 
-/**
- * Fade out audio pelan-pelan, lalu pause.
- */
 function fadeOut(audio, duration = 1500, onDone) {
   clearInterval(fadeTimer);
-
+  if (isIosSafari()) {
+    audio.pause();
+    if (typeof onDone === "function") onDone();
+    return;
+  }
   const startVol = audio.volume || 1;
   const steps = 30;
   const stepTime = duration / steps;
   const stepVol = startVol / steps;
-
   fadeTimer = setInterval(() => {
     if (audio.volume - stepVol <= 0) {
       audio.volume = 0;
@@ -1034,32 +1031,6 @@ function updateMusicButton(isPlaying) {
 /* ============================================================
    17. RSVP
    ============================================================ */
-
-const DEFAULT_RSVP_TEMPLATES = {
-  hadir: `Halo {mempelai} 👋
-
-Saya *{nama}* dengan senang hati mengonfirmasi kehadiran di pernikahan kalian 🤍
-
-📌 Kehadiran: *Hadir*
-👥 Jumlah tamu: *{jumlah} orang*
-[[🗓 Acara: {acara}]]
-
-[[💌 Ucapan & doa:
-{ucapan}]]
-
-Sampai jumpa di hari bahagia kalian! ✨`,
-
-  tidak: `Halo {mempelai} 👋
-
-Saya *{nama}* mohon maaf belum bisa hadir di pernikahan kalian 🙏
-
-📌 Kehadiran: *Tidak hadir*
-
-[[💌 Ucapan & doa:
-{ucapan}]]
-
-Semoga acaranya berjalan lancar dan penuh kebahagiaan 🤍`,
-};
 
 function buildRsvpMessage(template, values) {
   const withBlocks = template.replace(/\[\[([\s\S]*?)\]\]/g, (match, block) => {
@@ -1118,24 +1089,20 @@ function initializeRsvp() {
     events.forEach((item) => {
       const label = document.createElement("label");
       label.className = "rsvp-choice rsvp-choice--event";
-
       const input = document.createElement("input");
       input.type = "checkbox";
       input.name = "events";
       input.value = item.title;
       input.checked = true;
-
       const box = document.createElement("span");
       const title = document.createElement("strong");
       title.textContent = item.title;
       box.append(title);
-
       if (item.time) {
         const time = document.createElement("small");
         time.textContent = item.time;
         box.append(time);
       }
-
       label.append(input, box);
       eventsBox.append(label);
     });
@@ -1158,17 +1125,14 @@ function initializeRsvp() {
       chip.className = "rsvp-chip";
       chip.textContent = wish;
       chip.setAttribute("aria-pressed", "false");
-
       chip.addEventListener("click", () => {
         messageInput.value = wish;
         clearActiveWish();
         chip.classList.add("is-active");
         chip.setAttribute("aria-pressed", "true");
       });
-
       wishesBox.append(chip);
     });
-
     wishesBox.hidden = false;
     messageInput.addEventListener("input", clearActiveWish);
   }
@@ -1183,7 +1147,6 @@ function initializeRsvp() {
   form.querySelectorAll('input[name="attendance"]').forEach((input) => {
     input.addEventListener("change", updateAttendFields);
   });
-
   updateAttendFields();
 
   function showStatus(text, isError) {
@@ -1194,7 +1157,6 @@ function initializeRsvp() {
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
-
     const phone = String(config.phone || "").replace(/\D/g, "");
     if (phone.length < 8) {
       showStatus("Nomor WhatsApp belum diatur di config.js.", true);
@@ -1203,7 +1165,6 @@ function initializeRsvp() {
 
     const data = new FormData(form);
     const isAttending = data.get("attendance") === "hadir";
-
     const chosenEvents =
       isAttending && hasEvents ? data.getAll("events").map(String) : [];
 
@@ -1233,7 +1194,11 @@ function initializeRsvp() {
 
     const templates = config.templates || {};
     const key = isAttending ? "hadir" : "tidak";
-    const template = templates[key] || DEFAULT_RSVP_TEMPLATES[key];
+    const template = templates[key] || "";
+    if (!template) {
+      showStatus("Template RSVP tidak ditemukan di config.js.", true);
+      return;
+    }
 
     const message = buildRsvpMessage(template, values);
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
@@ -1264,15 +1229,13 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // 1. Jalankan semua inisialisasi awal
   renderContent();
   prepareReveal();
   initializeMusic();
-  initializeOpening();
   loadOpeningEnvelope();
+  initializeOpening();
   loadPageText();
 
-  // 2. Jalankan loader konten dinamis
   loadCoupleInformation();
   loadWeddingDate();
   loadWeddingEvents();
@@ -1283,23 +1246,18 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeCopyAccount();
   initializeRsvp();
   initializeLightbox();
-  initializeParallax();
 
-  // 3. Jalankan Countdown
   startCountdown();
 
-  // 4. Smooth scroll untuk tombol internal (Lihat Detail, Footer, dll)
   document.body.addEventListener("click", (e) => {
     const link = e.target.closest('a[href^="#"]');
-    if (!link) return; // Jika yang diklik bukan link anchor, abaikan
-
+    if (!link) return;
     const targetId = link.getAttribute("href");
     if (targetId === "#") return;
-
     const targetEl = document.querySelector(targetId);
     if (targetEl) {
       e.preventDefault();
       targetEl.scrollIntoView({ behavior: "smooth" });
     }
   });
-}); // <--- INI PENUTUP DARI document.addEventListener
+});

@@ -1,61 +1,36 @@
 /* ============================================================
-   WEDDING INVITATION
-   Main stylesheet (FINAL VERSION)
-   ============================================================ */
-
-/* ============================================================
-   01. ROOT VARIABLES
+   WEDDING INVITATION - MAIN STYLESHEET
    ============================================================ */
 
 :root {
-  /* Colors */
   --color-bg: #f8f5f0;
   --color-bg-soft: #f2ece4;
   --color-bg-dark: #2f2a27;
-
   --color-text: #302c2a;
   --color-text-soft: #756c65;
   --color-text-light: #f8f5f0;
-
   --color-accent: #a58b70;
   --color-accent-dark: #806a53;
   --color-border: #ded5ca;
-
-  /* Typography */
   --font-heading: "Cormorant Garamond", Georgia, serif;
   --font-body: "Inter", Arial, sans-serif;
   --font-script: "Great Vibes", "Cormorant Garamond", cursive;
-
-  /* Layout */
   --container-width: 1100px;
   --section-padding: 110px;
-
-  /* Effects */
   --shadow-soft: 0 15px 40px rgba(48, 44, 42, 0.08);
   --shadow-image: 0 20px 50px rgba(48, 44, 42, 0.15);
-
-  --radius-small: 4px;
-  --radius-medium: 10px;
-  --radius-large: 20px;
-
   --transition: 300ms ease;
 }
-
-/* ============================================================
-   02. RESET
-   ============================================================ */
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
-
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 20px;
 }
-
 body {
   font-variant-numeric: lining-nums;
   margin: 0;
@@ -68,37 +43,28 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-
 body,
 button,
 a {
   -webkit-tap-highlight-color: transparent;
 }
-
 img {
   display: block;
   max-width: 100%;
 }
-
 button,
 input,
 textarea,
 select {
   font: inherit;
 }
-
 button {
   border: 0;
 }
-
 a {
   color: inherit;
   text-decoration: none;
 }
-
-/* ============================================================
-   03. TYPOGRAPHY
-   ============================================================ */
 
 h1,
 h2,
@@ -106,7 +72,6 @@ h3,
 p {
   margin-top: 0;
 }
-
 h1,
 h2,
 h3 {
@@ -114,25 +79,21 @@ h3 {
   font-weight: 500;
   line-height: 1.15;
 }
-
 h2 {
   margin-bottom: 24px;
   font-size: clamp(2.5rem, 5vw, 4.5rem);
   letter-spacing: -0.02em;
 }
-
 h3 {
   margin-bottom: 12px;
   font-size: clamp(1.8rem, 3vw, 2.5rem);
 }
-
 .section-text {
   max-width: 620px;
   margin-right: auto;
   margin-left: auto;
   color: var(--color-text-soft);
 }
-
 .eyebrow {
   margin-bottom: 20px;
   color: var(--color-accent);
@@ -143,37 +104,25 @@ h3 {
   text-transform: uppercase;
 }
 
-/* ============================================================
-   04. GLOBAL LAYOUT
-   ============================================================ */
-
 .section {
   position: relative;
   padding: var(--section-padding) 0;
 }
-
 .container {
   width: min(calc(100% - 48px), var(--container-width));
   margin-right: auto;
   margin-left: auto;
 }
-
 .section-heading {
   margin-bottom: 60px;
   text-align: center;
 }
-
 .section-heading .ornament {
   margin-bottom: 24px;
 }
-
 .section-heading .ornament:last-child {
   margin-bottom: 0;
 }
-
-/* ============================================================
-   05. BUTTONS
-   ============================================================ */
 
 .btn {
   display: inline-flex;
@@ -194,35 +143,27 @@ h3 {
     color var(--transition),
     border-color var(--transition);
 }
-
 .btn:hover {
   transform: translateY(-2px);
 }
-
 .btn-primary {
   background: var(--color-accent);
   color: #ffffff;
 }
-
 .btn-primary:hover {
   background: var(--color-accent-dark);
 }
-
 .btn-secondary {
   background: transparent;
   color: var(--color-text);
   border-color: var(--color-border);
 }
-
 .btn-secondary:hover {
   border-color: var(--color-accent);
   color: var(--color-accent-dark);
 }
 
-/* ============================================================
-   06. OPENING / COVER (DASAR)
-   ============================================================ */
-
+/* OPENING */
 .opening-section {
   --env-width: min(320px, 78vw);
   --env-back: #eee6d9;
@@ -231,7 +172,6 @@ h3 {
   --env-flap: #f3ece0;
   --env-paper: #fffdf9;
   --env-seal: #7d3d33;
-
   position: fixed;
   inset: 0;
   z-index: 300;
@@ -257,19 +197,13 @@ h3 {
     visibility 700ms ease,
     transform 700ms ease;
 }
-
 .opening-section.is-hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  display: none;
+  display: none !important;
 }
-
 html.invitation-locked,
 body.invitation-locked {
   overflow: hidden;
 }
-
 .opening-meta {
   position: absolute;
   top: calc(24px + env(safe-area-inset-top, 0px));
@@ -286,7 +220,6 @@ body.invitation-locked {
   box-shadow: 0 6px 24px rgba(48, 44, 42, 0.06);
   color: var(--color-text-soft);
 }
-
 .opening-monogram {
   padding-right: 12px;
   border-right: 1px solid var(--color-border);
@@ -297,7 +230,6 @@ body.invitation-locked {
   letter-spacing: 0.2em;
   line-height: 1;
 }
-
 .wedding-date {
   margin: 0;
   font-size: 0.62rem;
@@ -305,8 +237,8 @@ body.invitation-locked {
   letter-spacing: 0.24em;
   line-height: 1;
   text-transform: uppercase;
+  white-space: nowrap;
 }
-
 .opening-content {
   position: relative;
   z-index: 1;
@@ -317,7 +249,6 @@ body.invitation-locked {
   margin: auto;
   text-align: center;
 }
-
 .opening-section .eyebrow {
   margin-bottom: 28px;
   color: var(--color-text-soft);
@@ -325,8 +256,6 @@ body.invitation-locked {
   font-weight: 500;
   letter-spacing: 0.4em;
 }
-
-/* ---------- Amplop ---------- */
 
 .envelope {
   position: relative;
@@ -339,7 +268,6 @@ body.invitation-locked {
   box-shadow: var(--shadow-soft);
   cursor: pointer;
 }
-
 .envelope-letter {
   position: absolute;
   top: 8%;
@@ -355,7 +283,6 @@ body.invitation-locked {
   box-shadow: 0 1px 4px rgba(48, 44, 42, 0.1);
   transition: transform 800ms cubic-bezier(0.4, 0, 0.2, 1) 350ms;
 }
-
 .letter-names {
   color: var(--color-text);
   font-family: var(--font-heading);
@@ -363,7 +290,6 @@ body.invitation-locked {
   font-style: italic;
   white-space: nowrap;
 }
-
 .envelope-pocket {
   position: absolute;
   inset: 0;
@@ -373,7 +299,6 @@ body.invitation-locked {
   -webkit-clip-path: polygon(0 0, 50% 54%, 100% 0, 100% 100%, 0 100%);
   clip-path: polygon(0 0, 50% 54%, 100% 0, 100% 100%, 0 100%);
 }
-
 .envelope-flap {
   position: absolute;
   top: 0;
@@ -390,7 +315,6 @@ body.invitation-locked {
     transform 700ms cubic-bezier(0.4, 0, 0.2, 1),
     z-index 0s 350ms;
 }
-
 .envelope-seal {
   position: absolute;
   top: 54%;
@@ -415,21 +339,17 @@ body.invitation-locked {
     opacity 300ms ease,
     transform 400ms ease;
 }
-
 .opening-section.is-opening .envelope-flap {
   z-index: 0;
   transform: rotateX(180deg);
 }
-
 .opening-section.is-opening .envelope-letter {
   transform: translateY(-42%);
 }
-
 .opening-section.is-opening .envelope-seal {
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.6);
 }
-
 .opening-section .couple-name {
   margin: 0 0 22px;
   font-size: clamp(2rem, 9vw, 2.75rem);
@@ -437,7 +357,6 @@ body.invitation-locked {
   line-height: 1.1;
   letter-spacing: 0;
 }
-
 .ampersand {
   display: block;
   margin: 10px 0;
@@ -445,13 +364,11 @@ body.invitation-locked {
   font-size: 0.42em;
   font-style: italic;
 }
-
 .opening-section .ampersand {
   display: inline;
   margin: 0 0.1em;
   font-size: 0.8em;
 }
-
 .guest-label {
   margin: 0 0 6px;
   color: var(--color-text-soft);
@@ -459,7 +376,6 @@ body.invitation-locked {
   letter-spacing: 0.3em;
   text-transform: uppercase;
 }
-
 .guest-name {
   max-width: 100%;
   margin: 0;
@@ -468,7 +384,6 @@ body.invitation-locked {
   line-height: 1.25;
   overflow-wrap: anywhere;
 }
-
 .opening-line {
   display: block;
   width: 1px;
@@ -481,7 +396,6 @@ body.invitation-locked {
     transparent
   );
 }
-
 .opening-section .btn-open {
   padding: 12px 34px;
   border-color: var(--color-accent);
@@ -490,13 +404,11 @@ body.invitation-locked {
   font-size: 0.68rem;
   letter-spacing: 0.32em;
 }
-
 .opening-section .btn-open:hover {
   border-color: var(--color-accent);
   background: var(--color-accent);
   color: #ffffff;
 }
-
 .opening-section .btn-open:disabled {
   cursor: default;
   opacity: 0.6;
@@ -513,12 +425,10 @@ body.invitation-locked {
     transform: none;
   }
 }
-
 .opening-meta,
 .opening-content > * {
   animation: openingRise 900ms ease backwards;
 }
-
 .opening-content > :nth-child(1) {
   animation-delay: 100ms;
 }
@@ -541,155 +451,121 @@ body.invitation-locked {
   animation-delay: 700ms;
 }
 
-/* ============================================================
-   06B. OPENING / COVER DENGAN FOTO (PREMIUM SPLIT-SCREEN)
-   ============================================================ */
-
+/* ==========================================
+   OPENING WITH PHOTO (FIXED VERSION)
+   ========================================== */
 .opening-section.has-photo {
-  background: var(--color-bg) !important;
-  padding: 0 !important;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
+  background: var(--color-bg);
+  padding: 0;
+  position: fixed;
+  inset: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.opening-section.has-photo.is-hidden {
+  display: none !important;
 }
 
-.opening-section.has-photo .opening-content {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: var(--color-bg) !important;
-  height: 100vh;
-  width: 100%;
-  margin: 0 !important;
-  padding: 40px;
-}
-
-.opening-section.has-photo .opening-eyebrow,
-.opening-section.has-photo .guest-label,
-.opening-section.has-photo .couple-name,
-.opening-section.has-photo .guest-name {
-  color: var(--color-text) !important;
-  text-shadow: none !important;
-}
-
-.opening-section.has-photo .ampersand {
-  color: var(--color-accent) !important;
-}
-
-.opening-section.has-photo .btn-open {
-  border-color: var(--color-accent) !important;
-  color: var(--color-accent-dark) !important;
-  background: transparent !important;
-}
-
-.opening-section.has-photo .btn-open:hover {
-  background: var(--color-accent) !important;
-  color: #ffffff !important;
-}
-
-.opening-section.has-photo .opening-meta {
-  background: #ffffff !important;
-  border: 1px solid var(--color-border) !important;
-  color: var(--color-text) !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
-}
-
-/* --- DESKTOP (Layar Lebar > 768px) --- */
+/* Tampilan untuk Desktop / Laptop */
 @media (min-width: 769px) {
-  .opening-section.has-photo .opening-content {
-    width: 50vw !important;
-    margin-left: 50vw !important;
+  .opening-section.has-photo {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
   }
 
+  /* Panel Foto (Kiri) */
   .opening-section.has-photo::before {
     content: "";
-    position: absolute;
+    flex: 0 0 50%;
+    position: sticky;
     top: 0;
-    left: 0;
-    width: 50vw !important;
-    height: 100% !important;
-    background: var(--cover-url) center / cover no-repeat !important;
+    align-self: flex-start;
+    height: 100svh; /* Gunakan svh agar tidak lompat di Safari */
+    background: var(--cover-url) center 20% / cover no-repeat !important;
+    /* ↑ center 20%: Memastikan bagian wajah (atas) tetap masuk frame */
     z-index: 1;
     display: block !important;
   }
 
+  /* Pil monogram + tanggal */
   .opening-section.has-photo .opening-meta {
-    position: absolute;
-    top: 40px;
-    right: 25vw !important;
-    left: auto !important;
-    transform: translateX(50%) !important;
+    left: 50%;
+    z-index: 20;
+  }
+
+  /* Panel Teks (Kanan) */
+  .opening-section.has-photo .opening-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center !important; /* Paksa konten ke tengah secara vertikal */
+    align-items: center;
+    text-align: center;
+    background: var(--color-bg) !important;
+    height: 100svh !important; /* Samakan tinggi dengan foto */
+    width: 50vw !important;
+    margin: 0 !important;
+    padding: 76px 40px 40px;
+    overflow-y: auto; /* Jaga-jaga jika layar desktop sangat pendek */
   }
 }
 
-/* --- MOBILE (Layar HP <= 768px) --- */
+/* Tampilan untuk HP / Mobile */
 @media (max-width: 768px) {
   .opening-section.has-photo {
-    justify-content: flex-end !important;
+    display: block !important;
   }
-
   .opening-section.has-photo::before {
     content: "";
-    position: absolute;
-    inset: 0;
-    /* Ubah posisi background ke atas agar wajah tidak terpotong */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background: var(--cover-url) top center / cover no-repeat !important;
     z-index: 1;
     display: block !important;
   }
-
   .opening-section.has-photo::after {
     content: "";
-    position: absolute;
+    position: fixed;
     inset: 0;
-    /* Gradasi lebih gelap dan memakan 50% layar bawah */
     background: linear-gradient(
       to top,
       rgba(248, 245, 240, 1) 0%,
-      rgba(248, 245, 240, 1) 15%,
-      rgba(248, 245, 240, 0.85) 40%,
-      rgba(248, 245, 240, 0) 75%
-    ) !important;
+      rgba(248, 245, 240, 0.95) 45%,
+      rgba(248, 245, 240, 0) 70%
+    );
     z-index: 2;
+    pointer-events: none;
   }
-
   .opening-section.has-photo .opening-content {
     background: transparent !important;
     justify-content: flex-end !important;
     padding-bottom: 50px !important;
-    height: 100vh;
+    height: auto;
+    min-height: 100%;
     z-index: 10;
+    position: relative;
   }
-
-  /* Memberikan bayangan teks agar lebih elegan */
   .opening-section.has-photo .couple-name,
   .opening-section.has-photo .guest-name {
-    text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
+    text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8); /* Agar teks terbaca */
   }
-
   .opening-section.has-photo .opening-meta {
     position: absolute !important;
     top: 20px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    /* Tambahkan bayangan agar pill tanggal terbaca di atas foto */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
-  }
-
-  .opening-section.has-photo .opening-line {
-    display: none !important;
+    z-index: 20;
   }
 }
 
-/* ============================================================
-   07. INTRODUCTION
-   ============================================================ */
-
+/* INTRODUCTION */
 .intro-section {
   overflow: hidden;
   text-align: center;
@@ -700,12 +576,11 @@ body.invitation-locked {
       transparent 60%
     ),
     var(--color-bg);
+  padding-top: 80px;
 }
-
 .intro-section .container {
   max-width: 520px;
 }
-
 .intro-arch {
   position: relative;
   padding: 84px 32px 60px;
@@ -714,7 +589,6 @@ body.invitation-locked {
   background: rgba(255, 255, 255, 0.5);
   box-shadow: var(--shadow-soft);
 }
-
 .intro-arch::before {
   content: "";
   position: absolute;
@@ -723,7 +597,6 @@ body.invitation-locked {
   border-radius: inherit;
   pointer-events: none;
 }
-
 .intro-monogram {
   position: absolute;
   top: 54%;
@@ -738,22 +611,25 @@ body.invitation-locked {
   pointer-events: none;
   transform: translate(-50%, -50%);
 }
-
 .intro-body {
   position: relative;
   z-index: 1;
 }
-
-.intro-section h2 {
-  margin: 0 auto 26px;
-  font-size: clamp(1.8rem, 7.6vw, 3rem);
-  text-wrap: balance;
+@media (min-width: 769px) {
+  .intro-section h2 {
+    font-size: clamp(2rem, 4.2vw, 2.6rem);
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.2;
+  }
+  .intro-arch {
+    padding: 90px 44px 60px;
+  }
 }
-
 .intro-section .section-text {
   font-size: 0.95rem;
 }
-
 .intro-section .quote {
   max-width: none;
   margin: 40px 0 0;
@@ -765,16 +641,13 @@ body.invitation-locked {
   font-style: italic;
   line-height: 1.6;
 }
-
 .intro-section .quote p {
   margin: 0;
   text-wrap: balance;
 }
-
 .intro-section .quote p:nth-child(3) {
   margin-top: 1.1em;
 }
-
 .intro-section .quote p:last-child {
   margin-top: 1.5em;
   color: var(--color-accent-dark);
@@ -783,7 +656,6 @@ body.invitation-locked {
   font-style: normal;
   line-height: 1.2;
 }
-
 .intro-section .quote p:last-child::before {
   content: "";
   display: block;
@@ -794,7 +666,7 @@ body.invitation-locked {
   opacity: 0.7;
 }
 
-/* Reveal Animations */
+/* REVEAL */
 .has-reveal .reveal {
   opacity: 0;
 }
@@ -819,7 +691,6 @@ body.invitation-locked {
 .has-reveal .intro-section .quote.is-visible p:nth-child(5) {
   animation-delay: calc(var(--delay, 0) * 130ms + 1850ms);
 }
-
 @keyframes revealUp {
   from {
     opacity: 0;
@@ -834,7 +705,6 @@ body.invitation-locked {
   gap: 12px;
   color: var(--color-accent);
 }
-
 .ornament::before,
 .ornament::after {
   content: "";
@@ -853,25 +723,19 @@ body.invitation-locked {
   transform: rotate(45deg);
 }
 
-/* ============================================================
-   08. COUPLE
-   ============================================================ */
-
+/* COUPLE */
 .couple-section {
   background: var(--color-bg-soft);
 }
-
 .couple-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   gap: 45px;
 }
-
 .person-card {
   text-align: center;
 }
-
 .person-photo {
   width: min(100%, 340px);
   aspect-ratio: 4 / 5;
@@ -883,7 +747,6 @@ body.invitation-locked {
     0 0 0 11px rgba(165, 139, 112, 0.55),
     var(--shadow-image);
 }
-
 .person-photo img {
   width: 100%;
   height: 100%;
@@ -891,11 +754,9 @@ body.invitation-locked {
   transition: transform 700ms ease;
   will-change: transform;
 }
-
 .person-card:hover .person-photo img {
   transform: scale(1.04);
 }
-
 .person-photo.is-empty {
   background: linear-gradient(
     135deg,
@@ -905,7 +766,6 @@ body.invitation-locked {
   display: grid;
   place-items: center;
 }
-
 .person-photo.is-empty::before {
   content: "Foto belum tersedia";
   color: var(--color-text-soft);
@@ -913,7 +773,6 @@ body.invitation-locked {
   font-size: 0.95rem;
   font-style: italic;
 }
-
 .person-info h3 {
   margin-bottom: 4px;
 }
@@ -925,13 +784,11 @@ body.invitation-locked {
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-
 .parents {
   margin-bottom: 0;
   color: var(--color-text-soft);
   font-size: 0.85rem;
 }
-
 .couple-divider {
   display: grid;
   place-items: center;
@@ -944,10 +801,7 @@ body.invitation-locked {
   font-size: 2rem;
 }
 
-/* ============================================================
-   09. COUNTDOWN (WOODEN DESK CALENDAR - UPDATED)
-   ============================================================ */
-
+/* COUNTDOWN (WOODEN DESK CALENDAR) */
 .countdown-section {
   background: var(--color-bg-dark) !important;
   color: var(--color-text-light) !important;
@@ -956,7 +810,6 @@ body.invitation-locked {
   position: relative;
   overflow: hidden;
 }
-
 .countdown-section::before {
   content: "";
   position: absolute;
@@ -971,7 +824,6 @@ body.invitation-locked {
     radial-gradient(1px 1px at 50% 80%, rgba(255, 255, 255, 0.2), transparent);
   pointer-events: none;
 }
-
 .countdown-section .container {
   position: relative;
   z-index: 1;
@@ -979,50 +831,37 @@ body.invitation-locked {
   flex-direction: column;
   align-items: center;
 }
-
 .countdown-section .eyebrow {
   color: var(--color-accent) !important;
   margin-bottom: 10px;
 }
-
-/* 3. JUDUL DIPAKSA SATU BARIS DI HP */
 .countdown-section h2 {
   color: var(--color-text-light) !important;
   margin-bottom: 20px;
-  font-size: clamp(
-    1.5rem,
-    5.5vw,
-    3.5rem
-  ); /* Ukuran disesuaikan agar tidak melipat */
-  white-space: nowrap; /* Mencegah teks turun ke bawah */
+  font-size: clamp(1.5rem, 5.5vw, 3.5rem);
+  white-space: nowrap;
 }
-
 .countdown-note {
   color: rgba(248, 245, 240, 0.7) !important;
   margin-top: 30px;
   text-align: center;
 }
-
-/* --- LAYOUT KARTU COUNTDOWN --- */
 .countdown {
   display: flex;
   justify-content: center;
-  gap: clamp(8px, 2vw, 16px); /* Jarak antar kotak */
+  gap: clamp(8px, 2vw, 16px);
   margin: 30px auto;
   width: 100%;
   max-width: 600px;
   perspective: 1000px;
 }
-
 .countdown-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex: 1; /* Membuat semua kotak membagi rata lebar container */
-  max-width: 110px; /* 1. UKURAN DIPERBESAR */
+  flex: 1;
+  max-width: 110px;
 }
-
-/* --- DESAIN KARTU KALENDER --- */
 .count-ring {
   position: relative;
   width: 100%;
@@ -1037,7 +876,6 @@ body.invitation-locked {
   justify-content: center;
   transform-style: preserve-3d;
 }
-
 .count-ring::before {
   content: "";
   position: absolute;
@@ -1048,7 +886,6 @@ body.invitation-locked {
   background: #dcd5ca;
   z-index: 2;
 }
-
 .count-ring::after {
   content: "";
   position: absolute;
@@ -1061,21 +898,18 @@ body.invitation-locked {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   z-index: 3;
 }
-
 .count-ring svg {
   display: none;
 }
-
 .count-ring span {
   font-family: var(--font-heading);
-  font-size: clamp(1.8rem, 6vw, 2.5rem); /* Angka proporsional */
+  font-size: clamp(1.8rem, 6vw, 2.5rem);
   font-variant-numeric: lining-nums tabular-nums;
   font-weight: 600;
   color: #302c2a;
   z-index: 5;
   line-height: 1;
 }
-
 .countdown-item small {
   margin-top: 16px;
   color: var(--color-accent) !important;
@@ -1084,19 +918,12 @@ body.invitation-locked {
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
-
-/* ============================================================
-   2. ANIMASI FLIP YANG LEBIH SMOOTH (JATUH KE BAWAH)
-   ============================================================ */
-
 .countdown-item[data-unit="seconds"] .count-ring span {
-  /* Animasi berjalan selama 2 detik (lebih lambat & halus) */
   animation: flipSmooth 2s ease-in-out infinite;
   transform-origin: top center;
   display: inline-block;
   backface-visibility: hidden;
 }
-
 @keyframes flipSmooth {
   0%,
   100% {
@@ -1104,11 +931,11 @@ body.invitation-locked {
     opacity: 1;
   }
   40% {
-    transform: rotateX(-90deg); /* Kartu terlipat ke belakang */
+    transform: rotateX(-90deg);
     opacity: 0;
   }
   60% {
-    transform: rotateX(90deg); /* Kartu baru muncul dari bawah */
+    transform: rotateX(90deg);
     opacity: 0;
   }
   80% {
@@ -1117,20 +944,15 @@ body.invitation-locked {
   }
 }
 
-/* ============================================================
-   10. WEDDING EVENTS
-   ============================================================ */
-
+/* EVENTS */
 .events-section {
   text-align: center;
 }
-
 .events-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 30px;
 }
-
 .event-card {
   padding: 55px 40px;
   border: 1px solid var(--color-border);
@@ -1140,7 +962,6 @@ body.invitation-locked {
     transform var(--transition),
     box-shadow var(--transition);
 }
-
 .event-card::before {
   content: "";
   position: absolute;
@@ -1148,12 +969,10 @@ body.invitation-locked {
   border: 1px solid rgba(165, 139, 112, 0.28);
   pointer-events: none;
 }
-
 .event-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-soft);
 }
-
 .event-icon {
   display: grid;
   place-items: center;
@@ -1166,7 +985,6 @@ body.invitation-locked {
   font-family: var(--font-heading);
   font-size: 1.1rem;
 }
-
 .event-card h3 {
   margin-bottom: 20px;
 }
@@ -1175,39 +993,32 @@ body.invitation-locked {
 .event-venue {
   margin-bottom: 8px;
 }
-
 .event-date {
   color: var(--color-accent-dark);
   font-size: 0.85rem;
   font-weight: 600;
 }
-
 .event-time {
   font-size: 0.85rem;
 }
-
 .event-venue {
   margin-top: 24px;
   font-family: var(--font-heading);
   font-size: 1.35rem;
 }
-
 .event-address {
   margin-bottom: 28px;
   color: var(--color-text-soft);
   font-size: 0.85rem;
 }
 
-/* ============================================================
-   11. GALLERY (MASONRY)
-   ============================================================ */
-
+/* GALLERY */
 .gallery-grid {
-  column-count: 3;
-  column-gap: 12px;
+  column-count: 2;
+  column-gap: 6px;
 }
-
 .gallery-item {
+  margin-bottom: 6px;
   display: block;
   width: 100%;
   margin: 0 0 12px;
@@ -1220,7 +1031,6 @@ body.invitation-locked {
   position: relative;
   border-radius: 4px;
 }
-
 .gallery-item img {
   display: block;
   width: 100%;
@@ -1230,7 +1040,6 @@ body.invitation-locked {
     transform 600ms ease,
     filter 600ms ease;
 }
-
 .gallery-item::after {
   content: "";
   position: absolute;
@@ -1239,16 +1048,13 @@ body.invitation-locked {
   transition: background-color var(--transition);
   pointer-events: none;
 }
-
 .gallery-item:hover img {
   transform: scale(1.05);
   filter: brightness(0.9);
 }
-
 .gallery-item:hover::after {
   background: rgba(48, 44, 42, 0.12);
 }
-
 .gallery-item.is-empty {
   aspect-ratio: 1 / 1;
   background: linear-gradient(
@@ -1257,7 +1063,6 @@ body.invitation-locked {
     var(--color-border)
   );
 }
-
 .gallery-section .quote {
   position: relative;
   max-width: 440px;
@@ -1270,7 +1075,6 @@ body.invitation-locked {
   line-height: 1.55;
   text-align: center;
 }
-
 .gallery-section .quote::before {
   content: "";
   position: absolute;
@@ -1285,7 +1089,6 @@ body.invitation-locked {
     transparent
   );
 }
-
 .gallery-section .quote::after {
   content: "";
   position: absolute;
@@ -1298,12 +1101,10 @@ body.invitation-locked {
   background: var(--color-bg);
   transform: rotate(45deg);
 }
-
 .gallery-section .quote p {
   margin: 0;
   text-wrap: balance;
 }
-
 .gallery-section .quote p:last-child {
   margin-top: 24px;
   color: var(--color-accent-dark);
@@ -1315,14 +1116,10 @@ body.invitation-locked {
   text-transform: uppercase;
 }
 
-/* ============================================================
-   12. FAMILY / TURUT MENGUNDANG
-   ============================================================ */
-
+/* FAMILY */
 .family-section {
-  background: var(--color-bg); /* Putih Bersih */
+  background: var(--color-bg);
 }
-
 .family-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1331,7 +1128,6 @@ body.invitation-locked {
   margin: 0 auto;
   align-items: stretch;
 }
-
 .family-col {
   background: #ffffff;
   padding: 40px 30px;
@@ -1340,11 +1136,9 @@ body.invitation-locked {
   box-shadow: var(--shadow-soft);
   transition: transform 0.3s ease;
 }
-
 .family-col:hover {
   transform: translateY(-5px);
 }
-
 .family-title {
   font-family: var(--font-heading);
   color: var(--color-accent-dark);
@@ -1356,7 +1150,6 @@ body.invitation-locked {
   font-weight: 500;
   text-align: center;
 }
-
 .family-list {
   list-style: none;
   padding: 0;
@@ -1365,7 +1158,6 @@ body.invitation-locked {
   flex-direction: column;
   gap: 16px;
 }
-
 .family-list li {
   font-size: 0.95rem;
   color: var(--color-text);
@@ -1374,7 +1166,6 @@ body.invitation-locked {
   line-height: 1.6;
   font-weight: 500;
 }
-
 .family-list li::before {
   content: "";
   position: absolute;
@@ -1387,25 +1178,16 @@ body.invitation-locked {
   transform: rotate(45deg);
 }
 
-.family-divider {
-  display: none;
-}
-
-/* ============================================================
-   13. LOCATION
-   ============================================================ */
-
+/* LOCATION */
 .location-section {
-  background: var(--color-bg-soft); /* Krem Lembut */
+  background: var(--color-bg-soft);
 }
-
 .location-grid {
   display: grid;
   grid-template-columns: 0.8fr 1.2fr;
   align-items: stretch;
   gap: 30px;
 }
-
 .location-info {
   display: flex;
   flex-direction: column;
@@ -1414,53 +1196,43 @@ body.invitation-locked {
   background: var(--color-bg);
   border-radius: 12px;
 }
-
 .location-info h3 {
   margin-bottom: 20px;
 }
-
 .location-date {
   color: var(--color-accent-dark);
   font-size: 0.85rem;
   font-weight: 600;
 }
-
 .location-address {
   margin-bottom: 30px;
   color: var(--color-text-soft);
   font-size: 0.9rem;
 }
-
 .location-info .btn {
   align-self: flex-start;
 }
-
 .location-buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 8px;
 }
-
 .location-buttons .btn {
   align-self: auto;
 }
-
 #route-link {
   border-color: var(--color-accent);
   color: var(--color-accent-dark);
 }
-
 #route-link:hover {
   background: var(--color-accent);
   color: #ffffff;
 }
-
 .map-wrapper {
   min-height: 420px;
   display: flex;
 }
-
 .map-iframe {
   display: block;
   width: 100%;
@@ -1470,7 +1242,6 @@ body.invitation-locked {
   border-radius: 12px;
   background: var(--color-bg-soft);
 }
-
 .map-iframe:focus {
   outline: none;
 }
@@ -1478,14 +1249,12 @@ body.invitation-locked {
 .map-placeholder[hidden] {
   display: none;
 }
-
 .map-wrapper .map-iframe,
 .map-wrapper .map-placeholder {
   flex: 1;
   min-height: 0;
   border-radius: 12px;
 }
-
 .map-placeholder {
   display: grid;
   place-items: center;
@@ -1498,14 +1267,10 @@ body.invitation-locked {
   font-size: 2rem;
 }
 
-/* ============================================================
-   14. RSVP
-   ============================================================ */
-
+/* RSVP */
 .rsvp-section {
   text-align: center;
 }
-
 .rsvp-form {
   max-width: 520px;
   margin: 0 auto;
@@ -1516,18 +1281,15 @@ body.invitation-locked {
   box-shadow: var(--shadow-soft);
   text-align: left;
 }
-
 .rsvp-field {
   min-width: 0;
   margin: 0 0 22px;
   padding: 0;
   border: 0;
 }
-
 .rsvp-field[hidden] {
   display: none;
 }
-
 .rsvp-label {
   display: block;
   margin-bottom: 8px;
@@ -1538,7 +1300,6 @@ body.invitation-locked {
   letter-spacing: 0.22em;
   text-transform: uppercase;
 }
-
 .rsvp-input {
   display: block;
   width: 100%;
@@ -1551,22 +1312,18 @@ body.invitation-locked {
     border-color var(--transition),
     box-shadow var(--transition);
 }
-
 .rsvp-input::placeholder {
   color: #b3aaa1;
 }
-
 .rsvp-input:focus {
   outline: none;
   border-color: var(--color-accent);
   box-shadow: 0 0 0 3px rgba(165, 139, 112, 0.18);
 }
-
 textarea.rsvp-input {
   min-height: 110px;
   resize: vertical;
 }
-
 select.rsvp-input {
   padding-right: 42px;
   -webkit-appearance: none;
@@ -1577,17 +1334,14 @@ select.rsvp-input {
   background-repeat: no-repeat;
   cursor: pointer;
 }
-
 .rsvp-choices {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
-
 .rsvp-choice {
   position: relative;
 }
-
 .rsvp-choice input {
   position: absolute;
   inset: 0;
@@ -1597,7 +1351,6 @@ select.rsvp-input {
   opacity: 0;
   cursor: pointer;
 }
-
 .rsvp-choice span {
   display: flex;
   align-items: center;
@@ -1617,23 +1370,19 @@ select.rsvp-input {
     border-color var(--transition),
     color var(--transition);
 }
-
 .rsvp-choice input:checked + span {
   border-color: var(--color-accent);
   background: var(--color-accent);
   color: #ffffff;
 }
-
 .rsvp-choice input:focus-visible + span {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
 }
-
 .rsvp-submit {
   width: 100%;
   margin-top: 6px;
 }
-
 .rsvp-status {
   min-height: 1.4em;
   margin: 16px 0 0;
@@ -1641,7 +1390,6 @@ select.rsvp-input {
   font-size: 0.85rem;
   text-align: center;
 }
-
 .rsvp-status a {
   color: var(--color-accent-dark);
   text-decoration: underline;
@@ -1649,14 +1397,12 @@ select.rsvp-input {
 .rsvp-status.is-error {
   color: #a1493b;
 }
-
 .rsvp-choice--event span {
   flex-direction: column;
   gap: 3px;
   min-height: 62px;
   border-radius: 16px;
 }
-
 .rsvp-choice--event strong {
   font-size: 0.72rem;
   font-weight: 600;
@@ -1672,7 +1418,6 @@ select.rsvp-input {
 .rsvp-choice--event input:checked + span strong::before {
   content: "\2713\00a0";
 }
-
 .rsvp-wishes {
   display: flex;
   flex-wrap: wrap;
@@ -1680,11 +1425,9 @@ select.rsvp-input {
   gap: 8px;
   margin-top: 12px;
 }
-
 .rsvp-wishes[hidden] {
   display: none;
 }
-
 .rsvp-wishes-label {
   flex-basis: 100%;
   color: var(--color-text-soft);
@@ -1693,7 +1436,6 @@ select.rsvp-input {
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
-
 .rsvp-chip {
   max-width: 100%;
   padding: 9px 14px;
@@ -1710,7 +1452,6 @@ select.rsvp-input {
     border-color var(--transition),
     color var(--transition);
 }
-
 .rsvp-chip:hover {
   border-color: var(--color-accent);
   color: var(--color-text);
@@ -1724,7 +1465,6 @@ select.rsvp-input {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
-
 .rsvp-hint {
   margin: 4px 0 14px;
   color: var(--color-text-soft);
@@ -1732,7 +1472,6 @@ select.rsvp-input {
   line-height: 1.5;
   text-align: center;
 }
-
 .rsvp-submit {
   gap: 10px;
 }
@@ -1743,15 +1482,11 @@ select.rsvp-input {
   fill: currentColor;
 }
 
-/* ============================================================
-   15. GIFT (BANK ACCOUNTS)
-   ============================================================ */
-
+/* GIFT (BANK ACCOUNTS) */
 .gift-section {
   text-align: center;
   background: var(--color-bg-soft);
 }
-
 .bank-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1759,7 +1494,6 @@ select.rsvp-input {
   max-width: 900px;
   margin: 0 auto;
 }
-
 .bank-card {
   position: relative;
   display: flex;
@@ -1778,14 +1512,12 @@ select.rsvp-input {
     transform var(--transition),
     box-shadow var(--transition);
 }
-
 .bank-card:hover {
   transform: translateY(-4px);
   box-shadow:
     0 24px 48px rgba(48, 44, 42, 0.2),
     0 2px 6px rgba(48, 44, 42, 0.08);
 }
-
 .bank-card:nth-child(odd) {
   --card-line: rgba(48, 44, 42, 0.18);
   --card-glow: 0.32;
@@ -1799,7 +1531,6 @@ select.rsvp-input {
   background: linear-gradient(135deg, #f1e6d3 0%, #dac5a4 55%, #c6a981 100%);
   color: #302c2a;
 }
-
 .bank-card:nth-child(even) {
   --card-line: rgba(255, 255, 255, 0.2);
   --card-glow: 0.12;
@@ -1813,7 +1544,6 @@ select.rsvp-input {
   background: linear-gradient(135deg, #4d443d 0%, #302c2a 60%, #211e1c 100%);
   color: #f8f5f0;
 }
-
 .bank-card::before {
   content: "";
   position: absolute;
@@ -1832,7 +1562,6 @@ select.rsvp-input {
       transparent 60%
     );
 }
-
 .bank-card::after {
   content: "";
   position: absolute;
@@ -1851,14 +1580,12 @@ select.rsvp-input {
   );
   pointer-events: none;
 }
-
 .bank-card-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
 }
-
 .bank-chip {
   display: block;
   flex-shrink: 0;
@@ -1883,7 +1610,6 @@ select.rsvp-input {
     linear-gradient(135deg, #f5e6b8, #c9a45c);
   box-shadow: inset 0 0 0 1px rgba(120, 86, 20, 0.35);
 }
-
 .bank-name {
   color: inherit;
   font-size: 0.82rem;
@@ -1892,7 +1618,6 @@ select.rsvp-input {
   text-align: right;
   text-transform: uppercase;
 }
-
 .account-number {
   margin: 0;
   color: inherit;
@@ -1903,18 +1628,15 @@ select.rsvp-input {
   letter-spacing: 0.14em;
   text-shadow: var(--card-emboss);
 }
-
 .bank-card-foot {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 14px;
 }
-
 .bank-owner {
   min-width: 0;
 }
-
 .bank-owner-label {
   display: block;
   margin-bottom: 4px;
@@ -1924,7 +1646,6 @@ select.rsvp-input {
   letter-spacing: 0.24em;
   text-transform: uppercase;
 }
-
 .account-owner {
   margin: 0;
   color: inherit;
@@ -1933,7 +1654,6 @@ select.rsvp-input {
   line-height: 1.15;
   overflow-wrap: anywhere;
 }
-
 .copy-account {
   display: inline-flex;
   align-items: center;
@@ -1954,13 +1674,11 @@ select.rsvp-input {
     color var(--transition),
     border-color var(--transition);
 }
-
 .copy-account:hover {
   border-color: var(--btn-hover-bg);
   background: var(--btn-hover-bg);
   color: var(--btn-hover-color);
 }
-
 .copy-account:disabled {
   cursor: default;
 }
@@ -1969,10 +1687,7 @@ select.rsvp-input {
   outline-offset: 3px;
 }
 
-/* ============================================================
-   16. FOOTER
-   ============================================================ */
-
+/* FOOTER */
 .footer {
   position: relative;
   overflow: hidden;
@@ -1987,7 +1702,6 @@ select.rsvp-input {
   color: var(--color-text-light);
   text-align: center;
 }
-
 .footer-monogram {
   display: grid;
   place-items: center;
@@ -2002,20 +1716,17 @@ select.rsvp-input {
   letter-spacing: 0.12em;
   text-indent: 0.12em;
 }
-
 .footer-names {
   margin-bottom: 12px;
   font-family: var(--font-heading);
   font-size: clamp(2rem, 9vw, 2.6rem);
   line-height: 1.15;
 }
-
 .footer .ampersand {
   display: inline;
   margin: 0 0.1em;
   font-size: 0.8em;
 }
-
 .footer-date {
   margin-bottom: 22px;
   color: rgba(248, 245, 240, 0.6);
@@ -2024,18 +1735,15 @@ select.rsvp-input {
   letter-spacing: 0.3em;
   text-transform: uppercase;
 }
-
 .footer .ornament {
   margin-bottom: 26px;
 }
-
 .footer-thank-you {
   max-width: 320px;
   margin: 0 auto 32px;
   color: rgba(248, 245, 240, 0.65);
   font-size: 0.88rem;
 }
-
 .footer-top {
   display: inline-flex;
   align-items: center;
@@ -2053,12 +1761,10 @@ select.rsvp-input {
     border-color var(--transition),
     color var(--transition);
 }
-
 .footer-top:hover {
   border-color: var(--color-accent);
   color: var(--color-accent);
 }
-
 .footer-copyright {
   margin: 44px 0 0;
   color: rgba(248, 245, 240, 0.4);
@@ -2067,10 +1773,7 @@ select.rsvp-input {
   text-transform: uppercase;
 }
 
-/* ============================================================
-   17. MUSIC BUTTON
-   ============================================================ */
-
+/* MUSIC & LIGHTBOX */
 .music-toggle {
   position: fixed;
   right: 24px;
@@ -2091,17 +1794,14 @@ select.rsvp-input {
     transform var(--transition),
     background-color var(--transition);
 }
-
 .music-toggle:hover {
   transform: translateY(-3px);
   background: var(--color-accent-dark);
 }
-
 .music-toggle.is-playing {
   background: var(--color-accent);
   animation: musicPulse 2s ease-in-out infinite;
 }
-
 @keyframes musicPulse {
   0%,
   100% {
@@ -2111,10 +1811,6 @@ select.rsvp-input {
     transform: scale(1.08);
   }
 }
-
-/* ============================================================
-   18. LIGHTBOX
-   ============================================================ */
 
 .lightbox {
   position: fixed;
@@ -2131,17 +1827,14 @@ select.rsvp-input {
     opacity var(--transition),
     visibility var(--transition);
 }
-
 .lightbox.is-active {
   opacity: 1;
   visibility: visible;
 }
-
 html.lightbox-open,
 body.lightbox-open {
   overflow: hidden;
 }
-
 .lightbox img {
   max-width: min(100%, 1000px);
   max-height: 90vh;
@@ -2149,7 +1842,6 @@ body.lightbox-open {
   border-radius: 4px;
   animation: lightboxZoom 400ms ease;
 }
-
 @keyframes lightboxZoom {
   from {
     opacity: 0;
@@ -2160,7 +1852,6 @@ body.lightbox-open {
     transform: scale(1);
   }
 }
-
 .lightbox-close {
   position: absolute;
   top: 24px;
@@ -2177,11 +1868,9 @@ body.lightbox-open {
   transition: background-color var(--transition);
   z-index: 5;
 }
-
 .lightbox-close:hover {
   background: rgba(255, 255, 255, 0.2);
 }
-
 .lightbox-nav {
   position: absolute;
   top: 50%;
@@ -2199,7 +1888,6 @@ body.lightbox-open {
   transition: background-color var(--transition);
   z-index: 5;
 }
-
 .lightbox-nav:hover {
   background: rgba(255, 255, 255, 0.25);
 }
@@ -2209,7 +1897,6 @@ body.lightbox-open {
 .lightbox-next {
   right: 24px;
 }
-
 .lightbox-counter {
   position: absolute;
   bottom: 24px;
@@ -2226,16 +1913,11 @@ body.lightbox-open {
   z-index: 5;
 }
 
-/* ============================================================
-   19. FOCUS & MOTION
-   ============================================================ */
-
 button:focus-visible,
 a:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 4px;
 }
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -2249,10 +1931,7 @@ a:focus-visible {
   }
 }
 
-/* ============================================================
-   20. RESPONSIVE (TABLET & MOBILE)
-   ============================================================ */
-
+/* RESPONSIVE */
 @media (max-width: 1024px) {
   :root {
     --section-padding: 90px;
@@ -2295,33 +1974,6 @@ a:focus-visible {
     gap: 20px;
   }
 
-  .timeline::before {
-    left: 10px;
-    transform: none;
-  }
-  .timeline-item,
-  .timeline-item:nth-child(even) {
-    display: block;
-    margin-left: 35px;
-  }
-  .timeline-item:nth-child(even) .timeline-year {
-    order: initial;
-  }
-  .timeline-item:nth-child(even) .timeline-content {
-    order: initial;
-    text-align: left;
-  }
-  .timeline-year {
-    margin-bottom: 12px;
-  }
-  .timeline-content::before,
-  .timeline-item:nth-child(odd) .timeline-content::before,
-  .timeline-item:nth-child(even) .timeline-content::before {
-    top: -34px;
-    left: -30px;
-    right: auto;
-  }
-
   .gallery-grid {
     column-count: 2;
     column-gap: 8px;
@@ -2329,7 +1981,6 @@ a:focus-visible {
   .gallery-item {
     margin-bottom: 8px;
   }
-
   .family-grid {
     grid-template-columns: 1fr;
     gap: 20px;
@@ -2337,7 +1988,6 @@ a:focus-visible {
   .family-col {
     padding: 30px 24px;
   }
-
   .location-grid {
     grid-template-columns: 1fr;
     gap: 0;
@@ -2380,6 +2030,11 @@ a:focus-visible {
   }
   .opening-meta {
     top: calc(18px + env(safe-area-inset-top, 0px));
+    padding: 8px 14px;
+  }
+  .wedding-date {
+    font-size: 0.58rem;
+    letter-spacing: 0.16em;
   }
   .intro-arch {
     padding: 76px 24px 52px;
@@ -2409,7 +2064,6 @@ a:focus-visible {
   .timeline-item:nth-child(even) .timeline-content::before {
     left: -25px;
   }
-
   .gallery-grid {
     column-count: 1;
     column-gap: 5px;
@@ -2417,7 +2071,6 @@ a:focus-visible {
   .gallery-item {
     margin-bottom: 5px;
   }
-
   .lightbox-nav {
     width: 44px;
     height: 44px;
@@ -2433,7 +2086,6 @@ a:focus-visible {
     bottom: 16px;
     font-size: 0.68rem;
   }
-
   .location-buttons {
     flex-direction: column;
     align-items: stretch;
@@ -2449,7 +2101,6 @@ a:focus-visible {
   .map-placeholder {
     min-height: 280px;
   }
-
   .music-toggle {
     right: 16px;
     bottom: 16px;

@@ -1,26 +1,8 @@
-# Wedding Invitation
+# Undangan Pernikahan Seven & Hertika
 
-Static wedding invitation project.
+Undangan pernikahan digital statis (HTML/CSS/JS murni) — 22 November 2026.
 
-## Current stage
-
-Stage 1 — UI/HTML structure.
-
-The page structure includes:
-- Opening / cover
-- Introduction
-- Couple
-- Countdown
-- Wedding events
-- Our story
-- Gallery
-- Google Maps location
-- RSVP
-- Footer
-- Music control
-- Gallery lightbox container
-
-CSS and JavaScript will be implemented in the next stages.
+## Struktur
 
 ## Folder structure
 

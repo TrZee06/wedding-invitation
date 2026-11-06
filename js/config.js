@@ -11,11 +11,8 @@ const WEDDING_CONFIG = {
   wedding: {
     title: "Seven & Hertika",
     date: "2026-11-22T13:00:00+07:00",
-    displayDate: "Minggu, 22 November 2026",
-    openingDate: "22 NOVEMBER 2026",
+    dateStartOfDay: "2026-11-22T00:00:00+07:00",
     musicFile: "assets/music/wedding-song.mp3",
-
-    metaDate: "22 November 2026",
     eyebrow: "The Wedding Of",
     coverPhoto: "assets/images/hero.jpg",
   },
@@ -31,6 +28,7 @@ const WEDDING_CONFIG = {
     mother: "Ina Seven Zebua",
     photo: "assets/images/groom.jpg",
     parentsPrefix: "Putra ke-1 dari",
+    parentsFormat: "Ama {father} & Ina {mother}",
   },
 
   // --------------------------------------------------------
@@ -44,6 +42,7 @@ const WEDDING_CONFIG = {
     mother: "Ina Safi Gulo",
     photo: "assets/images/bride.jpg",
     parentsPrefix: "Putri ke-2 dari",
+    parentsFormat: "Ama {father} & Ina {mother}",
   },
 
   // --------------------------------------------------------
@@ -56,11 +55,10 @@ const WEDDING_CONFIG = {
       date: "Minggu, 22 November 2026",
       time: "13.00 WIB — Selesai",
       venue: "Gereja ONKP Tangerang",
-      address:
-        "Pergudangan Sunrise bizpark, Jl. Sunrise jaya Blok A no.15, Gelam Jaya, Kec. Ps. Kemis, Kabupaten Tangerang, Banten 15560",
+      address: "Jl. Sunrise Jaya Blok A No.15, Ps. Kemis, Kab. Tangerang",
       mapsUrl:
         "https://www.google.com/maps/dir/?api=1&destination=Gereja+ONKP+Tangerang",
-      buttonText: "Petunjuk Arah", // Tombol Maps
+      buttonText: "Petunjuk Arah",
     },
     {
       title: "Acara Adat / Resepsi",
@@ -68,9 +66,9 @@ const WEDDING_CONFIG = {
       time: "16.00 WIB — Selesai",
       venue: "BNKP Pewarta",
       address:
-        "Pergudangan Sunrise Bizpark, Blok C No.70, Gelam Jaya, Kec. Ps. Kemis, Kabupaten Tangerang, Banten 15560",
-      scrollTarget: "#location", // Arahkan ke Section Lokasi
-      buttonText: "Lihat Detail", // Teks tombol baru
+        "Pergudangan Sunrise Bizpark Blok C No.70, Ps. Kemis, Kab. Tangerang",
+      scrollTarget: "#location",
+      buttonText: "Lihat Detail",
     },
   ],
 
@@ -95,8 +93,7 @@ const WEDDING_CONFIG = {
     venue: "BNKP Pewarta",
     date: "Minggu, 22 November 2026",
     address:
-      "Perkudangan Sunrise Bizpark, Blok C No.70, Gelam Jaya, Kec. Ps. Kemis, Kabupaten Tangerang, Banten 15560",
-    // Link utama diarahkan ke rute (Petunjuk Arah)
+      "Pergudangan Sunrise Bizpark Blok C No.70, Ps. Kemis, Kab. Tangerang", // ← GANTI
     mapsUrl:
       "https://www.google.com/maps/dir/?api=1&destination=-6.178473391795702,106.56364824427627",
     mapsEmbed:
@@ -270,7 +267,7 @@ Semoga acaranya berjalan lancar dan penuh kebahagiaan 🤍`,
     gift: {
       eyebrow: "AMPLOP DIGITAL",
       heading: "Doa lebih dari cukup,<br>tapi jika berkenan berbagi",
-      text: "Kehadiranmu adalah hadiah terindah. Jika ingin memberikan tanda kasih, silakan melalui rekening di bawah — tanpa mengurangi rasa hormat kami.",
+      text: "Kehadiran Anda adalah hadiah terindah. Jika ingin memberikan tanda kasih, silakan melalui rekening di bawah — tanpa mengurangi rasa hormat kami.", // ← GANTI
       copyButtonText: "SALIN NOMOR",
       ownerLabel: "Atas nama",
     },
