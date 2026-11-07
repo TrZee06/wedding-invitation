@@ -20,29 +20,29 @@ const WEDDING_CONFIG = {
   // --------------------------------------------------------
   // 2. MEMPELAI PRIA
   // --------------------------------------------------------
-
   groom: {
     nickname: "Seven",
     fullName: "Kasih Sevenndi Zebua",
-    father: "Ama Seven Zebua",
-    mother: "Ina Seven Zebua",
+    // Menggabungkan nama ayah dan ibu menjadi satu string
+    father: "Seven Zebua",
+    mother: "Seven Zebua",
     photo: "assets/images/groom.jpg",
     parentsPrefix: "Putra ke-1 dari",
-    parentsFormat: "Ama {father} & Ina {mother}",
+    // Menggunakan A/I. dan menghapus format lama
+    parentsFormat: "A/I. {father}",
   },
 
   // --------------------------------------------------------
   // 3. MEMPELAI WANITA
   // --------------------------------------------------------
-
   bride: {
     nickname: "Hertika",
     fullName: "Hertika Gulo",
-    father: "Ama Safi Gulo",
-    mother: "Ina Safi Gulo",
+    father: "Safi Gulo",
+    mother: "Safi Gulo",
     photo: "assets/images/bride.jpg",
     parentsPrefix: "Putri ke-2 dari",
-    parentsFormat: "Ama {father} & Ina {mother}",
+    parentsFormat: "A/I. {father}",
   },
 
   // --------------------------------------------------------
@@ -64,7 +64,7 @@ const WEDDING_CONFIG = {
       title: "Acara Adat / Resepsi",
       date: "Minggu, 22 November 2026",
       time: "16.00 WIB — Selesai",
-      venue: "BNKP Pewarta",
+      venue: "Gereja BNKP Pewarta",
       address:
         "Pergudangan Sunrise Bizpark Blok C No.70, Ps. Kemis, Kab. Tangerang",
       scrollTarget: "#location",
@@ -90,7 +90,7 @@ const WEDDING_CONFIG = {
   // --------------------------------------------------------
 
   location: {
-    venue: "BNKP Pewarta",
+    venue: "Gereja BNKP Pewarta",
     date: "Minggu, 22 November 2026",
     address:
       "Pergudangan Sunrise Bizpark Blok C No.70, Ps. Kemis, Kab. Tangerang", // ← GANTI
@@ -195,11 +195,8 @@ Semoga acaranya berjalan lancar dan penuh kebahagiaan 🤍`,
       heading: "Dengan penuh sukacita,<br>kami mengundang Anda",
       text: "Untuk hadir dan menjadi bagian dari hari bahagia kami dalam ikatan pernikahan.",
       poem: [
-        "Ketika Tuhan menulis takdir-Nya",
-        "Tuhan juga menulis satu nama di dalam hidupku",
-        "Bertahun aku menunggu satu nama itu",
-        "Akhirnya hari ini terjawab sudah penantian itu",
-        "Kau adalah takdirku",
+        "“Tuhan membuat segala sesuatu indah pada waktunya. Indah ketika Dia mempertemukan, indah ketika Dia menumbuhkan kasih, dan indah saat kami melangkah bersama di jalan-Nya.”",
+        "“Cinta sejati bersumber dari Allah. Kiranya kasih Kristus menjadi dasar dan pusat dari rumah tangga yang akan kami bangun bersama.”",
       ],
     },
     couple: {
@@ -208,7 +205,8 @@ Semoga acaranya berjalan lancar dan penuh kebahagiaan 🤍`,
     },
     countdown: {
       eyebrow: "CATAT TANGGALNYA",
-      note: "Menuju hari bahagia kami",
+      // Mengganti teks "Menuju hari bahagia kami"
+      note: "“Bukan karena kami hebat, tetapi karena kasih Tuhan yang lebih dulu menyatukan dan menuntun langkah kami hingga hari ini.”",
       units: { days: "Hari", hours: "Jam", minutes: "Menit", seconds: "Detik" },
       arrivalTitle: "Hari Ini Hari Bahagia Kami!",
       arrivalText: "Terima kasih telah menjadi bagian dari momen ini 🤍",

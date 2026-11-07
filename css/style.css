@@ -81,8 +81,10 @@ h3 {
 }
 h2 {
   margin-bottom: 24px;
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-  letter-spacing: -0.02em;
+  /* Menggunakan ukuran standar Section 1 */
+  font-size: clamp(1.6rem, 5.5vw, 2.6rem);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
 }
 h3 {
   margin-bottom: 12px;
@@ -615,48 +617,84 @@ body.invitation-locked {
   position: relative;
   z-index: 1;
 }
-@media (min-width: 769px) {
-  .intro-section h2 {
-    font-size: clamp(2rem, 4.2vw, 2.6rem);
-    max-width: 420px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.2;
-  }
-  .intro-arch {
-    padding: 90px 44px 60px;
-  }
+
+/* Penyesuaian Heading */
+/* HAPUS ATAU KOMENTARI KODE INI */
+/* 
+.intro-section h2 {
+  font-size: clamp(1.6rem, 5.5vw, 2.6rem);
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
 }
+*/
+
+/* Penyesuaian Teks Paragraf & Kutipan */
 .intro-section .section-text {
   font-size: 0.95rem;
+  /* Poin 1: Diberi jarak (margin-top) dari ornamen garis di atasnya */
+  margin-top: 35px;
+  margin-bottom: 30px;
 }
+
 .intro-section .quote {
-  max-width: none;
-  margin: 40px 0 0;
+  max-width: 340px;
+  margin: 0 auto;
   padding: 0;
   border: 0;
   color: var(--color-text-soft);
   font-family: var(--font-heading);
-  font-size: clamp(1.1rem, 4.7vw, 1.35rem);
   font-style: italic;
-  line-height: 1.6;
+  line-height: 1.7;
 }
-.intro-section .quote p {
-  margin: 0;
+
+/* Paragraf 1 */
+.intro-section .quote p:nth-child(1) {
+  font-size: clamp(1.15rem, 4.5vw, 1.35rem);
+  margin: 0 0 30px 0;
   text-wrap: balance;
 }
-.intro-section .quote p:nth-child(3) {
-  margin-top: 1.1em;
+
+/* Poin 2 & 3: Paragraf 2 (Diperbesar, disamakan, & ditambah garis vertikal) */
+.intro-section .quote p:nth-child(2) {
+  /* Ukuran font disamakan dengan paragraf 1 */
+  font-size: clamp(1.15rem, 4.5vw, 1.35rem);
+  margin: 0 auto;
+  max-width: 280px; /* Lebar disesuaikan agar tetap 3 baris mengerucut */
+  text-wrap: balance;
+  position: relative; /* Dibutuhkan untuk menempatkan garis vertikal */
+  padding-top: 30px; /* Jarak antara paragraf 1 dan garis vertikal */
 }
-.intro-section .quote p:last-child {
-  margin-top: 1.5em;
+
+/* Garis Vertikal Pemisah */
+.intro-section .quote p:nth-child(2)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 20px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--color-accent),
+    transparent
+  );
+}
+
+/* Penyesuaian untuk "Kau Adalah Takdirku" */
+.intro-section .quote p:nth-child(3) {
+  margin-top: 40px;
   color: var(--color-accent-dark);
   font-family: var(--font-script);
-  font-size: clamp(1.8rem, 8.4vw, 2.4rem);
+  font-size: clamp(1.8rem, 8vw, 2.4rem);
   font-style: normal;
   line-height: 1.2;
 }
-.intro-section .quote p:last-child::before {
+.intro-section .quote p:nth-child(3)::before {
   content: "";
   display: block;
   width: 36px;
@@ -664,6 +702,24 @@ body.invitation-locked {
   margin: 0 auto 18px;
   background: var(--color-accent);
   opacity: 0.7;
+}
+
+/* Responsive khusus Mobile (Di bawah 480px) */
+@media (max-width: 480px) {
+  .intro-arch {
+    padding: 76px 20px 52px; /* Padding samping dirapatkan agar teks lebih leluasa */
+  }
+  .intro-section .section-text {
+    font-size: 0.85rem;
+    padding: 0 10px;
+  }
+  .intro-section .quote {
+    font-size: 0.95rem; /* Ukuran font paragraf sedikit disesuaikan */
+    line-height: 1.6;
+  }
+  .intro-section .quote p:not(:last-child) {
+    margin-bottom: 20px;
+  }
 }
 
 /* REVEAL */
@@ -779,15 +835,31 @@ body.invitation-locked {
 .person-full-name {
   margin-bottom: 12px;
   color: var(--color-accent-dark);
-  font-size: 0.9rem;
+  /* Poin 2: Ukuran diperbesar dari 0.9rem menjadi 1.05rem */
+  font-size: 1.05rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+
 .parents {
   margin-bottom: 0;
   color: var(--color-text-soft);
+  /* Poin 1: Ukuran sedikit disesuaikan, dan pastikan tidak wrap (1 baris) */
   font-size: 0.85rem;
+  line-height: 1.5;
+  white-space: nowrap; /* Memaksa teks tetap dalam 1 baris */
+}
+
+/* Agar di HP (layar kecil) teks 1 baris tidak terpotong (overflow) */
+@media (max-width: 480px) {
+  .parents {
+    white-space: normal; /* Izinkan turun baris HANYA jika layar terlalu sempit */
+    font-size: 0.8rem;
+  }
+  .person-full-name {
+    font-size: 0.95rem;
+  }
 }
 .couple-divider {
   display: grid;
@@ -835,15 +907,27 @@ body.invitation-locked {
   color: var(--color-accent) !important;
   margin-bottom: 10px;
 }
+/* Ubah ukuran heading countdown agar sama dengan intro */
 .countdown-section h2 {
   color: var(--color-text-light) !important;
   margin-bottom: 20px;
-  font-size: clamp(1.5rem, 5.5vw, 3.5rem);
-  white-space: nowrap;
+  /* Disamakan dengan clamp di intro-section h2 */
+  font-size: clamp(1.6rem, 5.5vw, 2.6rem);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  white-space: normal; /* Ubah dari nowrap menjadi normal agar aman di mobile */
 }
+
+/* Penyesuaian teks catatan (kutipan baru) */
 .countdown-note {
   color: rgba(248, 245, 240, 0.7) !important;
-  margin-top: 30px;
+  margin: 30px auto 0; /* Ditambah auto agar center */
+  font-family: var(--font-heading); /* Pakai font serif agar elegan */
+  font-style: italic;
+  font-size: clamp(0.95rem, 4vw, 1.15rem);
+  line-height: 1.6;
+  max-width: 260px; /* Dibatasi lebarnya agar otomatis jadi 3 baris */
+  text-wrap: balance; /* Membuat teks mengerucut ke bawah */
   text-align: center;
 }
 .countdown {
@@ -2138,5 +2222,152 @@ a:focus-visible {
   }
   .opening-section .btn-open {
     margin-top: 20px;
+  }
+}
+
+/* ==========================================
+   MOBILE ONLY - OPENING FINAL CORRECTION
+   ========================================== */
+
+@media (max-width: 768px) {
+  /* 1. OPENING CONTENT */
+  .opening-section.has-photo .opening-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: flex-start !important;
+
+    position: relative !important;
+
+    margin: 0 auto !important;
+    padding: 65px 0 50px !important;
+
+    height: auto !important;
+    min-height: 100svh !important;
+
+    background: transparent !important;
+    text-align: center;
+    z-index: 10;
+  }
+
+  /* 2. NAMA MEMPELAI */
+  .opening-section.has-photo .couple-name {
+    order: 1;
+    position: relative !important;
+    transform: none !important;
+
+    margin: 0 0 5px !important;
+
+    color: #fff8ed !important;
+
+    text-shadow:
+      0 2px 5px rgba(0, 0, 0, 0.65),
+      0 4px 16px rgba(0, 0, 0, 0.45),
+      0 0 22px rgba(0, 0, 0, 0.25);
+
+    z-index: 12;
+  }
+
+  /* 3. THE WEDDING OF */
+  .opening-section.has-photo .eyebrow {
+    order: 2;
+
+    position: relative !important;
+
+    transform: none !important;
+
+    margin: 0 !important;
+
+    z-index: 12;
+  }
+
+  /* 4. AMPLOP */
+  .opening-section.has-photo .envelope {
+    order: 3;
+
+    position: absolute !important;
+
+    /* Posisi amplop dihitung dari opening-content */
+    top: 400px !important;
+
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+
+    transform: translateX(-50%) !important;
+
+    margin: 0 !important;
+
+    width: var(--env-width);
+
+    z-index: 11;
+  }
+
+  /* 5. LABEL TAMU */
+  .opening-section.has-photo .guest-label {
+    order: 4;
+
+    margin: 500px 0 6px !important;
+
+    position: relative;
+    z-index: 12;
+  }
+
+  /* 6. NAMA TAMU */
+  .opening-section.has-photo .guest-name {
+    order: 5;
+
+    margin: 0 !important;
+
+    position: relative;
+    z-index: 12;
+  }
+
+  /* 7. GARIS VERTIKAL */
+  .opening-section.has-photo .opening-line {
+    display: none !important;
+  }
+
+  /* 8. TOMBOL BUKA UNDANGAN */
+  .opening-section.has-photo .btn-open {
+    order: 6;
+
+    margin: 35px 0 40px !important;
+
+    position: relative;
+    z-index: 12;
+  }
+}
+
+/* ==========================================
+   MOBILE - FINAL POSITION ADJUSTMENT
+   BAGIAN ATAS TIDAK DIUBAH
+   ========================================== */
+
+@media (max-width: 768px) {
+  /* Turunkan amplop 50px */
+  .opening-section.has-photo .envelope {
+    top: 450px !important;
+  }
+
+  /* Turunkan informasi tamu 50px */
+  .opening-section.has-photo .guest-label {
+    margin-top: 550px !important;
+  }
+}
+
+/* ==========================================
+   MOBILE - LOWER SECTION POSITION
+   ========================================== */
+
+@media (max-width: 768px) {
+  /* Turunkan amplop 50px lagi */
+  .opening-section.has-photo .envelope {
+    top: 500px !important;
+  }
+
+  /* Turunkan seluruh informasi tamu */
+  .opening-section.has-photo .guest-label {
+    margin-top: 600px !important;
   }
 }
