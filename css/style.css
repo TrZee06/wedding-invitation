@@ -179,7 +179,7 @@ h3 {
   z-index: 300;
   display: flex;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
   padding: 76px 24px 40px;
   background:
     radial-gradient(
@@ -2230,98 +2230,83 @@ a:focus-visible {
    ========================================== */
 
 @media (max-width: 768px) {
-  /* 1. OPENING CONTENT */
+  
   .opening-section.has-photo .opening-content {
     display: flex !important;
     flex-direction: column !important;
     align-items: center;
     justify-content: flex-start !important;
-
     position: relative !important;
-
     margin: 0 auto !important;
-    padding: 65px 0 50px !important;
-
+    
+    /* Jarak aman dari atas layar (di bawah jam/baterai HP) */
+    padding-top: 100px !important; 
+    padding-bottom: 40px !important;
+    
+    /* HAPUS height: 100svh agar konten mengalir natural */
+    min-height: 100svh !important; 
     height: auto !important;
-    min-height: 100svh !important;
-
+    
     background: transparent !important;
     text-align: center;
     z-index: 10;
   }
 
+  /* 1. TEKS THE WEDDING OF */
+  .opening-section.has-photo .eyebrow {
+    order: 1;
+    margin: 0 0 10px 0 !important;
+    z-index: 12;
+  }
+
   /* 2. NAMA MEMPELAI */
   .opening-section.has-photo .couple-name {
-    order: 1;
-    position: relative !important;
-    transform: none !important;
-
-    margin: 0 0 5px !important;
-
-    color: #fff8ed !important;
-
-    text-shadow:
-      0 2px 5px rgba(0, 0, 0, 0.65),
-      0 4px 16px rgba(0, 0, 0, 0.45),
-      0 0 22px rgba(0, 0, 0, 0.25);
-
-    z-index: 12;
-  }
-
-  /* 3. THE WEDDING OF */
-  .opening-section.has-photo .eyebrow {
     order: 2;
-
-    position: relative !important;
-
-    transform: none !important;
-
-    margin: 0 !important;
-
+    margin: 0 0 20px 0 !important; /* Jarak tipis di bawah nama */
+    color: #fff8ed !important;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.65), 0 4px 16px rgba(0, 0, 0, 0.45), 0 0 22px rgba(0, 0, 0, 0.25);
     z-index: 12;
   }
 
-  /* 4. AMPLOP */
+  /* 3. AMPLOP (Trik: margin-top auto untuk mendorong amplop sejauh mungkin ke bawah) */
   .opening-section.has-photo .envelope {
     order: 3;
-
-    position: absolute !important;
-
-    /* Posisi amplop dihitung dari opening-content */
-    top: 400px !important;
-
-    left: 50% !important;
-    right: auto !important;
-    bottom: auto !important;
-
-    transform: translateX(-50%) !important;
-
-    margin: 0 !important;
-
-    width: var(--env-width);
-
+    position: relative !important; 
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    
+    /* Otomatis mengambil sisa ruang kosong di atasnya */
+    margin-top: auto !important; 
+    margin-bottom: 40px !important; 
+    
     z-index: 11;
   }
 
-  /* 5. LABEL TAMU */
+  /* 4. LABEL TAMU */
   .opening-section.has-photo .guest-label {
     order: 4;
-
-    margin: 500px 0 6px !important;
-
+    margin: 0 0 8px 0 !important; 
     position: relative;
     z-index: 12;
   }
 
-  /* 6. NAMA TAMU */
+  /* 5. NAMA TAMU */
   .opening-section.has-photo .guest-name {
     order: 5;
-
-    margin: 0 !important;
-
+    margin: 0 0 30px 0 !important; 
     position: relative;
     z-index: 12;
   }
+
+  /* 6. TOMBOL BUKA UNDANGAN */
+  .opening-section.has-photo .btn-open {
+    order: 6;
+    margin: 0 0 20px 0 !important; 
+    position: relative;
+    z-index: 12;
+  }
+}
 
   /* 7. GARIS VERTIKAL */
   .opening-section.has-photo .opening-line {
@@ -2336,38 +2321,5 @@ a:focus-visible {
 
     position: relative;
     z-index: 12;
-  }
-}
-
-/* ==========================================
-   MOBILE - FINAL POSITION ADJUSTMENT
-   BAGIAN ATAS TIDAK DIUBAH
-   ========================================== */
-
-@media (max-width: 768px) {
-  /* Turunkan amplop 50px */
-  .opening-section.has-photo .envelope {
-    top: 450px !important;
-  }
-
-  /* Turunkan informasi tamu 50px */
-  .opening-section.has-photo .guest-label {
-    margin-top: 550px !important;
-  }
-}
-
-/* ==========================================
-   MOBILE - LOWER SECTION POSITION
-   ========================================== */
-
-@media (max-width: 768px) {
-  /* Turunkan amplop 50px lagi */
-  .opening-section.has-photo .envelope {
-    top: 500px !important;
-  }
-
-  /* Turunkan seluruh informasi tamu */
-  .opening-section.has-photo .guest-label {
-    margin-top: 600px !important;
   }
 }

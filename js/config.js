@@ -36,7 +36,7 @@ const WEDDING_CONFIG = {
   // 3. MEMPELAI WANITA
   // --------------------------------------------------------
   bride: {
-    nickname: "Hertika",
+    nickname: "Herti",
     fullName: "Hertika Gulo",
     father: "Safi Gulo",
     mother: "Safi Gulo",
@@ -64,7 +64,7 @@ const WEDDING_CONFIG = {
       title: "Acara Adat / Resepsi",
       date: "Minggu, 22 November 2026",
       time: "16.00 WIB — Selesai",
-      venue: "Gereja BNKP Pewarta",
+      venue: "Gereja BNKP Pewarta Tangerang",
       address:
         "Pergudangan Sunrise Bizpark Blok C No.70, Ps. Kemis, Kab. Tangerang",
       scrollTarget: "#location",
